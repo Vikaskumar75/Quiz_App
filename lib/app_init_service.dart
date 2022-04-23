@@ -4,5 +4,6 @@ import 'src/utilities/scale_factor.dart';
 class AppInitService {
   static void initialize() {
     ScreenScaleFactor.initialize();
+    
   }
 }
