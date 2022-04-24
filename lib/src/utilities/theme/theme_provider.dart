@@ -11,7 +11,7 @@ final themeModeProvider = StateNotifierProvider<Themes, ThemeMode>(
 );
 
 class Themes extends StateNotifier<ThemeMode> {
-  Themes() : super(ThemeMode.light);
+  Themes() : super(ThemeMode.dark);
 
   static final DarkPallet _darkPallet = DarkPallet();
   static final ThemeData dark = ThemeData(
