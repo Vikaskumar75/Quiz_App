@@ -5,9 +5,9 @@ class AuthenticationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Authentication Screen'),
+    return Scaffold(
+      body: Column(
+        children: const <Widget>[],
       ),
     );
   }

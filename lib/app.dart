@@ -10,7 +10,7 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ThemeData lightTheme = ref.watch(lightThemeProvider);
     final ThemeData darkTheme = ref.watch(darkThemeProvider);
-    final ThemeMode themeMode = ref.watch(themeModeProvider);
+    final ThemeMode? themeMode = ref.watch(themeModeProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Your Quiz',

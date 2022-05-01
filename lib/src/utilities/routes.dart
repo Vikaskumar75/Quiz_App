@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../app_page.dart';
+import 'package:quiz_app/src/quiz/quiz_home.dart';
 import '../authentication/authentication_screen.dart';
 
 class Routes extends NavigatorObserver {
@@ -8,17 +7,23 @@ class Routes extends NavigatorObserver {
 
   static const String appPage = '/';
   static const String authScreen = '/login';
+  static const String quizHome = '/quiz-home';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case appPage:
         return _GenerateRoute(
-          child: const AppPage(),
+          child: const QuizHome(),
           routeName: settings.name!,
         );
       case authScreen:
         return _GenerateRoute(
           child: const AuthenticationScreen(),
+          routeName: settings.name!,
+        );
+      case quizHome:
+        return _GenerateRoute(
+          child: const QuizHome(),
           routeName: settings.name!,
         );
       default:

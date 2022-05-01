@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'src/authentication/authentication_screen.dart';
+import 'package:quiz_app/src/quiz/quiz_home.dart';
+
 import 'src/utilities/export.dart';
 
 class AppPage extends StatelessWidget {
@@ -10,7 +11,7 @@ class AppPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: const <Widget>[
-          AuthenticationScreen(),
+          QuizHome(),
           InternetOverlay(),
         ],
       ),

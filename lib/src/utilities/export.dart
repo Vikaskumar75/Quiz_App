@@ -3,6 +3,7 @@ export 'scale_factor.dart';
 export 'provider_observer.dart';
 export 'connectivity_provider.dart';
 export 'strings.dart';
+export 'assets.dart';
 
 // Theme
 export './theme/theme_colors.dart';

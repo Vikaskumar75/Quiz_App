@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -10,16 +11,19 @@ class ScreenScaleFactor {
   }
 
   static late double scale;
+  static late MediaQueryData _media;
 
   static void initialize() {
-    final SingletonFlutterWindow window = WidgetsBinding.instance!.window;
-    final MediaQueryData media = MediaQueryData.fromWindow(window);
+    _media = MediaQueryData.fromWindow(window);
     if (kIsWeb) {
-      scale = media.size.width / media.size.height;
+      scale = _media.size.width / _media.size.height;
     } else {
-      scale = media.size.height / media.size.width;
+      scale = _media.size.height / _media.size.width;
     }
   }
+
+  static double get screenHeight => _media.size.height;
+  static double get screenWidth => _media.size.width;
 }
 
 extension ScaleFactor on num {

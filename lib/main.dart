@@ -8,6 +8,19 @@ import 'src/utilities/export.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   AppInitService.initialize();
+
+  // ErrorWidget.builder = ((FlutterErrorDetails details) {
+  //   return const Material(
+  //     child: Scaffold(
+  //       body: Center(
+  //         child: Text(
+  //           'Something very bad happend.\n Please contact the developer.',
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // });
+  
   runApp(
     ProviderScope(
       observers: <ProviderObserver>[Observer()],

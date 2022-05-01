@@ -1,17 +1,20 @@
 // ignore_for_file: always_specify_types
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod/riverpod.dart';
+
+import '../scale_factor.dart';
 import 'theme_colors.dart';
 
-final lightThemeProvider = Provider(((ref) => Themes.light));
-final darkThemeProvider = Provider(((ref) => Themes.dark));
-final themeModeProvider = StateNotifierProvider<Themes, ThemeMode>(
-  (ref) => Themes(),
+final lightThemeProvider = Provider(((ref) => CustomTheme.light));
+final darkThemeProvider = Provider(((ref) => CustomTheme.dark));
+final themeModeProvider = StateNotifierProvider<CustomTheme, ThemeMode>(
+  (ref) => CustomTheme(),
 );
 
-class Themes extends StateNotifier<ThemeMode> {
-  Themes() : super(ThemeMode.dark);
+class CustomTheme extends StateNotifier<ThemeMode> {
+  CustomTheme() : super(ThemeMode.light);
 
   static final DarkPallet _darkPallet = DarkPallet();
   static final ThemeData dark = ThemeData(
@@ -22,6 +25,7 @@ class Themes extends StateNotifier<ThemeMode> {
       primary: _darkPallet.primaryColor,
       secondary: _darkPallet.accentColor,
     ),
+    textTheme: _textTheme,
   );
 
   static final LightPallet _lightPallet = LightPallet();
@@ -33,13 +37,36 @@ class Themes extends StateNotifier<ThemeMode> {
       primary: _lightPallet.primaryColor,
       secondary: _lightPallet.accentColor,
     ),
+    textTheme: _textTheme,
+  );
+
+  static final TextTheme _textTheme = GoogleFonts.ubuntuTextTheme().copyWith(
+    headline5: GoogleFonts.ubuntu(
+      color: Colors.white,
+      fontSize: 19.toFont,
+    ),
+    headline6: GoogleFonts.ubuntu(
+      color: Colors.white,
+      fontSize: 15.toFont,
+      fontWeight: FontWeight.w400,
+    ),
+    bodyText1: GoogleFonts.ubuntu(
+      color: Colors.white,
+      fontSize: 14.toFont,
+    ),
+    bodyText2: GoogleFonts.ubuntu(
+      color: Colors.white,
+      fontSize: 12.toFont,
+    ),
   );
 
   void changeThemeMode() {
-    if (state == ThemeMode.light) {
-      state = ThemeMode.dark;
-    } else {
+    if (isDark) {
       state = ThemeMode.light;
+    } else {
+      state = ThemeMode.dark;
     }
   }
+
+  bool get isDark => state == ThemeMode.dark;
 }
