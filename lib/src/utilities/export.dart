@@ -1,4 +1,4 @@
-export 'routes.dart';
+export 'navigation.dart';
 export 'scale_factor.dart';
 export 'provider_observer.dart';
 export 'connectivity_provider.dart';

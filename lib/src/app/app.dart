@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../utilities/export.dart';
 
-
-
 class App extends ConsumerWidget {
   const App({Key? key}) : super(key: key);
 
@@ -12,16 +10,16 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final ThemeData lightTheme = ref.watch(lightThemeProvider);
     final ThemeData darkTheme = ref.watch(darkThemeProvider);
-    final ThemeMode? themeMode = ref.watch(themeModeProvider);
+    final ThemeMode themeMode = ref.watch(themeModeProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Your Quiz',
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: themeMode,
-      navigatorObservers: <NavigatorObserver>[Routes()],
-      onGenerateRoute: Routes.generateRoute,
-      initialRoute: Routes.appPage,
+      navigatorObservers: <NavigatorObserver>[Navigation()],
+      onGenerateRoute: Navigation.generateRoute,
+      initialRoute: Navigation.appPage,
     );
   }
 }

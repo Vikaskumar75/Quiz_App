@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../utilities/export.dart';
-import '../provider/scroll_to_top_provider.dart';
 
+part '../provider/scroll_to_top_provider.dart';
 part 'quiz_category.dart';
 part 'quiz_list_item.dart';
 part 'sliver_app_bar.dart';
@@ -55,11 +55,7 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
           ),
           SliverAnimatedList(
             key: _listKey,
-            itemBuilder: (
-              BuildContext context,
-              int index,
-              Animation<double> animation,
-            ) {
+            itemBuilder: (_, int index, Animation<double> animation) {
               return SlideTransition(
                 position: animation.drive(_offset),
                 child: _listItems[index],

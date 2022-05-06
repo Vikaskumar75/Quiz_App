@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../src/quiz/view/quiz_home.dart';
+import '../../src/quiz_home/view/quiz_home.dart';
 import '../../src/utilities/export.dart';
 
 class AppPage extends StatelessWidget {
