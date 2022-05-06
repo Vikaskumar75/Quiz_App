@@ -41,21 +41,20 @@ class CustomTheme extends StateNotifier<ThemeMode> {
   );
 
   static final TextTheme _textTheme = GoogleFonts.ubuntuTextTheme().copyWith(
+    headline4: GoogleFonts.ubuntu(
+      fontSize: 22.toFont,
+    ),
     headline5: GoogleFonts.ubuntu(
-      color: Colors.white,
       fontSize: 19.toFont,
     ),
     headline6: GoogleFonts.ubuntu(
-      color: Colors.white,
       fontSize: 15.toFont,
       fontWeight: FontWeight.w400,
     ),
     bodyText1: GoogleFonts.ubuntu(
-      color: Colors.white,
       fontSize: 14.toFont,
     ),
     bodyText2: GoogleFonts.ubuntu(
-      color: Colors.white,
       fontSize: 12.toFont,
     ),
   );

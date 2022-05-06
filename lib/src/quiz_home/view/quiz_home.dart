@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/quiz_home/provider/availability_provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../utilities/export.dart';
 import '../provider/scroll_to_top_provider.dart';
@@ -18,23 +20,8 @@ class QuizHome extends ConsumerStatefulWidget {
 
 class _QuizHomeState extends ConsumerState<QuizHome> {
   final ScrollController _scrollController = ScrollController();
-  final Tween<Offset> _offset = Tween<Offset>(
-    begin: const Offset(1.0, 0),
-    end: Offset.zero,
-  );
-  final GlobalKey<SliverAnimatedListState> _listKey =
-      GlobalKey<SliverAnimatedListState>();
-  final List<Widget> _listItems = <Widget>[];
 
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(addMoreItemsToList);
-    AvailabilityRepository().fetchAvailability();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      _addWidgets();
-    });
-  }
+  late AsyncValue<Availability> availability;
 
   @override
   void dispose() {
@@ -44,6 +31,7 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
 
   @override
   Widget build(BuildContext context) {
+    availability = ref.watch(availabilityProvider);
     return Scaffold(
       body: CustomScrollView(
         controller: _scrollController,
@@ -55,21 +43,81 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
           const SliverToBoxAdapter(
             child: _QuizCategory(),
           ),
-          SliverAnimatedList(
-            key: _listKey,
-            itemBuilder: (_, int index, Animation<double> animation) {
-              return SlideTransition(
-                position: animation.drive(_offset),
-                child: _listItems[index],
+          availability.when(
+            data: (Availability data) {
+              return _AvailabilityList(
+                availability: data,
+                scrollController: _scrollController,
               );
             },
-            initialItemCount: _listItems.length,
+            error: (Object e, StackTrace? stack) {
+              return SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 280.0.toHeight),
+                  child: const GenericErrorWidget(),
+                ),
+              );
+            },
+            loading: () => const _AvailabilityLoader(),
           )
         ],
       ),
       floatingActionButton: ref.watch(showScrollToTopProvider)
           ? BackToTopButton(onTap: _scrollToTop)
           : const SizedBox.shrink(),
+    );
+  }
+
+  void _scrollToTop() {
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.linear,
+    );
+  }
+}
+
+class _AvailabilityList extends ConsumerStatefulWidget {
+  const _AvailabilityList({
+    Key? key,
+    required this.availability,
+    required this.scrollController,
+  }) : super(key: key);
+  final Availability availability;
+  final ScrollController scrollController;
+
+  @override
+  ConsumerState<_AvailabilityList> createState() => __AvailabilityListState();
+}
+
+class __AvailabilityListState extends ConsumerState<_AvailabilityList> {
+  final List<Widget> _listItems = <Widget>[];
+  late GlobalKey<SliverAnimatedListState> _listKey;
+  late Tween<Offset> _offset;
+
+  @override
+  void initState() {
+    super.initState();
+    _listKey = GlobalKey<SliverAnimatedListState>();
+    _offset = Tween<Offset>(begin: const Offset(1.0, 0), end: Offset.zero);
+    widget.scrollController.addListener(addMoreItemsToList);
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _addWidgets();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverAnimatedList(
+      key: _listKey,
+      itemBuilder: (_, int index, Animation<double> animation) {
+        return SlideTransition(
+          position: animation.drive(_offset),
+          child: _listItems[index],
+        );
+      },
+      initialItemCount: _listItems.length,
     );
   }
 
@@ -85,23 +133,37 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
   }
 
   void addMoreItemsToList() {
-    final ScrollPosition _position = _scrollController.position;
+    final ScrollPosition _position = widget.scrollController.position;
     if (_position.pixels > _position.maxScrollExtent - 120) {
       _addWidgets(noOfWidgetsToAdd: 1);
     }
 
-    if (_scrollController.offset > 500) {
+    if (widget.scrollController.offset > 500) {
       ref.read(showScrollToTopProvider.notifier).state = true;
     } else {
       ref.read(showScrollToTopProvider.notifier).state = false;
     }
   }
+}
 
-  void _scrollToTop() {
-    _scrollController.animateTo(
-      0,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.linear,
+class _AvailabilityLoader extends StatelessWidget {
+  const _AvailabilityLoader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          return Shimmer.fromColors(
+            highlightColor: ColorPallet.shimmerHighlight,
+            baseColor: ColorPallet.extraLightGrey,
+            child: const AvailabilityItemContainer(
+              child: SizedBox.shrink(),
+            ),
+          );
+        },
+        childCount: 5,
+      ),
     );
   }
 }

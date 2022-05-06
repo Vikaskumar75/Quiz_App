@@ -13,3 +13,5 @@ export './theme/theme_provider.dart';
 export 'widgets/internet_overlay.dart';
 export 'widgets/lazy_loading_text.dart';
 export 'widgets/back_to_top_button.dart';
+export 'widgets/availability_item_container.dart';
+export 'widgets/generic_error_widget.dart';

@@ -7,8 +7,10 @@ abstract class ColorPallet {
   static const Color black = Colors.black;
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
+  static const Color lightGrey = Color.fromARGB(255, 168, 168, 168);
+  static const Color extraLightGrey = Color.fromARGB(255, 235, 231, 231);
   static const Color golden = Color(0xFFF2C94C);
-  static final Color lightGrey = Colors.grey.shade400;
+  static const Color shimmerHighlight = Color.fromARGB(255, 234, 234, 241);
 
   static final LinearGradient blueGreyGradient = LinearGradient(
     begin: Alignment.centerRight,
