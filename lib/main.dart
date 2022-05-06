@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'app.dart';
-import 'app_init_service.dart';
+import 'src/app/app.dart';
+import 'src/app/app_init_service.dart';
 import 'src/utilities/export.dart';
 
 void main() {
@@ -20,7 +20,7 @@ void main() {
   //     ),
   //   );
   // });
-  
+
   runApp(
     ProviderScope(
       observers: <ProviderObserver>[Observer()],

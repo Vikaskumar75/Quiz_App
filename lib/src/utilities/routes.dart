@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/src/quiz/quiz_home.dart';
+
 import '../authentication/authentication_screen.dart';
+import '../quiz/view/quiz_home.dart';
 
 class Routes extends NavigatorObserver {
   static List<Route<dynamic>> routeStack = <Route<dynamic>>[];

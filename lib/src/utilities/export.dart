@@ -12,3 +12,4 @@ export './theme/theme_provider.dart';
 // Widgets
 export 'widgets/internet_overlay.dart';
 export 'widgets/lazy_loading_text.dart';
+export 'widgets/back_to_top_button.dart';

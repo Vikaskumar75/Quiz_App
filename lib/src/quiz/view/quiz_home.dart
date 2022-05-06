@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../utilities/export.dart';
+import '../../utilities/export.dart';
+import '../provider/scroll_to_top_provider.dart';
 
 part 'quiz_category.dart';
 part 'quiz_list_item.dart';
 part 'sliver_app_bar.dart';
 
-class QuizHome extends StatefulWidget {
+class QuizHome extends ConsumerStatefulWidget {
   const QuizHome({Key? key}) : super(key: key);
 
   @override
-  State<QuizHome> createState() => _QuizHomeState();
+  ConsumerState<QuizHome> createState() => _QuizHomeState();
 }
 
-class _QuizHomeState extends State<QuizHome> {
+class _QuizHomeState extends ConsumerState<QuizHome> {
   final ScrollController _scrollController = ScrollController();
   final Tween<Offset> _offset = Tween<Offset>(
     begin: const Offset(1.0, 0),
@@ -22,7 +24,6 @@ class _QuizHomeState extends State<QuizHome> {
   final GlobalKey<SliverAnimatedListState> _listKey =
       GlobalKey<SliverAnimatedListState>();
   final List<Widget> _listItems = <Widget>[];
-  bool _showBackToTop = false;
 
   @override
   void initState() {
@@ -31,21 +32,6 @@ class _QuizHomeState extends State<QuizHome> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       _addWidgets();
     });
-  }
-
-  Future<void> _addWidgets({int noOfWidgetsToAdd = 5}) async {
-    late int _start;
-    if (_listItems.isEmpty) {
-      _start = 0;
-    } else {
-      _start = _listItems.length - 1;
-    }
-    final int _end = _start + noOfWidgetsToAdd;
-    for (int i = _start; i < _end; i++) {
-      _listItems.insert(i, const _QuizListItem());
-      await Future<void>.delayed(const Duration(milliseconds: 5));
-      _listKey.currentState!.insertItem(i);
-    }
   }
 
   @override
@@ -83,13 +69,21 @@ class _QuizHomeState extends State<QuizHome> {
           )
         ],
       ),
-      floatingActionButton: _showBackToTop
-          ? FloatingActionButton(
-              onPressed: _scrollToTop,
-              backgroundColor: Colors.blueGrey,
-            )
+      floatingActionButton: ref.watch(showScrollToTopProvider)
+          ? BackToTopButton(onTap: _scrollToTop)
           : const SizedBox.shrink(),
     );
+  }
+
+  Future<void> _addWidgets({int noOfWidgetsToAdd = 5}) async {
+    final int _start = _listItems.isEmpty ? 0 : _listItems.length - 1;
+    final int _end = _start + noOfWidgetsToAdd;
+
+    for (int i = _start; i < _end; i++) {
+      _listItems.insert(i, const _QuizListItem());
+      await Future<void>.delayed(const Duration(milliseconds: 5));
+      _listKey.currentState!.insertItem(i);
+    }
   }
 
   void addMoreItemsToList() {
@@ -99,13 +93,9 @@ class _QuizHomeState extends State<QuizHome> {
     }
 
     if (_scrollController.offset > 500) {
-      setState(() {
-        _showBackToTop = true;
-      });
+      ref.read(showScrollToTopProvider.notifier).state = true;
     } else {
-      setState(() {
-        _showBackToTop = false;
-      });
+      ref.read(showScrollToTopProvider.notifier).state = false;
     }
   }
 
