@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:quiz_app/src/quiz_home/provider/availability_provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -23,8 +22,7 @@ class QuizHome extends ConsumerStatefulWidget {
 }
 
 class _QuizHomeState extends ConsumerState<QuizHome> {
-  final ScrollController _scrollController = ScrollController();
-
+  late ScrollController _scrollController;
   late AsyncValue<Availability> availability;
 
   @override
@@ -36,6 +34,7 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
   @override
   Widget build(BuildContext context) {
     availability = ref.watch(availabilityProvider);
+    _scrollController = ref.watch(scrollControllerProvider);
     return Scaffold(
       body: CustomScrollView(
         controller: _scrollController,
@@ -51,7 +50,6 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
             data: (Availability data) {
               return _QuizHomeList(
                 availability: data,
-                scrollController: _scrollController,
               );
             },
             error: (Object e, StackTrace? stack) {

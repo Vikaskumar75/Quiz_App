@@ -4,10 +4,8 @@ class _QuizHomeList extends ConsumerStatefulWidget {
   const _QuizHomeList({
     Key? key,
     required this.availability,
-    required this.scrollController,
   }) : super(key: key);
   final Availability availability;
-  final ScrollController scrollController;
 
   @override
   ConsumerState<_QuizHomeList> createState() => __AvailabilityListState();
@@ -17,15 +15,17 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
   final List<Widget> _listItems = <Widget>[];
   late GlobalKey<SliverAnimatedListState> _listKey;
   late Tween<Offset> _offset;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
     _listKey = GlobalKey<SliverAnimatedListState>();
     _offset = Tween<Offset>(begin: const Offset(1.0, 0), end: Offset.zero);
-    widget.scrollController.addListener(addMoreItemsToList);
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _scrollController = ref.read(scrollControllerProvider);
+      _scrollController.addListener(addMoreItemsToList);
       _addWidgets();
     });
   }
@@ -59,12 +59,12 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
   }
 
   void addMoreItemsToList() {
-    final ScrollPosition _position = widget.scrollController.position;
+    final ScrollPosition _position = _scrollController.position;
     if (_position.pixels > _position.maxScrollExtent - 120) {
       _addWidgets(noOfWidgetsToAdd: 1);
     }
 
-    if (widget.scrollController.offset > 500) {
+    if (_scrollController.offset > 500) {
       ref.read(showScrollToTopProvider.notifier).state = true;
     } else {
       ref.read(showScrollToTopProvider.notifier).state = false;
