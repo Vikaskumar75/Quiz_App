@@ -1,7 +1,12 @@
 part of 'quiz_home.dart';
 
 class _QuizListItem extends StatelessWidget {
-  const _QuizListItem({Key? key}) : super(key: key);
+  const _QuizListItem({
+    Key? key,
+    required this.availability,
+  }) : super(key: key);
+
+  final AvailabilityItem availability;
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +15,8 @@ class _QuizListItem extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
-            child: Image.asset(
-              Assets.subject,
+            child: CachedNetworkImage(
+              imageUrl: availability.imageUrl,
               width: ScreenScaleFactor.screenHeight * 0.12,
               height: double.maxFinite,
               fit: BoxFit.cover,
@@ -26,18 +31,19 @@ class _QuizListItem extends StatelessWidget {
                   return ColorPallet.blueGreyGradient.createShader(rect);
                 },
                 child: Text(
-                  'UI UX Design',
+                  availability.name,
                   style: Theme.of(context).textTheme.headline5,
                 ),
               ),
               const Spacer(),
-              const TextWithLeadingIcon(
-                text: '10 Questions',
+              TextWithLeadingIcon(
+                text: '${availability.noOfQuestions} Questions',
                 icon: Icons.summarize,
               ),
               const Spacer(),
-              const TextWithLeadingIcon(
-                text: '1 hour 15 min',
+              TextWithLeadingIcon(
+                text: '${availability.duration.hour()} hour '
+                    '${availability.duration.minute()} minutes',
                 icon: Icons.access_time,
               ),
               const Spacer(),
@@ -58,7 +64,7 @@ class _QuizListItem extends StatelessWidget {
                     return ColorPallet.blueGreyGradient.createShader(rect);
                   },
                   child: Text(
-                    '4.8',
+                    availability.starRating.toString(),
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 )

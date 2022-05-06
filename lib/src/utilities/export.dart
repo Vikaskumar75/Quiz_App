@@ -9,6 +9,9 @@ export 'assets.dart';
 export './theme/theme_colors.dart';
 export './theme/theme_provider.dart';
 
+// Extensions
+export './extensions/date_format_extensions.dart';
+
 // Widgets
 export 'widgets/internet_overlay.dart';
 export 'widgets/lazy_loading_text.dart';
