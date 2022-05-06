@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../utilities/export.dart';
+import '../provider/scroll_to_top_provider.dart';
+import '../repository/availability_repo.dart';
 
-part '../provider/scroll_to_top_provider.dart';
 part 'quiz_category.dart';
 part 'quiz_list_item.dart';
 part 'sliver_app_bar.dart';
@@ -29,6 +30,7 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
   void initState() {
     super.initState();
     _scrollController.addListener(addMoreItemsToList);
+    AvailabilityRepository().fetchAvailability();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       _addWidgets();
     });
