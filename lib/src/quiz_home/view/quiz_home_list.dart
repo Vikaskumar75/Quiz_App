@@ -25,7 +25,7 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       _scrollController = ref.read(scrollControllerProvider);
-      _scrollController.addListener(addMoreItemsToList);
+      _scrollController.addListener(scrollListener);
       _addWidgets();
     });
   }
@@ -37,7 +37,12 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
       itemBuilder: (_, int index, Animation<double> animation) {
         return SlideTransition(
           position: animation.drive(_offset),
-          child: _listItems[index],
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, Navigation.quizDetails);
+            },
+            child: _listItems[index],
+          ),
         );
       },
       initialItemCount: _listItems.length,
@@ -45,20 +50,23 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
   }
 
   Future<void> _addWidgets({int noOfWidgetsToAdd = 5}) async {
-    final int _start = _listItems.isEmpty ? 0 : _listItems.length - 1;
-    final int _end = _start + noOfWidgetsToAdd;
+    final List<AvailabilityItem> data = widget.availability.data;
+    if (data.isEmpty) return;
+
+    final int _length = data.length;
+
+    final int _start = _listItems.isEmpty ? 0 : _listItems.length;
+    final int _end = _length >= 5 ? _start + noOfWidgetsToAdd : _length;
 
     for (int i = _start; i < _end; i++) {
-      _listItems.insert(
-        i,
-        _QuizListItem(availability: widget.availability.data[i]),
-      );
+      if (i >= _length) break;
+      _listItems.insert(i, _QuizListItem(availability: data[i]));
       await Future<void>.delayed(const Duration(milliseconds: 5));
       _listKey.currentState!.insertItem(i);
     }
   }
 
-  void addMoreItemsToList() {
+  void scrollListener() {
     final ScrollPosition _position = _scrollController.position;
     if (_position.pixels > _position.maxScrollExtent - 120) {
       _addWidgets(noOfWidgetsToAdd: 1);
