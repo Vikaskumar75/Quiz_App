@@ -33,7 +33,7 @@ class _LazyLoadingTextState extends State<LazyLoadingText>
     );
     _controller.forward();
   }
-  
+
   @override
   void dispose() {
     _controller.dispose();
@@ -44,7 +44,7 @@ class _LazyLoadingTextState extends State<LazyLoadingText>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _animation,
-      builder: (BuildContext _, Widget? child) {
+      builder: (_, __) {
         return Text(
           widget.text.substring(0, _animation.value),
         );
