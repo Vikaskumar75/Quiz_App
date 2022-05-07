@@ -3,10 +3,10 @@ part of 'quiz_home.dart';
 class _QuizListItem extends StatelessWidget {
   const _QuizListItem({
     Key? key,
-    required this.availability,
+    required this.quiz,
   }) : super(key: key);
 
-  final AvailabilityItem availability;
+  final Quiz quiz;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class _QuizListItem extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: CachedNetworkImage(
-              imageUrl: availability.imageUrl,
+              imageUrl: quiz.imageUrl,
               width: ScreenScaleFactor.screenHeight * 0.12,
               height: double.maxFinite,
               fit: BoxFit.cover,
@@ -31,19 +31,19 @@ class _QuizListItem extends StatelessWidget {
                   return ColorPallet.blueGreyGradient.createShader(rect);
                 },
                 child: Text(
-                  availability.name,
+                  quiz.name,
                   style: Theme.of(context).textTheme.headline5,
                 ),
               ),
               const Spacer(),
               TextWithLeadingIcon(
-                text: '${availability.noOfQuestions} Questions',
+                text: '${quiz.noOfQuestions} Questions',
                 icon: Icons.summarize,
               ),
               const Spacer(),
               TextWithLeadingIcon(
-                text: '${availability.duration.hour()} hour '
-                    '${availability.duration.minute()} minutes',
+                text: '${quiz.duration.hour()} hour '
+                    '${quiz.duration.minute()} minutes',
                 icon: Icons.access_time,
               ),
               const Spacer(),
@@ -64,7 +64,7 @@ class _QuizListItem extends StatelessWidget {
                     return ColorPallet.blueGreyGradient.createShader(rect);
                   },
                   child: Text(
-                    availability.starRating.toString(),
+                    quiz.starRating.toString(),
                     style: Theme.of(context).textTheme.headline5,
                   ),
                 )
@@ -73,38 +73,6 @@ class _QuizListItem extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class TextWithLeadingIcon extends StatelessWidget {
-  const TextWithLeadingIcon({
-    Key? key,
-    required this.text,
-    required this.icon,
-  }) : super(key: key);
-
-  final String text;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Icon(
-          icon,
-          color: ColorPallet.grey,
-          size: 20,
-        ),
-        SizedBox(width: 10.toWidth),
-        Text(
-          text,
-          style: Theme.of(context)
-              .textTheme
-              .bodyText1!
-              .copyWith(color: ColorPallet.grey),
-        ),
-      ],
     );
   }
 }

@@ -17,3 +17,4 @@ export 'widgets/generic_error_widget.dart';
 export 'widgets/internet_overlay.dart';
 export 'widgets/lazy_loading_text.dart';
 export 'widgets/bullet_list.dart';
+export 'widgets/text_with_leading_icon.dart';

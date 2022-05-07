@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
 
 import '../authentication/authentication_screen.dart';
 import '../quiz_detail/view/quiz_detail.dart';
@@ -31,7 +32,9 @@ class Navigation extends NavigatorObserver {
         );
       case quizDetails:
         return _GenerateRoute(
-          child: const QuizDetails(),
+          child:  QuizDetails(
+            quiz: settings.arguments as Quiz,
+          ),
           routeName: settings.name!,
         );
       default:

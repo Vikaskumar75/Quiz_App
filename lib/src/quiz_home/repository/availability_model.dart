@@ -1,13 +1,13 @@
 part of 'availability_repo.dart';
 
-Availability availabilityFromJson(String str) => Availability.fromJson(
+QuizAvailability availabilityFromJson(String str) => QuizAvailability.fromJson(
       json.decode(str),
     );
 
-String availabilityToJson(Availability data) => json.encode(data.toJson());
+String availabilityToJson(QuizAvailability data) => json.encode(data.toJson());
 
-class Availability {
-  Availability({
+class QuizAvailability {
+  QuizAvailability({
     required this.status,
     required this.total,
     required this.data,
@@ -15,24 +15,25 @@ class Availability {
 
   final String status;
   final int total;
-  final List<AvailabilityItem> data;
+  final List<Quiz> data;
 
-  Availability copyWith({
+  QuizAvailability copyWith({
     String? status,
     int? total,
-    List<AvailabilityItem>? data,
+    List<Quiz>? data,
   }) =>
-      Availability(
+      QuizAvailability(
         status: status ?? this.status,
         total: total ?? this.total,
         data: data ?? this.data,
       );
 
-  factory Availability.fromJson(Map<String, dynamic> json) => Availability(
+  factory QuizAvailability.fromJson(Map<String, dynamic> json) =>
+      QuizAvailability(
         status: json['status'],
         total: json['total'],
-        data: List<AvailabilityItem>.from(json['data'].map(
-          (dynamic x) => AvailabilityItem.fromJson(x),
+        data: List<Quiz>.from(json['data'].map(
+          (dynamic x) => Quiz.fromJson(x),
         )),
       );
 
@@ -40,13 +41,13 @@ class Availability {
         'status': status,
         'total': total,
         'data': List<dynamic>.from(
-          data.map((AvailabilityItem x) => x.toJson()),
+          data.map((Quiz x) => x.toJson()),
         ),
       };
 }
 
-class AvailabilityItem {
-  AvailabilityItem({
+class Quiz {
+  Quiz({
     required this.id,
     required this.name,
     required this.imageUrl,
@@ -56,6 +57,7 @@ class AvailabilityItem {
     required this.starRating,
     required this.earnings,
     required this.starsToWin,
+    required this.pointsForCorrectAnswer,
     required this.warnings,
   });
 
@@ -68,9 +70,10 @@ class AvailabilityItem {
   final double starRating;
   final int earnings;
   final int starsToWin;
+  final int pointsForCorrectAnswer;
   final List<String> warnings;
 
-  AvailabilityItem copyWith({
+  Quiz copyWith({
     String? id,
     String? name,
     String? imageUrl,
@@ -80,9 +83,10 @@ class AvailabilityItem {
     double? starRating,
     int? earnings,
     int? starsToWin,
+    int? pointsForCorrectAnswer,
     List<String>? warnings,
   }) =>
-      AvailabilityItem(
+      Quiz(
         id: id ?? this.id,
         name: name ?? this.name,
         imageUrl: imageUrl ?? this.imageUrl,
@@ -92,11 +96,12 @@ class AvailabilityItem {
         starRating: starRating ?? this.starRating,
         earnings: earnings ?? this.earnings,
         starsToWin: starsToWin ?? this.starsToWin,
+        pointsForCorrectAnswer:
+            pointsForCorrectAnswer ?? this.pointsForCorrectAnswer,
         warnings: warnings ?? this.warnings,
       );
 
-  factory AvailabilityItem.fromJson(Map<String, dynamic> json) =>
-      AvailabilityItem(
+  factory Quiz.fromJson(Map<String, dynamic> json) => Quiz(
         id: json['id'],
         name: json['name'],
         imageUrl: json['image_url'],
@@ -108,6 +113,7 @@ class AvailabilityItem {
         starRating: json['star_rating'].toDouble(),
         earnings: json['earnings'],
         starsToWin: json['stars_to_win'],
+        pointsForCorrectAnswer: json['point_for_correct_answer'],
         warnings: List<String>.from(json['warnings'].map((dynamic x) => x)),
       );
 
@@ -123,6 +129,7 @@ class AvailabilityItem {
         'star_rating': starRating,
         'earnings': earnings,
         'stars_to_win': starsToWin,
+        'point_for_correct_answer': pointsForCorrectAnswer,
         'warnings': List<String>.from(warnings.map((String x) => x)),
       };
 }

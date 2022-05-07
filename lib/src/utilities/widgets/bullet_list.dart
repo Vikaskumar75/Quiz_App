@@ -26,7 +26,7 @@ class BulletList extends StatelessWidget {
                   str,
                   textAlign: TextAlign.left,
                   softWrap: true,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
               ),
             ],

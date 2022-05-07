@@ -23,7 +23,7 @@ class QuizHome extends ConsumerStatefulWidget {
 
 class _QuizHomeState extends ConsumerState<QuizHome> {
   late ScrollController _scrollController;
-  late AsyncValue<Availability> availability;
+  late AsyncValue<QuizAvailability> availability;
 
   @override
   void dispose() {
@@ -47,7 +47,7 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
             child: _QuizCategory(),
           ),
           availability.when(
-            data: (Availability data) {
+            data: (QuizAvailability data) {
               return _QuizHomeList(
                 availability: data,
               );

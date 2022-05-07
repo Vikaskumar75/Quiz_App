@@ -5,7 +5,7 @@ class _QuizHomeList extends ConsumerStatefulWidget {
     Key? key,
     required this.availability,
   }) : super(key: key);
-  final Availability availability;
+  final QuizAvailability availability;
 
   @override
   ConsumerState<_QuizHomeList> createState() => __AvailabilityListState();
@@ -39,7 +39,11 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
           position: animation.drive(_offset),
           child: GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, Navigation.quizDetails);
+              Navigator.pushNamed(
+                context,
+                Navigation.quizDetails,
+                arguments: widget.availability.data[index],
+              );
             },
             child: _listItems[index],
           ),
@@ -50,7 +54,7 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
   }
 
   Future<void> _addWidgets({int noOfWidgetsToAdd = 5}) async {
-    final List<AvailabilityItem> data = widget.availability.data;
+    final List<Quiz> data = widget.availability.data;
     if (data.isEmpty) return;
 
     final int _length = data.length;
@@ -60,7 +64,7 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
 
     for (int i = _start; i < _end; i++) {
       if (i >= _length) break;
-      _listItems.insert(i, _QuizListItem(availability: data[i]));
+      _listItems.insert(i, _QuizListItem(quiz: data[i]));
       await Future<void>.delayed(const Duration(milliseconds: 5));
       _listKey.currentState!.insertItem(i);
     }
