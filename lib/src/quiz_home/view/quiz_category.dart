@@ -23,8 +23,17 @@ class _QuizCategory extends StatelessWidget {
           width: 10.toWidth,
         ),
         itemBuilder: (BuildContext context, int index) {
-          return const Chip(
-            label: Text('Computers'),
+          final bool isSelected = index == 0;
+          return Chip(
+            backgroundColor: isSelected
+                ? ColorPallet.blueGrey
+                : ColorPallet.black.withOpacity(0.05),
+            label: Text(
+              'Designing',
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    color: isSelected ? ColorPallet.white : null,
+                  ),
+            ),
           );
         },
       ),

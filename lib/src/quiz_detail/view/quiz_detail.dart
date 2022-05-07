@@ -15,24 +15,54 @@ class QuizDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(
-            height: ScreenScaleFactor.screenHeight * 0.5,
-            width: double.maxFinite,
-            decoration: BoxDecoration(
-              gradient: ColorPallet.blueGreyGradient,
+    return GradientBackground(
+      child: Scaffold(
+        backgroundColor: ColorPallet.transparent,
+        extendBody: true,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
+        body: Column(
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                quiz.name,
+                style: Theme.of(context).textTheme.headline4!.copyWith(
+                      color: ColorPallet.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              subtitle: Text(
+                'GET ${quiz.earnings} Points',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6!
+                    .copyWith(color: ColorPallet.white),
+              ),
+              trailing: TextWithLeadingIcon(
+                icon: Icons.star_purple500_sharp,
+                iconColor: ColorPallet.golden,
+                iconSize: 30,
+                text: quiz.starRating.toString(),
+                textColor: ColorPallet.white,
+                textSize: 18.toFont,
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: _QuizDetailsCard(
-              quiz: quiz,
+            Expanded(
+              child: _QuizDetailsCard(
+                quiz: quiz,
+              ),
             ),
-          )
-        ],
+          ],
+        ),
+        bottomNavigationBar: CustomOutlineButton(
+          onTap: () {},
+          text: 'Start Quiz',
+        ),
       ),
     );
   }
 }
+
+

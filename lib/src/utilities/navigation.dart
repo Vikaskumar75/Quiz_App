@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/app/app_page.dart';
 import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
 
 import '../authentication/authentication_screen.dart';
@@ -17,7 +18,7 @@ class Navigation extends NavigatorObserver {
     switch (settings.name) {
       case appPage:
         return _GenerateRoute(
-          child: const QuizHome(),
+          child: const AppPage(),
           routeName: settings.name!,
         );
       case authScreen:
@@ -32,7 +33,7 @@ class Navigation extends NavigatorObserver {
         );
       case quizDetails:
         return _GenerateRoute(
-          child:  QuizDetails(
+          child: QuizDetails(
             quiz: settings.arguments as Quiz,
           ),
           routeName: settings.name!,
@@ -80,9 +81,32 @@ class _GenerateRoute extends PageRouteBuilder<RouteSettings> {
     required this.child,
     required this.routeName,
   }) : super(
-          settings: RouteSettings(
-            name: routeName,
-          ),
-          pageBuilder: (_, __, ___) => child,
-        );
+            settings: RouteSettings(
+              name: routeName,
+            ),
+            transitionDuration: const Duration(milliseconds: 150),
+            reverseTransitionDuration: const Duration(milliseconds: 150),
+            transitionsBuilder: (
+              BuildContext context,
+              Animation<double> primary,
+              Animation<double> secondary,
+              Widget child,
+            ) {
+              return SlideTransition(
+                position: primary.drive(_offset),
+                child: child,
+              );
+            },
+            pageBuilder: (
+              BuildContext context,
+              Animation<double> primary,
+              Animation<double> secondary,
+            ) {
+              return child;
+            });
+
+  static final Tween<Offset> _offset = Tween<Offset>(
+    begin: const Offset(1.0, 0),
+    end: Offset.zero,
+  );
 }

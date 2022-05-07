@@ -32,7 +32,7 @@ class _QuizListItem extends StatelessWidget {
                 },
                 child: Text(
                   quiz.name,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: TextStyle(fontSize: 19.toFont),
                 ),
               ),
               const Spacer(),
@@ -65,7 +65,7 @@ class _QuizListItem extends StatelessWidget {
                   },
                   child: Text(
                     quiz.starRating.toString(),
-                    style: Theme.of(context).textTheme.headline5,
+                    style: TextStyle(fontSize: 19.toFont),
                   ),
                 )
               ],

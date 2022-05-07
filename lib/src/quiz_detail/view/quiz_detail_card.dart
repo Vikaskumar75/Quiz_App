@@ -10,8 +10,6 @@ class _QuizDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenScaleFactor.screenHeight * 0.75,
-      width: double.maxFinite,
       padding: EdgeInsets.symmetric(horizontal: 18.toWidth),
       decoration: const BoxDecoration(
         color: ColorPallet.white,
@@ -19,8 +17,8 @@ class _QuizDetailsCard extends StatelessWidget {
           top: Radius.circular(28),
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        physics: const ClampingScrollPhysics(),
         children: <Widget>[
           SizedBox(height: 14.toHeight),
           Center(
