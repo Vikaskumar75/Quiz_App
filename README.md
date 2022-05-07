@@ -1,16 +1,26 @@
 # quiz_app
 
-A new Flutter project.
+This app is just a personal project to show my full stack skills.
+# Note
+  This repository only contains UI built using flutter.
+  Please refer to [this repository](https://github.com/Vikaskumar75/node_farm) for backend code.
 
-## Getting Started
+# Tech Stack used:
+- NodeJs
+- MongoDb
+- Flutter
+- Airtable
+- Firebase( For Google authentication )
+- Figma
 
-This project is a starting point for a Flutter application.
+# Things to learn in this repo:
+- RiverPod
+- Complex Animations
+- Slivers
+- Folder by Feature Architecture
+- logStash
+- Navigation 2.0
+- Google Authentication
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Design:
+  For UI please refer to this [Figma Link](https://www.figma.com/file/eUIrcWyWCNA9s84vK2o1qn/Quiz-App-Design-(Community)?node-id=1%3A124)
