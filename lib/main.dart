@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
 
 import 'src/app/app.dart';
-import 'src/app/app_init_service.dart';
+import 'src/app/app_service.dart';
 import 'src/utilities/export.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  AppInitService.initialize();
+  AppService.getInstance.initialize(
+    availabilityRepository: AvailabilityRepository(),
+  );
 
   // ErrorWidget.builder = ((FlutterErrorDetails details) {
   //   return const Material(
