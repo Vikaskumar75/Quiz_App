@@ -52,8 +52,8 @@ class _EmailScreenBody extends ConsumerWidget {
           labelText: 'Email',
           hintText: 'yourname@example.com',
           controller: controller,
-          onNext: (){
-            log('Next');
+          onNext: () {
+            ref.read(pageIndexProvider.notifier).state++;
           },
         ),
         SizedBox(height: 22.toHeight),
@@ -98,4 +98,3 @@ class _SignupHeader extends StatelessWidget {
     );
   }
 }
-

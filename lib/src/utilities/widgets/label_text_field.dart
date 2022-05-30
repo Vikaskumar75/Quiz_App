@@ -9,6 +9,7 @@ class LabelTextField extends StatefulWidget {
     this.labelText,
     this.hintText,
     this.onNext,
+    this.obsecure = false,
     required this.controller,
   }) : super(key: key);
 
@@ -16,6 +17,7 @@ class LabelTextField extends StatefulWidget {
   final String? hintText;
   final TextEditingController controller;
   final VoidCallback? onNext;
+  final bool obsecure;
 
   @override
   State<LabelTextField> createState() => _LabelTextFieldState();
@@ -55,6 +57,8 @@ class _LabelTextFieldState extends State<LabelTextField> {
           style: CustomTheme.bodyText1.copyWith(
             color: ColorPallet.white.withOpacity(0.8),
           ),
+          obscureText: widget.obsecure,
+          obscuringCharacter: '*',
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: CustomTheme.bodyText1.copyWith(
@@ -72,14 +76,17 @@ class _LabelTextFieldState extends State<LabelTextField> {
                 width: 2,
               ),
             ),
-            suffixIcon: GestureDetector(
-              onTap: widget.onNext,
-              child: Icon(
-                Icons.arrow_circle_right_outlined,
-                color:
-                    _hasFocus ? ColorPallet.golden : ColorPallet.blackishGolden,
-              ),
-            ),
+            suffixIcon: widget.onNext != null
+                ? GestureDetector(
+                    onTap: widget.onNext,
+                    child: Icon(
+                      Icons.arrow_circle_right_outlined,
+                      color: _hasFocus
+                          ? ColorPallet.golden
+                          : ColorPallet.blackishGolden,
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ),
         ),
       ],

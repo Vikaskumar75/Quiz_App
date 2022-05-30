@@ -20,5 +20,4 @@ export 'widgets/gradient_background.dart';
 export 'widgets/internet_overlay.dart';
 export 'widgets/lazy_loading_text.dart';
 export 'widgets/text_with_leading_icon.dart';
-export 'widgets/back_button.dart';
 export 'widgets/label_text_field.dart';
