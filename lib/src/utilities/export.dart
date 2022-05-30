@@ -8,7 +8,7 @@ export 'assets.dart';
 export 'connectivity_provider.dart';
 export 'navigation.dart';
 export 'provider_observer.dart';
-export 'scale_factor.dart';
+export '../services/scale_factor_service.dart';
 export 'strings.dart';
 // Widgets
 export 'widgets/availability_item_container.dart';

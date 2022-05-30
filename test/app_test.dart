@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:quiz_app/src/app/app_service.dart';
-import 'package:quiz_app/src/authentication/authentication_screen.dart';
+import 'package:quiz_app/src/authentication/view/authentication_screen.dart';
 import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
 import 'package:quiz_app/src/quiz_home/view/quiz_home.dart';
 

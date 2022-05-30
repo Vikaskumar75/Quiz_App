@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:riverpod/riverpod.dart';
 
-import '../scale_factor.dart';
+import '../../services/scale_factor_service.dart';
 import 'theme_colors.dart';
 
 final lightThemeProvider = Provider(((ref) => CustomTheme.light));

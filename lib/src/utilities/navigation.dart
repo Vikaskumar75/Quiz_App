@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/src/app/app_page.dart';
 import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
 
-import '../authentication/authentication_screen.dart';
+import '../authentication/view/authentication_screen.dart';
 import '../quiz_detail/view/quiz_detail.dart';
 import '../quiz_home/view/quiz_home.dart';
 

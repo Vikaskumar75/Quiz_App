@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/authentication/view/authentication_screen.dart';
+import 'package:quiz_app/src/quiz_home/view/quiz_home.dart';
+import 'package:quiz_app/src/services/storage_service.dart';
 
-import '../../src/quiz_home/view/quiz_home.dart';
 import '../../src/utilities/export.dart';
 
 class AppPage extends StatelessWidget {
@@ -10,9 +12,10 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: const <Widget>[
-          QuizHome(),
-          InternetOverlay(),
+        children: <Widget>[
+          if (StorageService.getInstance.isLoggedIn) const QuizHome(),
+          const AuthenticationScreen(),
+          const InternetOverlay(),
         ],
       ),
     );
