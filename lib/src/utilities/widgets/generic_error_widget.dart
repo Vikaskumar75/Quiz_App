@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/utilities/theme/theme_provider.dart';
 
 class GenericErrorWidget extends StatelessWidget {
   const GenericErrorWidget({
@@ -15,7 +16,7 @@ class GenericErrorWidget extends StatelessWidget {
       child: Text(
         'Something Went Wrong'
         '${error ?? ''}',
-        style: Theme.of(context).textTheme.headline4,
+        style: CustomTheme.headline4,
       ),
     );
   }

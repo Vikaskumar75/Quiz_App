@@ -12,14 +12,14 @@ class AppService {
   static final AppService _instance = AppService._();
   static AppService get getInstance => _instance;
 
-  void initialize({
+  Future<void> initialize({
     AvailabilityRepository? availabilityRepository,
     AuthenticationRepo? authenticationRepo,
-  }) {
+  }) async {
     ScreenScaleFactor.initialize();
 
     // Initializing StorageService which will populate all the Preferences
-    StorageService.getInstance.initialize();
+    await StorageService.getInstance.initialize();
 
     // Initializing repositories
     if (availabilityRepository != null) {

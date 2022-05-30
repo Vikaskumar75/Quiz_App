@@ -28,17 +28,14 @@ class QuizDetails extends StatelessWidget {
             ListTile(
               title: Text(
                 quiz.name,
-                style: Theme.of(context).textTheme.headline4!.copyWith(
-                      color: ColorPallet.white,
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: CustomTheme.headline4.copyWith(
+                  color: ColorPallet.white,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               subtitle: Text(
                 'GET ${quiz.earnings} Points',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6!
-                    .copyWith(color: ColorPallet.white),
+                style: CustomTheme.headline6.copyWith(color: ColorPallet.white),
               ),
               trailing: TextWithLeadingIcon(
                 icon: Icons.star_purple500_sharp,
@@ -64,5 +61,3 @@ class QuizDetails extends StatelessWidget {
     );
   }
 }
-
-

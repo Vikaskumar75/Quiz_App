@@ -33,18 +33,17 @@ class _QuizDetailListTile extends StatelessWidget {
             children: <Widget>[
               Text(
                 heading,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .copyWith(fontWeight: FontWeight.w600),
+                style: CustomTheme.headline5.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const Spacer(),
               Text(
                 subHeading,
-                style: Theme.of(context).textTheme.headline5!.copyWith(
-                      color: ColorPallet.lightGrey,
-                      fontSize: 18.toFont,
-                    ),
+                style: CustomTheme.headline5.copyWith(
+                  color: ColorPallet.lightGrey,
+                  fontSize: 18.toFont,
+                ),
               ),
             ],
           ),

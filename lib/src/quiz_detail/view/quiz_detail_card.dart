@@ -34,7 +34,7 @@ class _QuizDetailsCard extends StatelessWidget {
           SizedBox(height: 20.toHeight),
           Text(
             'Brief explanation about the quiz',
-            style: Theme.of(context).textTheme.headline5!.copyWith(
+            style: CustomTheme.headline5.copyWith(
                   fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.italic,
                   fontSize: 16.toFont,
@@ -63,7 +63,7 @@ class _QuizDetailsCard extends StatelessWidget {
           SizedBox(height: 20.toHeight),
           Text(
             'Please read the text below carefully so you can understand it',
-            style: Theme.of(context).textTheme.headline5!.copyWith(
+            style: CustomTheme.headline5.copyWith(
                   fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.italic,
                   fontSize: 16.toFont,

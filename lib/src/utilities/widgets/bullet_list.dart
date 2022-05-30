@@ -18,7 +18,7 @@ class BulletList extends StatelessWidget {
                 '\u2022',
                 textAlign: TextAlign.left,
                 softWrap: true,
-                style: Theme.of(context).textTheme.headline5,
+                style: CustomTheme.headline5,
               ),
               SizedBox(width: 5.toWidth),
               Expanded(
@@ -26,7 +26,7 @@ class BulletList extends StatelessWidget {
                   str,
                   textAlign: TextAlign.left,
                   softWrap: true,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: CustomTheme.headline6,
                 ),
               ),
             ],

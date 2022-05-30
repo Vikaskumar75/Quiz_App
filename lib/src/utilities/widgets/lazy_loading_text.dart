@@ -4,10 +4,12 @@ class LazyLoadingText extends StatefulWidget {
   const LazyLoadingText(
     this.text, {
     Key? key,
+    this.style,
     this.duration = const Duration(milliseconds: 800),
   }) : super(key: key);
   final String text;
   final Duration duration;
+  final TextStyle? style;
 
   @override
   State<LazyLoadingText> createState() => _LazyLoadingTextState();
@@ -47,6 +49,7 @@ class _LazyLoadingTextState extends State<LazyLoadingText>
       builder: (_, __) {
         return Text(
           widget.text.substring(0, _animation.value),
+          style: widget.style,
         );
       },
     );

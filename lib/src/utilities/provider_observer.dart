@@ -15,6 +15,7 @@ class Observer extends ProviderObserver {
 {
   "provider": "${provider.name ?? provider.runtimeType}",
   "newValue": "$newValue"
-}''');
+}
+''');
   }
 }
