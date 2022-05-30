@@ -19,8 +19,6 @@ class AuthenticationModel {
     required this.androidVersion,
   });
 
-
-
   AuthenticationModel copyWith({
     String? name,
     String? email,
@@ -67,11 +65,11 @@ class AuthenticationModel {
 
   String toJson() => json.encode(toMap());
 
-  factory AuthenticationModel.fromJson(String source) => AuthenticationModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory AuthenticationModel.fromJson(String source) =>
+      AuthenticationModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
     return 'AuthenticationModel(name: $name, email: $email, password: $password, avatar: $avatar, manufacture: $manufacture, deviceName: $deviceName, androidVersion: $androidVersion)';
   }
-
 }

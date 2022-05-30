@@ -1,11 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:quiz_app/src/authentication/provider/authentication_provider.dart';
 
 import '../../utilities/export.dart';
 
 part 'email_screen.dart';
+part 'otp_screen.dart';
 part 'password_screen.dart';
 
 class AuthenticationScreen extends ConsumerStatefulWidget {
@@ -22,7 +24,9 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
   final List<Widget> _signupScreens = const <Widget>[
     _EmailScreen(),
     _PasswordScreen(),
+    _OtpScreen(),
   ];
+
   final List<Widget> _loginScreens = const <Widget>[
     _EmailScreen(),
     _PasswordScreen(),
