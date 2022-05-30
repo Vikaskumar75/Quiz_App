@@ -1,3 +1,4 @@
+import 'package:quiz_app/src/authentication/repository/authentication_repo.dart';
 import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
 
 import '../../src/utilities/export.dart';
@@ -6,18 +7,29 @@ import '../../src/utilities/export.dart';
 // For ex: 1. Shared Preferences 2. Any startup dependencies etc.
 class AppService {
   AppService._();
-  factory AppService() {
-    return _instance;
-  }
+  factory AppService() => _instance;
   static final AppService _instance = AppService._();
-
   static AppService get getInstance => _instance;
 
-  void initialize({required AvailabilityRepository availabilityRepository}) {
+  void initialize({
+    AvailabilityRepository? availabilityRepository,
+    AuthenticationRepo? authenticationRepo,
+  }) {
     ScreenScaleFactor.initialize();
-    _availabilityRepository = availabilityRepository;
+
+    // Initializing repository
+    if (availabilityRepository != null) {
+      _availabilityRepository = availabilityRepository;
+    }
+
+    if (authenticationRepo != null) {
+      _authenticationRepository = authenticationRepo;
+    }
   }
 
   late AvailabilityRepository _availabilityRepository;
-  AvailabilityRepository get availability => _availabilityRepository;
+  AvailabilityRepository get availabilityRepo => _availabilityRepository;
+
+  late AuthenticationRepo _authenticationRepository;
+  AuthenticationRepo get authenticationRepo => _authenticationRepository;
 }

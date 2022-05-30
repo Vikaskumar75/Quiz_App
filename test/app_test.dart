@@ -46,7 +46,7 @@ void main() {
     'availability test',
     () async {
       final QuizAvailability result =
-          await appService.availability.fetchAvailability();
+          await appService.availabilityRepo.fetchAvailability();
 
       expect(result.data, isEmpty);
     },

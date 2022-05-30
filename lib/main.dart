@@ -11,19 +11,7 @@ void main() {
   AppService.getInstance.initialize(
     availabilityRepository: AvailabilityRepository(),
   );
-
-  // ErrorWidget.builder = ((FlutterErrorDetails details) {
-  //   return const Material(
-  //     child: Scaffold(
-  //       body: Center(
-  //         child: Text(
-  //           'Something very bad happend.\n Please contact the developer.',
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // });
-
+  
   runApp(
     ProviderScope(
       observers: <ProviderObserver>[Observer()],
