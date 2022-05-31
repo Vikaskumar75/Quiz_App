@@ -13,9 +13,7 @@ class _OtpScreenState extends State<_OtpScreen> {
     return Stack(
       children: const <Widget>[
         _OtpLabel(),
-        Center(
-          child: _OtpTextField(),
-        ),
+        _OtpTextField(),
       ],
     );
   }
@@ -65,62 +63,91 @@ class _OtpLabel extends ConsumerWidget {
   }
 }
 
-class _OtpTextField extends StatefulWidget {
+class _OtpTextField extends ConsumerStatefulWidget {
   const _OtpTextField({Key? key}) : super(key: key);
 
   @override
-  State<_OtpTextField> createState() => __OtpTextFieldState();
+  ConsumerState<_OtpTextField> createState() => __OtpTextFieldState();
 }
 
-class __OtpTextFieldState extends State<_OtpTextField> {
+class __OtpTextFieldState extends ConsumerState<_OtpTextField> {
   bool _isCompleteOtpEntered = false;
+  late AuthState _authState;
+  late AuthProvider _authProvider;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    _authProvider = ref.watch(authProvider.notifier);
+    _authState = ref.watch(authProvider);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        PinCodeTextField(
-          autofocus: true,
-          defaultBorderColor: ColorPallet.white.withOpacity(0.5),
-          hasTextBorderColor: ColorPallet.white,
-          errorBorderColor: ColorPallet.red,
-          hasError: true,
-          pinBoxWidth: ScreenScaleFactor.screenWidth * 0.11,
-          maxLength: 6,
-          onTextChanged: (String text) {
-            if (text.length == 6) {
-              _isCompleteOtpEntered = true;
-              setState(() {});
-            }
-          },
-          onDone: (String text) {},
-          wrapAlignment: WrapAlignment.spaceEvenly,
-          pinBoxDecoration: ProvidedPinBoxDecoration.underlinedPinBoxDecoration,
-          pinTextStyle: TextStyle(
-            fontSize: 22.0,
-            color: ColorPallet.white.withOpacity(0.8),
-          ),
-          pinTextAnimatedSwitcherTransition:
-              ProvidedPinBoxTextAnimation.scalingTransition,
-          pinTextAnimatedSwitcherDuration: const Duration(milliseconds: 300),
-          keyboardType: TextInputType.number,
+        Row(
+          children: <Widget>[
+            PinCodeTextField(
+              controller: ref.watch(otpControllerProvider),
+              autofocus: true,
+              pinBoxBorderWidth: 1,
+              defaultBorderColor: ColorPallet.white.withOpacity(0.5),
+              hasTextBorderColor: ColorPallet.white,
+              errorBorderColor: ColorPallet.red,
+              hasError: _authState == AuthState.otpError,
+              pinBoxWidth: ScreenScaleFactor.screenWidth * 0.11,
+              maxLength: 6,
+              onTextChanged: (String text) {
+                if (text.length == 6) {
+                  _isCompleteOtpEntered = true;
+                  setState(() {});
+                }
+              },
+              onDone: (String text) {},
+              wrapAlignment: WrapAlignment.spaceEvenly,
+              pinBoxDecoration:
+                  ProvidedPinBoxDecoration.underlinedPinBoxDecoration,
+              pinTextStyle: TextStyle(
+                fontSize: 22.0,
+                color: ColorPallet.white.withOpacity(0.8),
+              ),
+              pinTextAnimatedSwitcherTransition:
+                  ProvidedPinBoxTextAnimation.scalingTransition,
+              pinTextAnimatedSwitcherDuration:
+                  const Duration(milliseconds: 300),
+              keyboardType: TextInputType.number,
+            ),
+            SizedBox(width: 20.toWidth),
+            if (_authState == AuthState.registerLoading)
+              SizedBox(
+                height: 24.toHeight,
+                width: 24.toWidth,
+                child: const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    ColorPallet.white,
+                  ),
+                  strokeWidth: 2,
+                ),
+              )
+            else
+              GestureDetector(
+                onTap: () => _authProvider.validateOtp(),
+                child: Icon(
+                  Icons.arrow_circle_right_outlined,
+                  color: _isCompleteOtpEntered
+                      ? ColorPallet.golden
+                      : ColorPallet.blackishGolden,
+                ),
+              ),
+          ],
         ),
-        SizedBox(width: 20.toWidth),
-        GestureDetector(
-          onTap: () {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              Navigation.quizHome,
-              (_) => false,
-            );
-          },
-          child: Icon(
-            Icons.arrow_circle_right_outlined,
-            color: _isCompleteOtpEntered
-                ? ColorPallet.golden
-                : ColorPallet.blackishGolden,
+        if (_authState == AuthState.otpError) ...<Widget>[
+          SizedBox(height: 10.toHeight),
+          Text(
+            ref.watch(otpErrorProvider),
+            style: CustomTheme.bodyText2.copyWith(
+              color: ColorPallet.red,
+            ),
           ),
-        ),
+        ],
       ],
     );
   }

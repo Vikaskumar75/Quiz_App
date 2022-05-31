@@ -21,6 +21,7 @@ class AuthenticationScreen extends ConsumerStatefulWidget {
 class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
   late bool isSignUp;
   final PageController _controller = PageController();
+  late AuthProvider _authProvider;
   final List<Widget> _signupScreens = const <Widget>[
     _EmailScreen(),
     _PasswordScreen(),
@@ -36,8 +37,23 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       ref.watch(pageIndexProvider.notifier).addListener(_pageIndexListener);
+      _authProvider = ref.watch(authProvider.notifier);
+      _authProvider.addListener(_authListener);
     });
     super.initState();
+  }
+
+  void _authListener(AuthState state) {
+    if (state == AuthState.otpSuccess) {
+      ref.read(pageIndexProvider.notifier).state++;
+    } else if (state == AuthState.loginSuccess ||
+        state == AuthState.registerSuccess) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        Navigation.quizHome,
+        (_) => false,
+      );
+    }
   }
 
   void _pageIndexListener(int state) {

@@ -10,26 +10,15 @@ class _PasswordScreen extends ConsumerStatefulWidget {
 class _PasswordScreenState extends ConsumerState<_PasswordScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
   late bool _isSignup;
-  late AuthenticationProvider _authProvider;
-
-  @override
-  void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      _authProvider.addListener(_authListener);
-    });
-    super.initState();
-  }
-
-  void _authListener(AuthenticationState state) {
-    if (state == AuthenticationState.success) {
-      ref.read(pageIndexProvider.notifier).state++;
-    }
-  }
+  late AuthState _authState;
+  late AuthProvider _authProvider;
 
   @override
   Widget build(BuildContext context) {
     _isSignup = ref.watch(isSignUpProvider);
-    _authProvider = ref.watch(authenticationProvider.notifier);
+    _authProvider = ref.watch(authProvider.notifier);
+    _authState = ref.watch(authProvider);
+
     return Stack(
       children: <Widget>[
         BackButton(
@@ -47,9 +36,15 @@ class _PasswordScreenState extends ConsumerState<_PasswordScreen> {
                 controller: ref.watch(passwordControllerProvider),
                 obsecure: true,
                 validator: _passwordValidator,
+                showLoader: _authState == AuthState.otpLoading ||
+                    _authState == AuthState.loginLoading,
                 onNext: () {
                   if (!_form.currentState!.validate()) return;
-                  _authProvider.generateAndSendOtp();
+                  if (_isSignup) {
+                    _authProvider.generateAndSendOtp();
+                  } else {
+                    _authProvider.login();
+                  }
                 },
               ),
               if (_isSignup) ...<Widget>[
@@ -90,11 +85,5 @@ class _PasswordScreenState extends ConsumerState<_PasswordScreen> {
       return 'Passwords don\'t match';
     }
     return null;
-  }
-
-  @override
-  void dispose() {
-    _authProvider.dispose();
-    super.dispose();
   }
 }

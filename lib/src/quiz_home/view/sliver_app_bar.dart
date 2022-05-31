@@ -8,8 +8,9 @@ class _SliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 130.toHeight,
+      expandedHeight: 140.toHeight,
       elevation: 0,
+      centerTitle: false,
       leading: Image.asset(
         Assets.logo,
         fit: BoxFit.cover,
@@ -49,23 +50,27 @@ class _QuizHomeAppBar extends StatelessWidget {
         ),
         title: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxHeight < 90) {
+            if (constraints.maxHeight < 135.toHeight) {
               return const SizedBox.shrink();
             } else {
-              return Text.rich(
-                TextSpan(
-                  text: 'Hello, James\n',
-                  children: <InlineSpan>[
-                    TextSpan(
-                      text: "Let's test your knowledge",
-                      style: CustomTheme.headline5.copyWith(
-                        color: ColorPallet.white,
+              return SizedBox(
+                width: double.maxFinite,
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Hello, James\n',
+                    children: <InlineSpan>[
+                      TextSpan(
+                        text: "Let's test your knowledge",
+                        style: CustomTheme.headline5.copyWith(
+                          color: ColorPallet.white,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                  style:
+                      CustomTheme.headline6.copyWith(color: ColorPallet.white),
+                  textAlign: TextAlign.left,
                 ),
-                style: CustomTheme.headline6.copyWith(color: ColorPallet.white),
-                textAlign: TextAlign.left,
               );
             }
           },
