@@ -13,7 +13,7 @@ Future<void> main() async {
   // Passing all the repos that are going to be used in the app
   await AppService.getInstance.initialize(
     availabilityRepository: AvailabilityRepository(),
-    authenticationRepo: AuthenticationRepo(),
+    authenticationRepo: AuthenticationRepo.instance,
   );
 
   runApp(

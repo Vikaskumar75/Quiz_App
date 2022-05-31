@@ -10,6 +10,7 @@ class LabelTextField extends StatefulWidget {
     this.hintText,
     this.onNext,
     this.obsecure = false,
+    this.validator,
     required this.controller,
   }) : super(key: key);
 
@@ -18,6 +19,7 @@ class LabelTextField extends StatefulWidget {
   final TextEditingController controller;
   final VoidCallback? onNext;
   final bool obsecure;
+  final String? Function(String?)? validator;
 
   @override
   State<LabelTextField> createState() => _LabelTextFieldState();
@@ -59,6 +61,7 @@ class _LabelTextFieldState extends State<LabelTextField> {
           ),
           obscureText: widget.obsecure,
           obscuringCharacter: '*',
+          validator: widget.validator,
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: CustomTheme.bodyText1.copyWith(

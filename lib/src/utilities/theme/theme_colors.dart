@@ -7,6 +7,7 @@ abstract class ColorPallet {
   static const Color black = Colors.black;
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
+  static const Color red = Colors.red;
   static const Color transparent = Colors.transparent;
   static const Color lightGrey = Color.fromARGB(255, 168, 168, 168);
   static const Color extraLightGrey = Color.fromARGB(255, 235, 231, 231);
@@ -14,7 +15,6 @@ abstract class ColorPallet {
   static const Color blackishGolden = Color.fromARGB(255, 145, 119, 41);
   static const Color shimmerHighlight = Color.fromARGB(255, 234, 234, 241);
   static const Color blueGrey = Colors.blueGrey;
-
   static const Color darkBlueGrey = Color.fromARGB(255, 27, 45, 54);
   static const Color lightBlueGrey = Color.fromARGB(255, 204, 233, 248);
 

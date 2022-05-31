@@ -83,6 +83,8 @@ class __OtpTextFieldState extends State<_OtpTextField> {
           autofocus: true,
           defaultBorderColor: ColorPallet.white.withOpacity(0.5),
           hasTextBorderColor: ColorPallet.white,
+          errorBorderColor: ColorPallet.red,
+          hasError: true,
           pinBoxWidth: ScreenScaleFactor.screenWidth * 0.11,
           maxLength: 6,
           onTextChanged: (String text) {

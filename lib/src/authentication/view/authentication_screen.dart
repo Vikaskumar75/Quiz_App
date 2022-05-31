@@ -20,7 +20,7 @@ class AuthenticationScreen extends ConsumerStatefulWidget {
 
 class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
   late bool isSignUp;
-  late PageController _controller;
+  final PageController _controller = PageController();
   final List<Widget> _signupScreens = const <Widget>[
     _EmailScreen(),
     _PasswordScreen(),
@@ -59,7 +59,6 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
     isSignUp = ref.watch(isSignUpProvider);
-    _controller = ref.watch(pageControllerProvider);
 
     return Scaffold(
       backgroundColor: ColorPallet.darkBlueGrey.withOpacity(0.98),

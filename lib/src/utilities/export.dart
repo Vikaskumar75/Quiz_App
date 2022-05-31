@@ -1,5 +1,6 @@
 // Extensions
 export './extensions/date_format_extensions.dart';
+export './extensions/on_strings.dart';
 // Theme
 export './theme/theme_colors.dart';
 export './theme/theme_provider.dart';

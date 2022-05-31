@@ -8,7 +8,6 @@ class _EmailScreen extends ConsumerStatefulWidget {
 }
 
 class _EmailScreenState extends ConsumerState<_EmailScreen> {
-  final TextEditingController _controller = TextEditingController();
   late bool _isSignup;
 
   @override
@@ -18,60 +17,73 @@ class _EmailScreenState extends ConsumerState<_EmailScreen> {
       children: <Widget>[
         if (_isSignup) const _SignupHeader(),
         _EmailScreenBody(
-          controller: _controller,
           isSignup: _isSignup,
         ),
       ],
     );
   }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 }
 
-class _EmailScreenBody extends ConsumerWidget {
+class _EmailScreenBody extends ConsumerStatefulWidget {
   const _EmailScreenBody({
     Key? key,
-    required this.controller,
     required this.isSignup,
   }) : super(key: key);
 
-  final TextEditingController controller;
   final bool isSignup;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_EmailScreenBody> createState() => _EmailScreenBodyState();
+}
+
+class _EmailScreenBodyState extends ConsumerState<_EmailScreenBody> {
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        LabelTextField(
-          labelText: 'Email',
-          hintText: 'yourname@example.com',
-          controller: controller,
-          onNext: () {
-            ref.read(pageIndexProvider.notifier).state++;
-          },
+        Form(
+          key: _form,
+          child: LabelTextField(
+            labelText: 'Email',
+            hintText: 'yourname@example.com',
+            controller: ref.watch(emailControllerProvider),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return 'Please provide an email';
+              } else if (!value.isValidEmail()) {
+                return 'Please provide a valid email';
+              }
+              return null;
+            },
+            onNext: () {
+              if (!_form.currentState!.validate()) return;
+              ref.read(pageIndexProvider.notifier).state++;
+            },
+          ),
         ),
         SizedBox(height: 22.toHeight),
         Text.rich(
           TextSpan(
-            text: isSignup ? 'Already a user? ' : "Haven't registered yet? ",
+            text: widget.isSignup
+                ? 'Already a user? '
+                : "Haven't registered yet? ",
             style: CustomTheme.bodyText1.copyWith(
               color: ColorPallet.white.withOpacity(0.3),
             ),
             children: <TextSpan>[
               TextSpan(
-                text: isSignup ? 'Login' : 'Register',
+                text: widget.isSignup ? 'Login' : 'Register',
                 style: CustomTheme.bodyText1.copyWith(
                   color: ColorPallet.white,
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    ref.read(isSignUpProvider.notifier).state = !isSignup;
+                    ref.read(isSignUpProvider.notifier).state =
+                        !widget.isSignup;
                   },
               ),
             ],
