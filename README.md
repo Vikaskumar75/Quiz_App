@@ -3,7 +3,7 @@
 This app is just a personal project to show my full stack skills.
 # Note
   This repository only contains UI built using flutter.
-  Please refer to [this repository](https://github.com/Vikaskumar75/node_farm) for backend code.
+  Please refer to [this repository](https://github.com/Vikaskumar75/Quiz-App-Backend) for backend code.
 
 # Tech Stack used:
 - NodeJs
