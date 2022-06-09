@@ -21,11 +21,10 @@ class AuthenticationScreen extends ConsumerStatefulWidget {
 class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
   late bool isSignUp;
   final PageController _controller = PageController();
-  late AuthProvider _authProvider;
   final List<Widget> _signupScreens = const <Widget>[
     _EmailScreen(),
-    _PasswordScreen(),
     _OtpScreen(),
+    _PasswordScreen(),
   ];
 
   final List<Widget> _loginScreens = const <Widget>[
@@ -33,40 +32,39 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
     _PasswordScreen(),
   ];
 
-  @override
-  void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      ref.watch(pageIndexProvider.notifier).addListener(_pageIndexListener);
-      _authProvider = ref.watch(authProvider.notifier);
-      _authProvider.addListener(_authListener);
-    });
-    super.initState();
-  }
 
-  void _authListener(AuthState state) {
-    if (state == AuthState.otpSuccess) {
-      ref.read(pageIndexProvider.notifier).state++;
-    } else if (state == AuthState.loginSuccess ||
-        state == AuthState.registerSuccess) {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        Navigation.quizHome,
-        (_) => false,
-      );
+  void _authListener(AuthState? previous, AuthState next) {
+    switch (next) {
+      case AuthState.otpSuccess:
+      case AuthState.otpValidated:
+        ref.read(pageIndexProvider.notifier).state++;
+        break;
+
+      case AuthState.loginSuccess:
+      case AuthState.registerSuccess:
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          Navigation.quizHome,
+          (_) => false,
+        );
+        break;
+
+      default:
+        break;
     }
   }
 
-  void _pageIndexListener(int state) {
-    if (!isSignUp && state > _loginScreens.length - 1) {
+  void _pageIndexListener(int? previous, int next) {
+    if (!isSignUp && next > _loginScreens.length - 1) {
       ref.read(pageIndexProvider.notifier).state--;
       return;
     }
-    if (isSignUp && state > _signupScreens.length - 1) {
+    if (isSignUp && next > _signupScreens.length - 1) {
       ref.read(pageIndexProvider.notifier).state--;
       return;
     }
     _controller.animateToPage(
-      state,
+      next,
       duration: const Duration(milliseconds: 250),
       curve: Curves.easeInOut,
     );
@@ -75,6 +73,8 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
     isSignUp = ref.watch(isSignUpProvider);
+    ref.listen(pageIndexProvider, _pageIndexListener);
+    ref.listen(authProvider, _authListener);
 
     return Scaffold(
       backgroundColor: ColorPallet.darkBlueGrey.withOpacity(0.98),

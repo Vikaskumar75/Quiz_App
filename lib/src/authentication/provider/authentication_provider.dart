@@ -36,13 +36,17 @@ class AuthProvider extends StateNotifier<AuthState> {
   final _repo = AuthenticationRepo.instance;
   int? otp;
 
-  Future<void> generateAndSendOtp() async {
-    state = AuthState.otpLoading;
-    final String email = ref.read(emailControllerProvider).text;
-    await _repo.sendOtp(email: email);
-    await Future.delayed(const Duration(seconds: 1));
-    otp = 111111;
-    state = AuthState.otpSuccess;
+  Future<void> sendOtp() async {
+    try {
+      state = AuthState.otpLoading;
+      final String email = ref.read(emailControllerProvider).text;
+      OtpModel _otpModel = await _repo.sendOtp(email: email);
+      otp = _otpModel.data.otp;
+      state = AuthState.otpSuccess;
+    } catch (e) {
+      // Todo: Handle error on UI, We can use a dialog service to display a dialog
+      state = AuthState.otpError;
+    }
   }
 
   Future<void> validateOtp() async {
@@ -56,7 +60,10 @@ class AuthProvider extends StateNotifier<AuthState> {
       state = AuthState.otpError;
       return;
     }
+    state = AuthState.otpValidated;
+  }
 
+  Future<void> register() async {
     // Todo: Register/Signup User
     state = AuthState.registerLoading;
     await Future.delayed(const Duration(seconds: 2));
@@ -66,7 +73,6 @@ class AuthProvider extends StateNotifier<AuthState> {
   Future<void> login() async {
     final String email = ref.read(emailControllerProvider).text;
     final String password = ref.read(passwordControllerProvider).text;
-    // Todo: Register/Signup User
     // await _repo.login(email: email, password: password);
     state = AuthState.loginLoading;
     await Future.delayed(const Duration(seconds: 2));
@@ -84,5 +90,6 @@ enum AuthState {
   loginSuccess,
   otpLoading,
   otpSuccess,
-  otpError
+  otpError,
+  otpValidated,
 }

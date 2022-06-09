@@ -30,10 +30,7 @@ class _OtpLabel extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         BackButton(
-          onPressed: () {
-            final int _state = ref.read(pageIndexProvider.notifier).state;
-            ref.read(pageIndexProvider.notifier).state = _state - 2;
-          },
+          onPressed: () => ref.read(pageIndexProvider.notifier).state--,
           color: ColorPallet.white,
         ),
         SizedBox(height: 24.toHeight),
@@ -50,7 +47,7 @@ class _OtpLabel extends ConsumerWidget {
             ),
             children: <TextSpan>[
               TextSpan(
-                text: 'yourname@example.com',
+                text: ref.watch(emailControllerProvider).text,
                 style: CustomTheme.bodyText1.copyWith(
                   color: ColorPallet.white.withOpacity(0.8),
                 ),
@@ -116,27 +113,15 @@ class __OtpTextFieldState extends ConsumerState<_OtpTextField> {
               keyboardType: TextInputType.number,
             ),
             SizedBox(width: 20.toWidth),
-            if (_authState == AuthState.registerLoading)
-              SizedBox(
-                height: 24.toHeight,
-                width: 24.toWidth,
-                child: const CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    ColorPallet.white,
-                  ),
-                  strokeWidth: 2,
-                ),
-              )
-            else
-              GestureDetector(
-                onTap: () => _authProvider.validateOtp(),
-                child: Icon(
-                  Icons.arrow_circle_right_outlined,
-                  color: _isCompleteOtpEntered
-                      ? ColorPallet.golden
-                      : ColorPallet.blackishGolden,
-                ),
+            GestureDetector(
+              onTap: () => _authProvider.validateOtp(),
+              child: Icon(
+                Icons.arrow_circle_right_outlined,
+                color: _isCompleteOtpEntered
+                    ? ColorPallet.golden
+                    : ColorPallet.blackishGolden,
               ),
+            ),
           ],
         ),
         if (_authState == AuthState.otpError) ...<Widget>[
