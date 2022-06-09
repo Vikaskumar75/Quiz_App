@@ -3,7 +3,7 @@
 This app is just a personal project to show my full stack skills.
 # Note
   This repository only contains UI built using flutter.
-  Please refer to [this repository](https://github.com/Vikaskumar75/node_farm) for backend code.
+  Please refer to [this repository](https://github.com/Vikaskumar75/Quiz-App-Backend) for backend code.
 
 # Tech Stack used:
 - NodeJs
@@ -20,7 +20,6 @@ This app is just a personal project to show my full stack skills.
 - Folder by Feature Architecture
 - logStash
 - Navigation 2.0
-- Google Authentication
 
 # Design:
   For UI please refer to this [Figma Link](https://www.figma.com/file/eUIrcWyWCNA9s84vK2o1qn/Quiz-App-Design-(Community)?node-id=1%3A124)
