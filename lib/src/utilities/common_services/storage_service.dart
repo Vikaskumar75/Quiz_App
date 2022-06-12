@@ -47,9 +47,13 @@ class StorageService {
       return;
     }
 
-    _model = jsonDecode(_authString);
-    _isLoggedIn = true;
-    _accessToken = _model!.data.token;
+    try {
+      _model = authenticationModelFromJson(_authString);
+      _isLoggedIn = true;
+      _accessToken = _model!.data.token;
+    } catch (e) {
+      throw Exception('Could not read the session data');
+    }
   }
 
   Future<void> saveString(String key, String data) async {

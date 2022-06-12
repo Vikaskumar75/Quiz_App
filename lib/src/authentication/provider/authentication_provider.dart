@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/authentication/repository/authentication_repo.dart';
+import 'package:quiz_app/src/utilities/export.dart';
 
 // Controllers
 final emailControllerProvider = Provider((_) => TextEditingController());
@@ -73,7 +74,7 @@ class AuthProvider extends StateNotifier<AuthState> {
         password: ref.read(passwordControllerProvider).text,
       );
       final AuthenticationModel _authModel = await _repo.signUp(_model);
-
+      await startSession(_authModel);
       state = AuthState.registerSuccess;
     } catch (e) {
       // Todo: Handle error on UI, We can use a dialog service to display a dialog
@@ -90,12 +91,16 @@ class AuthProvider extends StateNotifier<AuthState> {
         email: email,
         password: password,
       );
-      
+      await startSession(_authModel);
       state = AuthState.loginSuccess;
     } catch (e) {
       // Todo: Handle error on UI, We can use a dialog service to display a dialog
       state = AuthState.loginError;
     }
+  }
+
+  Future<void> startSession(AuthenticationModel model) async {
+    await StorageService.instance.saveAuthData(model);
   }
 }
 

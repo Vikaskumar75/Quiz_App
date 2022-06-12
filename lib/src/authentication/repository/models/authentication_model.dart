@@ -17,6 +17,13 @@ class AuthenticationModel {
         status: json['status'],
         data: User.fromJson(json['data']),
       );
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'status': status,
+      'data': data.toJson(),
+    };
+  }
 }
 
 class User {
@@ -43,5 +50,17 @@ class User {
       avatar: userMap['avatar'],
       token: json['token'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'user': <String, dynamic>{
+        'name': name,
+        'email': email,
+        '_id': id,
+        'avatar': avatar,
+      },
+      'token': token,
+    };
   }
 }
