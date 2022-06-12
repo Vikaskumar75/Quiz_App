@@ -6,6 +6,9 @@ part 'availability_model.dart';
 part 'availability_service.dart';
 
 class AvailabilityRepository extends AvailabilityService {
+  AvailabilityRepository._();
+  static final AvailabilityRepository instance = AvailabilityRepository._();
+
   Future<QuizAvailability> fetchAvailability() async {
     final String data = await _fetchAvailability();
 
