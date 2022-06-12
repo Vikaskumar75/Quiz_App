@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:quiz_app/src/services/device_info_service.dart';
 
+import '../../utilities/export.dart';
 part 'authentication_service.dart';
 part 'models/authentication_model.dart';
 part 'models/otp_model.dart';

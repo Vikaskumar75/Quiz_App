@@ -2,10 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_app/src/utilities/export.dart';
 import 'package:riverpod/riverpod.dart';
-
-import '../../services/scale_factor_service.dart';
-import 'theme_colors.dart';
 
 final lightThemeProvider = Provider(((ref) => CustomTheme.light));
 final darkThemeProvider = Provider(((ref) => CustomTheme.dark));

@@ -9,8 +9,12 @@ export 'assets.dart';
 export 'connectivity_provider.dart';
 export 'navigation.dart';
 export 'provider_observer.dart';
-export '../services/scale_factor_service.dart';
 export 'strings.dart';
+export 'global_keys.dart';
+// services
+export 'common_services/storage_service.dart';
+export 'common_services/scale_factor_service.dart';
+export 'common_services/device_info_service.dart';
 // Widgets
 export 'widgets/availability_item_container.dart';
 export 'widgets/back_to_top_button.dart';

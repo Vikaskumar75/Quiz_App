@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:quiz_app/src/utilities/export.dart';
 
 class InternetOverlay extends ConsumerStatefulWidget {
@@ -10,8 +9,7 @@ class InternetOverlay extends ConsumerStatefulWidget {
   ConsumerState<InternetOverlay> createState() => _InternetOverlay();
 }
 
-class _InternetOverlay extends ConsumerState<InternetOverlay>
-    with TickerProviderStateMixin {
+class _InternetOverlay extends ConsumerState<InternetOverlay> {
   @override
   Widget build(BuildContext context) {
     final bool isInternetAvailable = ref.watch(connectivityProvider);
@@ -26,5 +24,3 @@ class _InternetOverlay extends ConsumerState<InternetOverlay>
           );
   }
 }
-
-

@@ -1,7 +1,5 @@
 import 'package:quiz_app/src/authentication/repository/authentication_repo.dart';
 import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
-import 'package:quiz_app/src/services/device_info_service.dart';
-import 'package:quiz_app/src/services/storage_service.dart';
 
 import '../../src/utilities/export.dart';
 
@@ -27,8 +25,8 @@ class AppService {
     // [ Note: This is a dependency for signUp since we need to send device info to backend. ]
     await DeviceInfoService.getInstacne.initialize();
 
-    // Initializing StorageService which will populate all the Preferences
-    await StorageService.getInstance.initialize();
+    // Initializing StorageService which will populate all the Preferences.
+    await StorageService.instance.initialize();
 
     // Initializing repositories
     _availabilityRepository = availabilityRepository;
@@ -36,7 +34,7 @@ class AppService {
   }
 
   // Defining all the repositories required with in the app.
-  // [ Note: Make sure to check for null value while sending any repo. OtherWise throw an Exception]
+  // [ Note: Make sure to check for null value while sending any repo. OtherWise throw an Exception. ]
   AvailabilityRepository? _availabilityRepository;
   AvailabilityRepository get availabilityRepo {
     if (_availabilityRepository != null) return _availabilityRepository!;
