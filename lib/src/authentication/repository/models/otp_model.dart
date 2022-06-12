@@ -1,7 +1,5 @@
 part of '../authentication_repo.dart';
 
-OtpModel otpFromJson(String str) => OtpModel.fromJson(json.decode(str));
-
 String otpToJson(OtpModel data) => json.encode(data.toJson());
 
 class OtpModel {

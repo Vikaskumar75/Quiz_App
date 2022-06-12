@@ -1,8 +1,11 @@
+// ignore_for_file: always_specify_types
+
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 import '../../utilities/export.dart';
+
 part 'authentication_service.dart';
 part 'models/authentication_model.dart';
 part 'models/otp_model.dart';
@@ -11,22 +14,15 @@ part 'models/registration_model.dart';
 class AuthenticationRepo implements AuthenticationService {
   AuthenticationRepo._();
   static final AuthenticationRepo instance = AuthenticationRepo._();
+  final Dio dio = ApiClient.instance.getClient;
 
   @override
   Future<AuthenticationModel> signUp(RegistrationModel model) async {
-    final Uri _url = Uri.parse('http://localhost:3000/api/v1/users/signup');
-    final http.Response response = await http.post(
-      _url,
-      body: jsonEncode(model.toJson()),
-      headers: <String, String>{'Content-type': 'application/json'},
+    final Response response = await dio.post(
+      '/users/signup',
+      data: model.toJson(),
     );
-
-    // Todo: Move these statuscode checks to interceptors
-    if (response.statusCode < 200 || response.statusCode >= 300) {
-      throw response;
-    } else {
-      return authenticationModelFromJson(response.body);
-    }
+    return AuthenticationModel.fromJson(response.data);
   }
 
   @override
@@ -34,36 +30,23 @@ class AuthenticationRepo implements AuthenticationService {
     required String email,
     required String password,
   }) async {
-    final Uri _url = Uri.parse('http://localhost:3000/api/v1/users/login');
-    final http.Response response = await http.post(
-      _url,
-      body: jsonEncode(<String, dynamic>{'email': email, 'password': password}),
-      headers: <String, String>{'Content-type': 'application/json'},
+    final Response response = await dio.post(
+      '/users/login',
+      data: <String, dynamic>{'email': email, 'password': password},
+      options: Options(
+        
+      )
     );
-    
-    // Todo: Move these statuscode checks to interceptors
-    if (response.statusCode < 200 || response.statusCode >= 300) {
-      throw response;
-    } else {
-      return authenticationModelFromJson(response.body);
-    }
+
+    return AuthenticationModel.fromJson(response.data);
   }
 
   @override
   Future<OtpModel> sendOtp({required String email}) async {
-    // Todo: move this base url to interceptors
-    final Uri _url = Uri.parse('http://localhost:3000/api/v1/emails/sendotp');
-    final http.Response response = await http.post(
-      _url,
-      body: jsonEncode(<String, dynamic>{'email': email}),
-      headers: <String, String>{'Content-type': 'application/json'},
+    final Response response = await dio.post(
+      '/emails/sendotp',
+      data: <String, dynamic>{'email': email},
     );
-
-    // Todo: Move these statuscode checks to interceptors
-    if (response.statusCode < 200 || response.statusCode >= 300) {
-      throw response;
-    } else {
-      return otpFromJson(response.body);
-    }
+    return OtpModel.fromJson(response.data);
   }
 }

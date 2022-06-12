@@ -15,6 +15,7 @@ export 'global_keys.dart';
 export 'common_services/storage_service.dart';
 export 'common_services/scale_factor_service.dart';
 export 'common_services/device_info_service.dart';
+export 'common_services/api_client_service.dart';
 // Widgets
 export 'widgets/availability_item_container.dart';
 export 'widgets/back_to_top_button.dart';

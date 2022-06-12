@@ -24,10 +24,10 @@ class StorageService {
   late bool _isLoggedIn;
   bool get isLoggedIn => _isLoggedIn;
 
-  late String? _accessToken;
+  String? _accessToken;
   String? get accessToken => _accessToken;
 
-  late AuthenticationModel? _model;
+  AuthenticationModel? _model;
   AuthenticationModel? get authModel => _model;
 
   Future<void> saveAuthData(AuthenticationModel model) async {

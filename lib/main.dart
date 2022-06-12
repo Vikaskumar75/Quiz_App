@@ -10,9 +10,14 @@ import 'src/utilities/export.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Initializing dio and adding interceptors.
+  // [ Note: This is done before repo initialization because we need to initilaze each and every repo clients. ]
+  // Initializing ApiClient [ Dio ], This will also add interceptors.
+  ApiClient.instance.initialize();
+
   // Passing all the repos that are going to be used in the app
   await AppService.getInstance.initialize(
-    availabilityRepository: AvailabilityRepository(),
+    availabilityRepository: AvailabilityRepository.instance,
     authenticationRepo: AuthenticationRepo.instance,
   );
 
@@ -29,7 +34,7 @@ Future<void> main() async {
 //! Things to do
 // register
 // login
-//? Error handler
 //? interceptors
+//? Error handler
 //? make a logger
 //? dialog service
