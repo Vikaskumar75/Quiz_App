@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 class ScreenScaleFactor {
   ScreenScaleFactor._();
   static final ScreenScaleFactor _instance = ScreenScaleFactor._();
-  factory ScreenScaleFactor() {
-    return _instance;
-  }
+  factory ScreenScaleFactor() => _instance;
 
   static late double scale;
   static late MediaQueryData _media;

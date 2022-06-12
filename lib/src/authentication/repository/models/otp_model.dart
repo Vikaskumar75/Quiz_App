@@ -1,4 +1,4 @@
-part of 'authentication_repo.dart';
+part of '../authentication_repo.dart';
 
 OtpModel otpFromJson(String str) => OtpModel.fromJson(json.decode(str));
 

@@ -11,11 +11,6 @@ class Observer extends ProviderObserver {
   ) {
     Logger(
       printer: PrettyPrinter(methodCount: 0),
-    ).i('''
-{
-  "provider": "${provider.name ?? provider.runtimeType}",
-  "newValue": "$newValue"
-}
-''');
+    ).i('provider: ${provider.name ?? provider.runtimeType},\nnewValue: $newValue');
   }
 }

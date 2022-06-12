@@ -17,6 +17,8 @@ class StorageService {
   late SharedPreferences _prefs;
   SharedPreferences get prefs => _prefs;
 
+  void saveString() {}
+
   late bool _isLoggedIn;
   bool get isLoggedIn => _isLoggedIn;
 

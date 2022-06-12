@@ -64,19 +64,38 @@ class AuthProvider extends StateNotifier<AuthState> {
   }
 
   Future<void> register() async {
-    // Todo: Register/Signup User
-    state = AuthState.registerLoading;
-    await Future.delayed(const Duration(seconds: 2));
-    state = AuthState.registerSuccess;
+    try {
+      state = AuthState.registerLoading;
+
+      final RegistrationModel _model = RegistrationModel(
+        email: ref.read(emailControllerProvider).text,
+        name: ref.read(emailControllerProvider).text,
+        password: ref.read(passwordControllerProvider).text,
+      );
+      final AuthenticationModel _authModel = await _repo.signUp(_model);
+
+      state = AuthState.registerSuccess;
+    } catch (e) {
+      // Todo: Handle error on UI, We can use a dialog service to display a dialog
+      state = AuthState.registerError;
+    }
   }
 
   Future<void> login() async {
-    final String email = ref.read(emailControllerProvider).text;
-    final String password = ref.read(passwordControllerProvider).text;
-    // await _repo.login(email: email, password: password);
-    state = AuthState.loginLoading;
-    await Future.delayed(const Duration(seconds: 2));
-    state = AuthState.loginSuccess;
+    try {
+      state = AuthState.loginLoading;
+      final String email = ref.read(emailControllerProvider).text;
+      final String password = ref.read(passwordControllerProvider).text;
+      final AuthenticationModel _authModel = await _repo.login(
+        email: email,
+        password: password,
+      );
+      
+      state = AuthState.loginSuccess;
+    } catch (e) {
+      // Todo: Handle error on UI, We can use a dialog service to display a dialog
+      state = AuthState.loginError;
+    }
   }
 }
 

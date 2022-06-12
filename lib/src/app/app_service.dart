@@ -1,5 +1,6 @@
 import 'package:quiz_app/src/authentication/repository/authentication_repo.dart';
 import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
+import 'package:quiz_app/src/services/device_info_service.dart';
 import 'package:quiz_app/src/services/storage_service.dart';
 
 import '../../src/utilities/export.dart';
@@ -12,28 +13,39 @@ class AppService {
   static final AppService _instance = AppService._();
   static AppService get getInstance => _instance;
 
+  // There is a reason that all the repositories are nullable.
+  // OtherWise for the test cases we have to initialize each and every repo and that is not feasible.
   Future<void> initialize({
     AvailabilityRepository? availabilityRepository,
     AuthenticationRepo? authenticationRepo,
   }) async {
+    // Initializing screen scale so that the screen layout can be adjusted according to screen size.
+    // This will let us use .toHeight .toWidth .toFont extensions.
     ScreenScaleFactor.initialize();
+
+    // Initializing DeviceInfoService so that this can get the data of current device and thus it can be used in logging service.
+    // [ Note: This is a dependency for signUp since we need to send device info to backend. ]
+    await DeviceInfoService.getInstacne.initialize();
 
     // Initializing StorageService which will populate all the Preferences
     await StorageService.getInstance.initialize();
 
     // Initializing repositories
-    if (availabilityRepository != null) {
-      _availabilityRepository = availabilityRepository;
-    }
-
-    if (authenticationRepo != null) {
-      _authenticationRepository = authenticationRepo;
-    }
+    _availabilityRepository = availabilityRepository;
+    _authenticationRepository = authenticationRepo;
   }
 
-  late AvailabilityRepository _availabilityRepository;
-  AvailabilityRepository get availabilityRepo => _availabilityRepository;
+  // Defining all the repositories required with in the app.
+  // [ Note: Make sure to check for null value while sending any repo. OtherWise throw an Exception]
+  AvailabilityRepository? _availabilityRepository;
+  AvailabilityRepository get availabilityRepo {
+    if (_availabilityRepository != null) return _availabilityRepository!;
+    throw Exception('AvailabilityRepository not initialized');
+  }
 
-  late AuthenticationRepo _authenticationRepository;
-  AuthenticationRepo get authenticationRepo => _authenticationRepository;
+  AuthenticationRepo? _authenticationRepository;
+  AuthenticationRepo get authenticationRepo {
+    if (_authenticationRepository != null) return _authenticationRepository!;
+    throw Exception('AuthenticationRepo not initialized');
+  }
 }

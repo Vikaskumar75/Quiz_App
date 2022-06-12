@@ -8,7 +8,12 @@ void main() {
   const String password = 'password';
 
   test('SignUp', () async {
-    final AuthenticationModel model = await repo.signUp();
+    const RegistrationModel registrationModel = RegistrationModel(
+      email: 'email',
+      name: 'name',
+      password: 'password',
+    );
+    final AuthenticationModel model = await repo.signUp(registrationModel);
     expect(model.runtimeType, AuthenticationModel);
   });
 
@@ -23,17 +28,8 @@ void main() {
 
 class MockAuthenticationRepo extends Mock implements AuthenticationRepo {
   @override
-  Future<AuthenticationModel> signUp() {
-    return Future<AuthenticationModel>.value(
-      AuthenticationModel(
-        name: 'name',
-        email: 'email',
-        password: 'password',
-        manufacture: 'manufacture',
-        deviceName: 'deviceName',
-        androidVersion: 'androidVersion',
-      ),
-    );
+  Future<AuthenticationModel> signUp(RegistrationModel registrationModel) {
+    return Future<AuthenticationModel>.value(authenticationModel);
   }
 
   @override
@@ -41,15 +37,16 @@ class MockAuthenticationRepo extends Mock implements AuthenticationRepo {
     required String email,
     required String password,
   }) {
-    return Future<AuthenticationModel>.value(
-      AuthenticationModel(
-        name: 'name',
-        email: 'email',
-        password: 'password',
-        manufacture: 'manufacture',
-        deviceName: 'deviceName',
-        androidVersion: 'androidVersion',
-      ),
-    );
+    return Future<AuthenticationModel>.value(authenticationModel);
   }
 }
+
+final AuthenticationModel authenticationModel = AuthenticationModel(
+  status: 'success',
+  data: User(
+    token: 'token',
+    email: 'email',
+    name: 'name',
+    id: 'id',
+  ),
+);
