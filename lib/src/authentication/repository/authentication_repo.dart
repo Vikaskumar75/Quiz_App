@@ -1,5 +1,4 @@
 // ignore_for_file: always_specify_types
-
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -18,11 +17,13 @@ class AuthenticationRepo implements AuthenticationService {
 
   @override
   Future<AuthenticationModel> signUp(RegistrationModel model) async {
-    final Response response = await dio.post(
-      '/users/signup',
-      data: model.toJson(),
-    );
-    return AuthenticationModel.fromJson(response.data);
+    try {
+      final data = model.toJson();
+      final Response response = await dio.post('/users/signup', data: data);
+      return AuthenticationModel.fromJson(response.data);
+    } on AppError catch (_) {
+      rethrow;
+    }
   }
 
   @override
@@ -30,23 +31,23 @@ class AuthenticationRepo implements AuthenticationService {
     required String email,
     required String password,
   }) async {
-    final Response response = await dio.post(
-      '/users/login',
-      data: <String, dynamic>{'email': email, 'password': password},
-      options: Options(
-        
-      )
-    );
-
-    return AuthenticationModel.fromJson(response.data);
+    try {
+      final data = <String, dynamic>{'email': email, 'password': password};
+      final Response response = await dio.post('/users/login', data: data);
+      return AuthenticationModel.fromJson(response.data);
+    } on AppError catch (_) {
+      rethrow;
+    }
   }
 
   @override
   Future<OtpModel> sendOtp({required String email}) async {
-    final Response response = await dio.post(
-      '/emails/sendotp',
-      data: <String, dynamic>{'email': email},
-    );
-    return OtpModel.fromJson(response.data);
+    try {
+      final data = <String, dynamic>{'email': email};
+      final Response response = await dio.post('/emails/sendotp', data: data);
+      return OtpModel.fromJson(response.data);
+    } on AppError catch (_) {
+      rethrow;
+    }
   }
 }

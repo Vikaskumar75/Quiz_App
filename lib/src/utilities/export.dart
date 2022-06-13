@@ -27,3 +27,5 @@ export 'widgets/internet_overlay.dart';
 export 'widgets/lazy_loading_text.dart';
 export 'widgets/text_with_leading_icon.dart';
 export 'widgets/label_text_field.dart';
+// Others
+export 'app_error.dart';

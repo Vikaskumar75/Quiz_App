@@ -52,7 +52,7 @@ class StorageService {
       _isLoggedIn = true;
       _accessToken = _model!.data.token;
     } catch (e) {
-      throw Exception('Could not read the session data');
+      throw AppError.createError('Could not read the session data');
     }
   }
 
