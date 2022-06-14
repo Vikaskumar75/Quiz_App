@@ -34,7 +34,7 @@ Future<void> main() async {
 //! Things to do
 // register
 // login
-//? interceptors
-//? Error handler
-//? make a logger
+// make a logger
+// interceptors
+// Error handler
 //? dialog service

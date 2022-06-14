@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logger/logger.dart';
+import 'export.dart';
 
 class Observer extends ProviderObserver {
   @override
@@ -9,8 +9,8 @@ class Observer extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    Logger(
-      printer: PrettyPrinter(methodCount: 0),
-    ).i('provider: ${provider.name ?? provider.runtimeType},\nnewValue: $newValue');
+    Console.log(
+      'provider: ${provider.name ?? provider.runtimeType}\npreiousValue: $previousValue\nnewValue: $newValue',
+    );
   }
 }

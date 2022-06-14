@@ -11,7 +11,7 @@ class AppError extends DioError {
   String? endPoint;
   bool isOperational = true;
 
-  AppError(
+  AppError._(
     this.errorMessage, {
     this.options,
     this.statusCode,
@@ -24,9 +24,9 @@ class AppError extends DioError {
       if (err.response?.statusCode != null) return _handleStatusCodeError(err);
       return _handleExceptions(err);
     } else if (err is String) {
-      return AppError(err);
+      return AppError._(err);
     } else {
-      return AppError('Unhandeled error type');
+      return _handleExceptions(err);
     }
   }
 
@@ -86,7 +86,7 @@ class AppError extends DioError {
         errorMessage = 'Unhandled status code Error: $statusCode';
     }
 
-    AppError _appError = AppError(
+    AppError _appError = AppError._(
       errorMessage,
       options: err.requestOptions,
       serverMessage: _serverMessageMapper(err.response?.data),
@@ -113,7 +113,7 @@ class AppError extends DioError {
         errorMessage = 'Unhandled Exception: ${err.runtimeType}';
     }
 
-    AppError _appError = AppError(
+    AppError _appError = AppError._(
       errorMessage,
       options: err.requestOptions,
       serverMessage: _serverMessageMapper(err.response?.data),

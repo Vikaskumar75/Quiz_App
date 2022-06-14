@@ -36,7 +36,7 @@ class StorageService {
       await saveString(GlobalKeys.login, _authString);
       readAuthData();
     } catch (e) {
-      throw Exception('Could not save the session');
+      throw AppError.createError('Could not save the session');
     }
   }
 
