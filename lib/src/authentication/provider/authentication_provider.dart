@@ -99,6 +99,34 @@ class AuthProvider extends StateNotifier<AuthState> {
     }
   }
 
+  Future<void> checkUserAvailability() async {
+    state = AuthState.userAvailabilityLoading;
+    final String email = ref.read(emailControllerProvider).text;
+    final bool isUserRegistered = await _repo.checkUserAvailability(
+      email: email,
+    );
+
+    final bool isSignUp = ref.read(isSignUpProvider);
+
+    if (isSignUp && isUserRegistered) {
+      state = AuthState.userRegistered;
+      DialogService.instance.showDialog(
+        message: Strings.emailAlreadyRegistered,
+      );
+    } else if (!isSignUp && !isUserRegistered) {
+      state = AuthState.userNotRegistered;
+      DialogService.instance.showDialog(
+        message: Strings.userNotRegistered,
+      );
+    } else {
+      if (isSignUp) {
+        state = AuthState.userNotRegistered;
+      } else {
+        state = AuthState.userRegistered;
+      }
+    }
+  }
+
   Future<void> startSession(AuthenticationModel model) async {
     await StorageService.instance.saveAuthData(model);
   }
@@ -109,6 +137,9 @@ enum AuthState {
   registerLoading,
   registerError,
   registerSuccess,
+  userAvailabilityLoading,
+  userRegistered,
+  userNotRegistered,
   loginLoading,
   loginError,
   loginSuccess,

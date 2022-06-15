@@ -16,7 +16,7 @@ class DialogService extends StateNotifier<_DialogState> {
     required String message,
     Color? textColor,
     bool autoHide = true,
-    Duration duration = const Duration(seconds: 5),
+    Duration duration = const Duration(seconds: 3),
   }) {
     // Hiding Already opened dialog
     hideDialog();

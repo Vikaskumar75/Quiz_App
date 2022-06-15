@@ -32,14 +32,18 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
     _PasswordScreen(),
   ];
 
-
   void _authListener(AuthState? previous, AuthState next) {
     switch (next) {
       case AuthState.otpSuccess:
       case AuthState.otpValidated:
         ref.read(pageIndexProvider.notifier).state++;
         break;
-
+      case AuthState.userRegistered:
+        if (!isSignUp) ref.read(pageIndexProvider.notifier).state++;
+        break;
+      case AuthState.userNotRegistered:
+        if (isSignUp) ref.read(authProvider.notifier).sendOtp();
+        break;
       case AuthState.loginSuccess:
       case AuthState.registerSuccess:
         Navigator.pushNamedAndRemoveUntil(
@@ -48,7 +52,6 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
           (_) => false,
         );
         break;
-
       default:
         break;
     }

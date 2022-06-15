@@ -50,4 +50,15 @@ class AuthenticationRepo implements AuthenticationService {
       rethrow;
     }
   }
+
+  @override
+  Future<bool> checkUserAvailability({required String email}) async {
+    try {
+      final data = <String, dynamic>{'email': email};
+      await dio.post('/users/checkavailability', data: data);
+      return true;
+    } on AppError catch (_) {
+      return false;
+    }
+  }
 }

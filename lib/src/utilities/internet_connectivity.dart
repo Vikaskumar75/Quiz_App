@@ -11,28 +11,19 @@ class InternetConnectivity {
   }
 
   final Connectivity _connectivity = Connectivity();
+
   ConnectivityResult? _previousConnectivity;
 
   Future<void> startListeningForInternetConnectivity() async {
     final ConnectivityResult _result = await _connectivity.checkConnectivity();
-    if (!_isConnected(_result)) manageConnectivityState(_result);
-    _connectivity.onConnectivityChanged.listen(manageConnectivityState);
-  }
-
-  void manageConnectivityState(ConnectivityResult result) {
-    if (_isConnected(result)) {
-      if (_previousConnectivity != null) {
-        if (!_isConnected(_previousConnectivity!)) _showDialog(result);
-      }
-    } else {
-      _showDialog(result);
-    }
-
-    _previousConnectivity = result;
+    _showDialog(_result);
+    _connectivity.onConnectivityChanged.listen(_showDialog);
   }
 
   void _showDialog(ConnectivityResult result) {
     if (_isConnected(result)) {
+      if (_previousConnectivity == null) return;
+      if (_isConnected(_previousConnectivity!)) return;
       DialogService.instance.showDialog(
         message: Strings.backOnline,
         textColor: ColorPallet.green,
@@ -44,6 +35,8 @@ class InternetConnectivity {
         autoHide: false,
       );
     }
+
+    _previousConnectivity = result;
   }
 
   bool _isConnected(ConnectivityResult result) {

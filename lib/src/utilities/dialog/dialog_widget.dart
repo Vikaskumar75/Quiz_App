@@ -15,7 +15,7 @@ class _Dialog extends ConsumerWidget {
     if (state is! _ShowDialogState) return const SizedBox.shrink();
 
     return Container(
-      height: 150.toHeight,
+      height: 100.toHeight,
       width: double.infinity,
       alignment: Alignment.bottomLeft,
       padding: EdgeInsets.only(
@@ -27,19 +27,15 @@ class _Dialog extends ConsumerWidget {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: <Color>[
-            Colors.black.withOpacity(0.4),
-            Colors.black.withOpacity(0.3),
-            Colors.black.withOpacity(0.2),
-            Colors.black.withOpacity(0.1),
+            Colors.black.withOpacity(0.55),
+            Colors.black.withOpacity(0.45),
+            Colors.black.withOpacity(0.35),
+            Colors.black.withOpacity(0.25),
+            Colors.black.withOpacity(0.15),
+            Colors.black.withOpacity(0.05),
             Colors.transparent
           ],
-          stops: const <double>[
-            0.3,
-            0.5,
-            0.7,
-            0.9,
-            1.0,
-          ],
+          stops: const <double>[0.25, 0.55, 0.65, 0.75, 0.85, 0.94, 1.0],
         ),
       ),
       child: LazyLoadingText(

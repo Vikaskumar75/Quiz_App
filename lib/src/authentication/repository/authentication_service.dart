@@ -9,4 +9,6 @@ abstract class AuthenticationService {
   });
 
   Future<void> sendOtp({required String email});
+
+  Future<bool> checkUserAvailability({required String email});
 }

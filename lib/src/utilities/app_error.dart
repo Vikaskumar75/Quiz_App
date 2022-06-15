@@ -126,6 +126,7 @@ class AppError extends DioError {
 
   static String? _serverMessageMapper(Map<String, dynamic>? map) {
     if (map == null) return null;
-    return map['error'] ?? map['message'] ?? map['err'];
+    String? message = map['message'] ?? map['err'] ?? map['error'];
+    return message;
   }
 }

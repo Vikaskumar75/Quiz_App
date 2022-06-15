@@ -5,7 +5,7 @@ class LazyLoadingText extends StatefulWidget {
     this.text, {
     Key? key,
     this.style,
-    this.duration = const Duration(milliseconds: 800),
+    this.duration = const Duration(milliseconds: 500),
   }) : super(key: key);
   final String text;
   final Duration duration;

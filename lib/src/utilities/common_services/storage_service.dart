@@ -56,6 +56,15 @@ class StorageService {
     }
   }
 
+  Future<void> deleteAuthData() async {
+    try {
+      deleteString(GlobalKeys.login);
+      readAuthData();
+    } catch (e) {
+      throw AppError.createError('Could not delete the session');
+    }
+  }
+
   Future<void> saveString(String key, String data) async {
     await _prefs.setString(key, data);
   }

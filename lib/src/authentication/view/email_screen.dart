@@ -52,7 +52,8 @@ class _EmailScreenBodyState extends ConsumerState<_EmailScreenBody> {
             labelText: 'Email',
             hintText: 'yourname@example.com',
             controller: ref.watch(emailControllerProvider),
-            showLoader: _authState == AuthState.otpLoading,
+            showLoader: _authState == AuthState.otpLoading ||
+                _authState == AuthState.userAvailabilityLoading,
             validator: (String? value) {
               if (value == null || value.isEmpty) {
                 return 'Please provide an email';
@@ -63,11 +64,7 @@ class _EmailScreenBodyState extends ConsumerState<_EmailScreenBody> {
             },
             onNext: () {
               if (!_form.currentState!.validate()) return;
-              if (_isSignup) {
-                _authProvider.sendOtp();
-                return;
-              }
-              ref.watch(pageIndexProvider.notifier).state++;
+              _authProvider.checkUserAvailability();
             },
           ),
         ),
@@ -104,7 +101,7 @@ class _SignupHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        SizedBox(height: 24.toHeight),
+        SizedBox(height: 30.toHeight),
         LazyLoadingText(
           'Welcome, Onboard',
           style: CustomTheme.headline4.copyWith(color: ColorPallet.white),
