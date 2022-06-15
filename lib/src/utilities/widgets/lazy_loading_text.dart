@@ -18,7 +18,7 @@ class LazyLoadingText extends StatefulWidget {
 class _LazyLoadingTextState extends State<LazyLoadingText>
     with TickerProviderStateMixin {
   late final AnimationController _controller;
-  late final Animation<int> _animation;
+  Animation<int>? _animation;
 
   @override
   void initState() {
@@ -27,6 +27,17 @@ class _LazyLoadingTextState extends State<LazyLoadingText>
       vsync: this,
       duration: widget.duration,
     );
+    _animate();
+  }
+
+  @override
+  void didUpdateWidget(covariant LazyLoadingText oldWidget) {
+    _animate();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  void _animate() {
+    _controller.reset();
     _animation = IntTween(begin: 0, end: widget.text.length).animate(
       CurvedAnimation(
         parent: _controller,
@@ -45,10 +56,10 @@ class _LazyLoadingTextState extends State<LazyLoadingText>
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: _animation,
+      animation: _animation!,
       builder: (_, __) {
         return Text(
-          widget.text.substring(0, _animation.value),
+          widget.text.substring(0, _animation!.value),
           style: widget.style,
         );
       },

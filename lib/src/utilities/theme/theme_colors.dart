@@ -8,6 +8,8 @@ abstract class ColorPallet {
   static const Color white = Colors.white;
   static const Color grey = Colors.grey;
   static const Color red = Colors.red;
+  static const Color orange = Color.fromARGB(255, 243, 139, 17);
+  static const Color green = Color.fromARGB(255, 23, 205, 20);
   static const Color transparent = Colors.transparent;
   static const Color lightGrey = Color.fromARGB(255, 168, 168, 168);
   static const Color extraLightGrey = Color.fromARGB(255, 235, 231, 231);
@@ -34,6 +36,15 @@ abstract class ColorPallet {
       0.9,
     ],
   );
+
+  static final Paint dialogShaderPaint = Paint()
+    ..shader = const LinearGradient(
+      colors: <Color>[
+        Color(0xff628EFF),
+        Color(0xffBFD5FF),
+        Color(0xffE9A0FE),
+      ],
+    ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 }
 
 class DarkPallet with ColorPallet {

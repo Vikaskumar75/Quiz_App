@@ -13,7 +13,7 @@ class AppPage extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           getInitialScreen(),
-          const InternetOverlay(),
+          DialogService.instance.widget,
         ],
       ),
     );

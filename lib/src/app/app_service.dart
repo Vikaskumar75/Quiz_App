@@ -25,6 +25,9 @@ class AppService {
     // [ Note: This is a dependency for signUp since we need to send device info to backend. ]
     await DeviceInfoService.getInstacne.initialize();
 
+    // Initializing internet Connectivity stream which will automatically show an overlay based on connectivity.
+    InternetConnectivity.instance.initialize();
+
     // Initializing StorageService which will populate all the Preferences.
     await StorageService.instance.initialize();
 
