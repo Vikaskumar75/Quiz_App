@@ -48,9 +48,7 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
           ),
           availability.when(
             data: (QuizAvailability data) {
-              return _QuizHomeList(
-                availability: data,
-              );
+              return _QuizHomeList(availability: data);
             },
             error: (Object e, StackTrace? stack) {
               return SliverToBoxAdapter(

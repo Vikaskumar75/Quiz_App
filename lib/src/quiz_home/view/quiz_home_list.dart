@@ -53,13 +53,14 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
     );
   }
 
-  Future<void> _addWidgets({int noOfWidgetsToAdd = 5}) async {
+  Future<void> _addWidgets({int noOfWidgetsToAdd = 8}) async {
     final List<Quiz> data = widget.availability.data;
     if (data.isEmpty) return;
+    if (_listItems.length == data.length) return;
 
     final int _length = data.length;
 
-    final int _start = _listItems.isEmpty ? 0 : _listItems.length;
+    final int _start = _listItems.length;
     final int _end = _length >= 5 ? _start + noOfWidgetsToAdd : _length;
 
     for (int i = _start; i < _end; i++) {

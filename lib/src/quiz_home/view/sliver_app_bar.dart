@@ -40,9 +40,7 @@ class _QuizHomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: ColorPallet.blueGreyGradient,
-      ),
+      color: ColorPallet.darkBlueGrey,
       child: FlexibleSpaceBar(
         titlePadding: EdgeInsetsDirectional.only(
           start: 14.toWidth,

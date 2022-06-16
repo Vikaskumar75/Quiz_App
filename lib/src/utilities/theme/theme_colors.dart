@@ -55,7 +55,7 @@ class DarkPallet with ColorPallet {
   Color get accentColor => Colors.blue.shade700;
 
   @override
-  Color get scaffoldColor => Colors.black;
+  Color get scaffoldColor => ColorPallet.darkBlueGrey.withOpacity(0.98);
 }
 
 class LightPallet with ColorPallet {

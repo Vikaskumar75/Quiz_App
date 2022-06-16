@@ -80,7 +80,6 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
     ref.listen(authProvider, _authListener);
 
     return Scaffold(
-      backgroundColor: ColorPallet.darkBlueGrey.withOpacity(0.98),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
