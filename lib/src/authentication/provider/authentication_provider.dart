@@ -35,6 +35,7 @@ class AuthProvider extends StateNotifier<AuthState> {
   AuthProvider(this.ref) : super(AuthState.initial);
 
   final _repo = AuthenticationRepo.instance;
+  final DialogService _dialogService = DialogService.instance;
   int? otp;
 
   Future<void> sendOtp() async {
@@ -44,9 +45,9 @@ class AuthProvider extends StateNotifier<AuthState> {
       OtpModel _otpModel = await _repo.sendOtp(email: email);
       otp = _otpModel.data.otp;
       state = AuthState.otpSuccess;
-    } catch (e) {
-      // Todo: Handle error on UI, We can use a dialog service to display a dialog
+    } on AppError catch (e) {
       state = AuthState.otpError;
+      _dialogService.showDialog(message: e.serverMessage ?? e.errorMessage);
     }
   }
 
@@ -76,9 +77,9 @@ class AuthProvider extends StateNotifier<AuthState> {
       final AuthenticationModel _authModel = await _repo.signUp(_model);
       await startSession(_authModel);
       state = AuthState.registerSuccess;
-    } catch (e) {
-      // Todo: Handle error on UI, We can use a dialog service to display a dialog
+    } on AppError catch (e) {
       state = AuthState.registerError;
+      _dialogService.showDialog(message: e.serverMessage ?? e.errorMessage);
     }
   }
 
@@ -93,9 +94,9 @@ class AuthProvider extends StateNotifier<AuthState> {
       );
       await startSession(_authModel);
       state = AuthState.loginSuccess;
-    } catch (e) {
-      // Todo: Handle error on UI, We can use a dialog service to display a dialog
+    } on AppError catch (e) {
       state = AuthState.loginError;
+      _dialogService.showDialog(message: e.serverMessage ?? e.errorMessage);
     }
   }
 

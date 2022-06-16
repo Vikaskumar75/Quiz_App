@@ -99,18 +99,35 @@ class AppError extends DioError {
 
   static AppError _handleExceptions(dynamic err) {
     String errorMessage;
-    switch (err.runtimeType) {
-      case SocketException:
-        errorMessage = 'Please check your internet connection';
-        break;
-      case TimeoutException:
-        errorMessage = 'Taking too long to fetch data';
-        break;
-      case FormatException:
-        errorMessage = 'Unable to process data';
-        break;
-      default:
-        errorMessage = 'Unhandled Exception: ${err.runtimeType}';
+
+    if (err is DioError) {
+      switch (err.error.runtimeType) {
+        case SocketException:
+          errorMessage = 'Please check your internet connection';
+          break;
+        case TimeoutException:
+          errorMessage = 'Taking too long to fetch data';
+          break;
+        case FormatException:
+          errorMessage = 'Unable to process data';
+          break;
+        default:
+          errorMessage = 'Unhandled Exception: ${err.runtimeType}';
+      }
+    } else {
+      switch (err.runtimeType) {
+        case SocketException:
+          errorMessage = 'Please check your internet connection';
+          break;
+        case TimeoutException:
+          errorMessage = 'Taking too long to fetch data';
+          break;
+        case FormatException:
+          errorMessage = 'Unable to process data';
+          break;
+        default:
+          errorMessage = 'Unhandled Exception: ${err.runtimeType}';
+      }
     }
 
     AppError _appError = AppError._(
@@ -118,7 +135,6 @@ class AppError extends DioError {
       options: err.requestOptions,
       serverMessage: _serverMessageMapper(err.response?.data),
       endPoint: err.requestOptions.path,
-      statusCode: err.response!.statusCode!,
     );
 
     return _appError;
