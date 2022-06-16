@@ -30,9 +30,7 @@ class _QuizCategory extends StatelessWidget {
                 : ColorPallet.black.withOpacity(0.05),
             label: Text(
               'Designing',
-              style: CustomTheme.bodyText1.copyWith(
-                color: isSelected ? ColorPallet.white : null,
-              ),
+              style: CustomTheme.bodyText1,
             ),
           );
         },

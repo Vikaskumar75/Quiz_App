@@ -20,6 +20,7 @@ class AvailabilityItemContainer extends StatelessWidget {
         horizontal: 20.toWidth,
       ),
       decoration: BoxDecoration(
+        color: ColorPallet.darkBlueGrey,
         borderRadius: BorderRadius.circular(6),
       ),
       child: child,

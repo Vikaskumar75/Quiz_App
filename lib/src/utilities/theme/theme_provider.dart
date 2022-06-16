@@ -59,12 +59,36 @@ class CustomTheme extends StateNotifier<ThemeMode> {
 
   bool get isDark => state == ThemeMode.dark;
 
-  static final TextStyle headline1 = GoogleFonts.ubuntu(fontSize: 33.toFont);
-  static final TextStyle headline2 = GoogleFonts.ubuntu(fontSize: 30.toFont);
-  static final TextStyle headline3 = GoogleFonts.ubuntu(fontSize: 27.toFont);
-  static final TextStyle headline4 = GoogleFonts.ubuntu(fontSize: 24.toFont);
-  static final TextStyle headline5 = GoogleFonts.ubuntu(fontSize: 21.toFont);
-  static final TextStyle headline6 = GoogleFonts.ubuntu(fontSize: 18.toFont);
-  static final TextStyle bodyText1 = GoogleFonts.ubuntu(fontSize: 15.toFont);
-  static final TextStyle bodyText2 = GoogleFonts.ubuntu(fontSize: 12.toFont);
+  static final TextStyle headline1 = GoogleFonts.ubuntu(
+    fontSize: 33.toFont,
+    color: ColorPallet.white,
+  );
+  static final TextStyle headline2 = GoogleFonts.ubuntu(
+    fontSize: 30.toFont,
+    color: ColorPallet.white,
+  );
+  static final TextStyle headline3 = GoogleFonts.ubuntu(
+    fontSize: 27.toFont,
+    color: ColorPallet.white,
+  );
+  static final TextStyle headline4 = GoogleFonts.ubuntu(
+    fontSize: 24.toFont,
+    color: ColorPallet.white,
+  );
+  static final TextStyle headline5 = GoogleFonts.ubuntu(
+    fontSize: 21.toFont,
+    color: ColorPallet.white,
+  );
+  static final TextStyle headline6 = GoogleFonts.ubuntu(
+    fontSize: 18.toFont,
+    color: ColorPallet.white,
+  );
+  static final TextStyle bodyText1 = GoogleFonts.ubuntu(
+    fontSize: 15.toFont,
+    color: ColorPallet.white,
+  );
+  static final TextStyle bodyText2 = GoogleFonts.ubuntu(
+    fontSize: 12.toFont,
+    color: ColorPallet.white,
+  );
 }

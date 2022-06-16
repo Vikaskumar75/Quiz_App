@@ -35,7 +35,7 @@ class QuizDetails extends StatelessWidget {
               ),
               subtitle: Text(
                 'GET ${quiz.earnings} Points',
-                style: CustomTheme.headline6.copyWith(color: ColorPallet.white),
+                style: CustomTheme.headline6,
               ),
               trailing: TextWithLeadingIcon(
                 icon: Icons.star_purple500_sharp,

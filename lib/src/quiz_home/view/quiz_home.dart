@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/quiz_home/provider/availability_provider.dart';
+import 'package:quiz_app/src/quiz_home/provider/carousel_index_provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../utilities/export.dart';
 import '../provider/scroll_to_top_provider.dart';
 import '../repository/availability_repo.dart';
 
+part 'quiz_carousel.dart';
 part 'quiz_category.dart';
 part 'quiz_home_list.dart';
 part 'quiz_home_loader.dart';
@@ -43,9 +46,8 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
         ),
         slivers: <Widget>[
           const _SliverAppBar(),
-          const SliverToBoxAdapter(
-            child: _QuizCategory(),
-          ),
+          const SliverToBoxAdapter(child: _QuizCarousel()),
+          const SliverToBoxAdapter(child: _QuizCategory()),
           availability.when(
             data: (QuizAvailability data) {
               return _QuizHomeList(availability: data);

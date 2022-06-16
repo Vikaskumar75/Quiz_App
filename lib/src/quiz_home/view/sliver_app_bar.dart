@@ -59,9 +59,7 @@ class _QuizHomeAppBar extends StatelessWidget {
                     children: <InlineSpan>[
                       TextSpan(
                         text: "Let's test your knowledge",
-                        style: CustomTheme.headline5.copyWith(
-                          color: ColorPallet.white,
-                        ),
+                        style: CustomTheme.headline5,
                       ),
                     ],
                   ),

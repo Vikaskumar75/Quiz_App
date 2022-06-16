@@ -30,3 +30,4 @@ export 'widgets/label_text_field.dart';
 // Others
 export 'app_error.dart';
 export 'logger.dart';
+export 'carousel_items.dart';

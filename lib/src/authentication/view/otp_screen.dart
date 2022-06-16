@@ -36,7 +36,7 @@ class _OtpLabel extends ConsumerWidget {
         SizedBox(height: 24.toHeight),
         LazyLoadingText(
           'Verify your email',
-          style: CustomTheme.headline4.copyWith(color: ColorPallet.white),
+          style: CustomTheme.headline4,
         ),
         SizedBox(height: 10.toHeight),
         Text.rich(

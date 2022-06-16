@@ -78,9 +78,7 @@ class _EmailScreenBodyState extends ConsumerState<_EmailScreenBody> {
             children: <TextSpan>[
               TextSpan(
                 text: _isSignup ? 'Login' : 'Register',
-                style: CustomTheme.bodyText1.copyWith(
-                  color: ColorPallet.white,
-                ),
+                style: CustomTheme.bodyText1,
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
                     ref.read(isSignUpProvider.notifier).state = !_isSignup;
