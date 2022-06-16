@@ -1,22 +1,41 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
-part 'availability_model.dart';
-part 'availability_service.dart';
+import '../../utilities/export.dart';
 
-class AvailabilityRepository extends AvailabilityService {
+part 'availability_service.dart';
+part 'models/availability_model.dart';
+part 'models/categories_model.dart';
+
+class AvailabilityRepository implements AvailabilityService {
   AvailabilityRepository._();
   static final AvailabilityRepository instance = AvailabilityRepository._();
+  final Dio dio = ApiClient.instance.getClient;
 
+  @override
   Future<QuizAvailability> fetchAvailability() async {
-    final String data = await _fetchAvailability();
+    await Future<void>.delayed(const Duration(seconds: 3));
+    final String response = await rootBundle.loadString(
+      'data/availability.json',
+    );
 
     try {
-      final QuizAvailability availability = availabilityFromJson(data);
+      final QuizAvailability availability = availabilityFromJson(response);
       return availability;
     } catch (e) {
       throw Exception('Availability parsing gone wrong\n$e');
+    }
+  }
+
+  @override
+  Future<CategoriesModel> fetchCategories() async {
+    try {
+      final Response<dynamic> response = await dio.get('/categories');
+      return CategoriesModel.fromJson(response.data);
+    } on AppError catch (_) {
+      rethrow;
     }
   }
 }

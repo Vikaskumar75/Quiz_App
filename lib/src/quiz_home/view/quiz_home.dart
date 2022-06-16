@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/quiz_home/provider/availability_provider.dart';
 import 'package:quiz_app/src/quiz_home/provider/carousel_index_provider.dart';
+import 'package:quiz_app/src/quiz_home/provider/category_provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../utilities/export.dart';

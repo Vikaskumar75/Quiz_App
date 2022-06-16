@@ -13,11 +13,8 @@ class AvailabilityItemContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: ScreenScaleFactor.screenHeight * 0.10,
-      margin: EdgeInsets.symmetric(
-        horizontal: 14.toWidth,
-      ),
       padding: EdgeInsets.symmetric(
-        horizontal: 20.toWidth,
+        horizontal: 14.toWidth,
       ),
       decoration: BoxDecoration(
         color: ColorPallet.darkBlueGrey,

@@ -55,7 +55,8 @@ class _QuizHomeAppBar extends StatelessWidget {
                 width: double.maxFinite,
                 child: Text.rich(
                   TextSpan(
-                    text: 'Hello, James\n',
+                    text:
+                        'Hello, ${StorageService.instance.authModel?.data.name.split('@').first}\n',
                     children: <InlineSpan>[
                       TextSpan(
                         text: "Let's test your knowledge",

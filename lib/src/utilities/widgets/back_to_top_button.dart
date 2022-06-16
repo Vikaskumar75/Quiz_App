@@ -10,19 +10,12 @@ class BackToTopButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      width: 50,
-      decoration: BoxDecoration(
-        gradient: ColorPallet.blueGreyGradient,
-        shape: BoxShape.circle,
-      ),
-      child: GestureDetector(
-        onTap: onTap,
-        child: const Icon(
-          Icons.keyboard_arrow_up_rounded,
-          color: ColorPallet.white,
-        ),
+    return FloatingActionButton(
+      onPressed: onTap,
+      backgroundColor: ColorPallet.white,
+      child: const Icon(
+        Icons.keyboard_arrow_up_rounded,
+        color: ColorPallet.darkBlueGrey,
       ),
     );
   }

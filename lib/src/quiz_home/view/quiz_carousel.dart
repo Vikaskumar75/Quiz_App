@@ -96,60 +96,60 @@ class _Carousel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return CarouselSlider.builder(
-      itemCount: _items.length,
-      options: CarouselOptions(
-        viewportFraction: 1,
-        autoPlay: true,
-        onPageChanged: (int index, _) {
-          ref.read(carouselIndexProvider.notifier).state = index;
-        },
-      ),
-      itemBuilder: (_, int itemIndex, int pageViewIndex) {
-        return Stack(
-          alignment: Alignment.bottomCenter,
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: CarouselSlider.builder(
+        itemCount: _items.length,
+        options: CarouselOptions(
+          viewportFraction: 1,
+          autoPlay: true,
+          autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+          onPageChanged: (int index, _) {
+            ref.read(carouselIndexProvider.notifier).state = index;
+          },
+        ),
+        itemBuilder: (_, int itemIndex, int pageViewIndex) {
+          return Stack(
+            alignment: Alignment.bottomCenter,
+            children: <Widget>[
+              Image.asset(
                 _items[itemIndex].asset,
                 fit: BoxFit.cover,
               ),
-            ),
-            Container(
-              height: double.maxFinite,
-              width: double.maxFinite,
-              alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.only(bottom: 10.toHeight),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: <Color>[
-                    ColorPallet.black.withOpacity(0.9),
-                    ColorPallet.black.withOpacity(0.5),
-                    ColorPallet.black.withOpacity(0.2),
-                  ],
+              Container(
+                height: double.maxFinite,
+                width: double.maxFinite,
+                alignment: Alignment.bottomCenter,
+                padding: EdgeInsets.only(bottom: 10.toHeight),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: <Color>[
+                      ColorPallet.black.withOpacity(0.9),
+                      ColorPallet.black.withOpacity(0.5),
+                      ColorPallet.black.withOpacity(0.2),
+                    ],
+                  ),
                 ),
-              ),
-              child: ListTile(
-                title: Text(
-                  _items[itemIndex].title,
-                  style: CustomTheme.headline6,
-                ),
-                visualDensity: VisualDensity.comfortable,
-                subtitle: Text(
-                  _items[itemIndex].description,
-                  style: CustomTheme.bodyText1.copyWith(
-                    color: ColorPallet.grey,
+                child: ListTile(
+                  title: Text(
+                    _items[itemIndex].title,
+                    style: CustomTheme.headline6,
+                  ),
+                  visualDensity: VisualDensity.comfortable,
+                  subtitle: Text(
+                    _items[itemIndex].description,
+                    style: CustomTheme.bodyText1.copyWith(
+                      color: ColorPallet.grey,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }
