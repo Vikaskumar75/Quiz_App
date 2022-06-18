@@ -16,7 +16,7 @@ class GenericErrorWidget extends StatelessWidget {
       child: Text(
         'Something Went Wrong'
         '${error ?? ''}',
-        style: CustomTheme.headline4,
+        style: CustomTheme.headline6,
       ),
     );
   }

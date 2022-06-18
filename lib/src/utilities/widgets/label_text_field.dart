@@ -64,6 +64,7 @@ class _LabelTextFieldState extends State<LabelTextField> {
           obscureText: widget.obsecure,
           obscuringCharacter: '*',
           validator: widget.validator,
+          cursorColor: ColorPallet.white,
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: CustomTheme.bodyText1.copyWith(

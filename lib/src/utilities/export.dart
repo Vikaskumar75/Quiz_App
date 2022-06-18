@@ -27,6 +27,7 @@ export 'widgets/gradient_background.dart';
 export 'widgets/lazy_loading_text.dart';
 export 'widgets/text_with_leading_icon.dart';
 export 'widgets/label_text_field.dart';
+export 'widgets/snake_loader.dart';
 // Others
 export 'app_error.dart';
 export 'logger.dart';
