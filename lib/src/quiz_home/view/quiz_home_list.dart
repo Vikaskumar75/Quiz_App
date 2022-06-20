@@ -14,14 +14,12 @@ class _QuizHomeList extends ConsumerStatefulWidget {
 class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
   final List<Widget> _listItems = <Widget>[];
   late GlobalKey<SliverAnimatedListState> _listKey;
-  late Tween<Offset> _offset;
   late ScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
     _listKey = GlobalKey<SliverAnimatedListState>();
-    _offset = Tween<Offset>(begin: const Offset(1.0, 0), end: Offset.zero);
 
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       _scrollController = ref.read(scrollControllerProvider);
@@ -35,8 +33,8 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
     return SliverAnimatedList(
       key: _listKey,
       itemBuilder: (_, int index, Animation<double> animation) {
-        return SlideTransition(
-          position: animation.drive(_offset),
+        return FadeTransition(
+          opacity: animation,
           child: GestureDetector(
             onTap: () {
               Navigator.pushNamed(
@@ -53,7 +51,7 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
     );
   }
 
-  Future<void> _addWidgets({int noOfWidgetsToAdd = 8}) async {
+  Future<void> _addWidgets({int noOfWidgetsToAdd = 4}) async {
     final List<Quiz> data = widget.availability.data;
     if (data.isEmpty) return;
     if (_listItems.length == data.length) return;
@@ -61,7 +59,7 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
     final int _length = data.length;
 
     final int _start = _listItems.length;
-    final int _end = _length >= 5 ? _start + noOfWidgetsToAdd : _length;
+    final int _end = _length >= noOfWidgetsToAdd ? _start + noOfWidgetsToAdd : _length;
 
     for (int i = _start; i < _end; i++) {
       if (i >= _length) break;
