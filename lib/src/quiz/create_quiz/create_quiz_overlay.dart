@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/quiz/provider/quiz_overlay_provider.dart';
@@ -19,8 +17,8 @@ class _CreateQuizOverlayState extends ConsumerState<CreateQuizOverlay> {
   final double _radius = 6;
   final double _height = 60;
   final double _width = 20;
-  final double _maximumWidth = 150;
-  final double _thresholdWidth = 120;
+  final double _maximumWidth = 120;
+  final double _thresholdWidth = 80;
   bool _triggerAnimation = false;
 
   @override
@@ -65,7 +63,7 @@ class _CreateQuizOverlayState extends ConsumerState<CreateQuizOverlay> {
             height: heightProvider.toHeight,
             width: widthProvider.toWidth,
             child: const Icon(
-              Icons.arrow_right_sharp,
+              Icons.drag_indicator,
               size: 18,
             ).glassMorphism(),
           ),

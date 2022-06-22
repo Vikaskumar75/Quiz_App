@@ -4,40 +4,15 @@ part of 'quiz_home.dart';
 class _QuizCarousel extends StatelessWidget {
   const _QuizCarousel({Key? key}) : super(key: key);
 
-  static const List<CarouselItems> _items = <CarouselItems>[
-    CarouselItems(
-      title: 'Programming',
-      description:
-          "It's time to test your skills. Try a programming quiz to test yourself",
-      asset: Assets.programming,
-    ),
-    CarouselItems(
-      title: 'Cinematography',
-      description:
-          'Try to answer few questions about cinematogray. This will help you learn new things.',
-      asset: Assets.cinematography,
-    ),
-    CarouselItems(
-      title: 'Music',
-      description: "Love music! It's time learn some facts about it.",
-      asset: Assets.music,
-    ),
-    CarouselItems(
-      title: 'Digital Marketing',
-      description: 'Want to start with marketing. We can help you.',
-      asset: Assets.marketing,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 14.0.toWidth),
       child: Column(
         children: <Widget>[
-          const _Carousel(items: _items),
+          const _Carousel(items: CarouselItems.items),
           SizedBox(height: 10.toHeight),
-          const _CarouselIcons(items: _items)
+          const _CarouselIcons(items: CarouselItems.items)
         ],
       ),
     );

@@ -1,9 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vector_math/vector_math.dart' as vector;
+import 'package:quiz_app/src/quiz_home/provider/carousel_index_provider.dart';
+import 'package:vector_math/vector_math_64.dart' as vector;
+
+import '../export.dart';
 
 class Flipper extends ConsumerStatefulWidget {
   final Widget firstWidget;
@@ -20,48 +22,91 @@ class Flipper extends ConsumerStatefulWidget {
 
 class _FlipperState extends ConsumerState<Flipper>
     with TickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<double> animation;
-  final Tween<double> tween = Tween<double>(begin: 0, end: 180);
+  final int milliseconds = 1000;
+  late AnimationController scaleController;
+  late Animation<double> scaleAnimation;
+  late AnimationController rotateController;
+  late Animation<double> rotateAnimation;
+  final Tween<double> rotateTween = Tween<double>(begin: 0, end: 180);
+  final Tween<double> scaleTween = Tween<double>(begin: 1, end: 0.5);
 
   @override
   void initState() {
-    controller = AnimationController(
+    scaleController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: Duration(milliseconds: (milliseconds / 2).floor()),
     );
-    animation = tween.animate(controller);
+    scaleAnimation = scaleTween.animate(scaleController);
+
+    rotateController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: (milliseconds / 2).floor()),
+    );
+    rotateAnimation = rotateTween.animate(rotateController);
     super.initState();
+  }
+
+  Future<void> animate(bool isForward) async {
+    final Duration waitDuration = Duration(
+      milliseconds: (milliseconds / 2).floor(),
+    );
+
+    if (isForward) {
+      scaleController.forward();
+      await Future<void>.delayed(waitDuration);
+      rotateController.forward();
+      await Future<void>.delayed(waitDuration);
+      scaleController.reverse();
+    } else {
+      scaleController.forward();
+      await Future<void>.delayed(waitDuration);
+      rotateController.reverse();
+      await Future<void>.delayed(waitDuration);
+      scaleController.reverse();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(flipProvider, ((_, bool next) {
-      if (next) {
-        controller.forward();
-      } else {
-        controller.reverse();
-      }
-    }));
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (BuildContext context, Widget? child) {
-        return Transform(
-          transform: Matrix4.identity()
-            ..setEntry(3, 2, 0.001)
-            ..rotateY(vector.radians(animation.value)),
-          alignment: FractionalOffset.center,
-          child: Scaffold(
-            body: animation.value < 90
-                ? widget.firstWidget
-                : Transform(
-                    transform: Matrix4.identity()..rotateY(pi),
-                    alignment: Alignment.center,
-                    child: widget.secondWidget,
-                  ),
+    final int carouselIndex = ref.watch(carouselIndexProvider);
+    ref.listen(flipProvider, (_, bool next) => animate(next));
+    return Stack(
+      children: <Widget>[
+        Image.asset(
+          CarouselItems.items[carouselIndex].asset,
+          height: ScreenScaleFactor.screenHeight,
+          width: ScreenScaleFactor.screenWidth,
+          fit: BoxFit.fill,
+        ),
+        SizedBox(
+          height: ScreenScaleFactor.screenHeight,
+          width: ScreenScaleFactor.screenWidth,
+        ).glassMorphism(),
+        ScaleTransition(
+          scale: scaleAnimation,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: AnimatedBuilder(
+              animation: rotateAnimation,
+              builder: (BuildContext context, Widget? child) {
+                return Transform(
+                  transform: Matrix4.identity()
+                    ..setEntry(2, 2, 0.01)
+                    ..rotateY(vector.radians(rotateAnimation.value)),
+                  alignment: Alignment.center,
+                  child: rotateAnimation.value < 90
+                      ? widget.firstWidget
+                      : Transform(
+                          transform: Matrix4.identity()..rotateY(pi),
+                          alignment: Alignment.center,
+                          child: widget.secondWidget,
+                        ),
+                );
+              },
+            ),
           ),
-        );
-      },
+        ),
+      ],
     );
   }
 }
