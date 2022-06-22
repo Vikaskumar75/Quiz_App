@@ -112,7 +112,7 @@ class AppError extends DioError {
           errorMessage = 'Unable to process data';
           break;
         default:
-          errorMessage = 'Unhandled Exception: ${err.runtimeType}';
+          errorMessage = _misellaneousErrors(err);
       }
     } else {
       switch (err.runtimeType) {
@@ -138,6 +138,14 @@ class AppError extends DioError {
     );
 
     return _appError;
+  }
+
+  static String _misellaneousErrors(DioError err) {
+    if (err.error == 'XMLHttpRequest error.') {
+      return 'Make sure the CORS is enabled for this request';
+    } else {
+      return 'Unhandled Exception: ${err.runtimeType}';
+    }
   }
 
   static String? _serverMessageMapper(Map<String, dynamic>? map) {
