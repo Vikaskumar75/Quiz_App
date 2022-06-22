@@ -6,10 +6,12 @@ class LazyLoadingText extends StatefulWidget {
     Key? key,
     this.style,
     this.duration = const Duration(milliseconds: 500),
+    this.delay = Duration.zero,
   }) : super(key: key);
   final String text;
   final Duration duration;
   final TextStyle? style;
+  final Duration delay;
 
   @override
   State<LazyLoadingText> createState() => _LazyLoadingTextState();
@@ -36,7 +38,7 @@ class _LazyLoadingTextState extends State<LazyLoadingText>
     super.didUpdateWidget(oldWidget);
   }
 
-  void _animate() {
+  Future<void> _animate() async {
     _controller.reset();
     _animation = IntTween(begin: 0, end: widget.text.length).animate(
       CurvedAnimation(
@@ -44,6 +46,7 @@ class _LazyLoadingTextState extends State<LazyLoadingText>
         curve: Curves.easeIn,
       ),
     );
+    await Future<void>.delayed(widget.delay);
     _controller.forward();
   }
 

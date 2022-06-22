@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/src/utilities/export.dart';
 
 class BulletList extends StatelessWidget {
-  const BulletList(this.strings, {Key? key}) : super(key: key);
+  const BulletList(this.strings, {Key? key, this.style}) : super(key: key);
   final List<String> strings;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class BulletList extends StatelessWidget {
                   str,
                   textAlign: TextAlign.left,
                   softWrap: true,
-                  style: CustomTheme.headline6,
+                  style: style ?? CustomTheme.bodyText1,
                 ),
               ),
             ],

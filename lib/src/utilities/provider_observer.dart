@@ -11,7 +11,10 @@ class Observer extends ProviderObserver {
     ProviderContainer container,
   ) {
     // add the providers that you want to ignore from the Observer.
-    final List<dynamic> ignoreList = <dynamic>[StateProvider<int>];
+    final List<dynamic> ignoreList = <dynamic>[
+      StateProvider<int>,
+      StateProvider<double>
+    ];
     if (ignoreList.contains(provider.runtimeType)) return;
     Console.log(
       'provider: ${provider.name ?? provider.runtimeType}\npreiousValue: $previousValue\nnewValue: $newValue',

@@ -20,6 +20,7 @@ abstract class ColorPallet {
   static const Color blueGrey = Colors.blueGrey;
   static const Color darkBlueGrey = Color.fromARGB(255, 27, 45, 54);
   static const Color lightBlueGrey = Color.fromARGB(255, 204, 233, 248);
+  static const Color buttonColor = Color.fromARGB(255, 2, 59, 145);
 
   static final LinearGradient blueGreyGradient = LinearGradient(
     begin: Alignment.centerRight,

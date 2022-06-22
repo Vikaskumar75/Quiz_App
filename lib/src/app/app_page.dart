@@ -20,7 +20,6 @@ class _AppPageState extends State<AppPage> with TickerProviderStateMixin {
         children: <Widget>[
           getInitialScreen(),
           DialogService.instance.widget,
-          const CreateQuizOverlay()
         ],
       ),
     );
@@ -28,12 +27,17 @@ class _AppPageState extends State<AppPage> with TickerProviderStateMixin {
 
   Widget getInitialScreen() {
     if (StorageService.instance.isLoggedIn) {
-      // Here, [Flipper] has the flip animation which switches firstWidget to secondWidget and Vice-versa
-      // This animation is triggered by [CreateQuizOverlay] writtern in create_quiz_overlay.dart.
-      // The provider used to control this animation is flipProvider written in flipper.dart itself.
-      return const Flipper(
-        firstWidget: QuizHome(),
-        secondWidget: QuizForm(),
+      return Stack(
+        children: const <Widget>[
+          // Here, [Flipper] has the flip animation which switches firstWidget to secondWidget and Vice-versa
+          // This animation is triggered by [CreateQuizOverlay] writtern in create_quiz_overlay.dart.
+          // The provider used to control this animation is flipProvider written in flipper.dart itself.
+          Flipper(
+            firstWidget: QuizHome(),
+            secondWidget: QuizForm(),
+          ),
+          CreateQuizOverlay(),
+        ],
       );
     }
     return const AuthenticationScreen();

@@ -22,7 +22,7 @@ class Flipper extends ConsumerStatefulWidget {
 
 class _FlipperState extends ConsumerState<Flipper>
     with TickerProviderStateMixin {
-  final int milliseconds = 1000;
+  final int milliseconds = 800;
   late AnimationController scaleController;
   late Animation<double> scaleAnimation;
   late AnimationController rotateController;
@@ -36,13 +36,17 @@ class _FlipperState extends ConsumerState<Flipper>
       vsync: this,
       duration: Duration(milliseconds: (milliseconds / 2).floor()),
     );
-    scaleAnimation = scaleTween.animate(scaleController);
+    scaleAnimation = scaleTween.animate(
+      CurvedAnimation(parent: scaleController, curve: Curves.linearToEaseOut),
+    );
 
     rotateController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: (milliseconds / 2).floor()),
     );
-    rotateAnimation = rotateTween.animate(rotateController);
+    rotateAnimation = rotateTween.animate(
+      CurvedAnimation(parent: rotateController, curve: Curves.linearToEaseOut),
+    );
     super.initState();
   }
 

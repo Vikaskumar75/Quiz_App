@@ -34,3 +34,4 @@ export 'widgets/label_text_field.dart';
 export 'widgets/lazy_loading_text.dart';
 export 'widgets/snake_loader.dart';
 export 'widgets/text_with_leading_icon.dart';
+export 'widgets/common_button.dart';

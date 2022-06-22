@@ -54,7 +54,7 @@ class Category {
         name: json['name'],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => <String,dynamic>{
         '_id': id,
         'name': name,
       };

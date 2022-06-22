@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_app/src/quiz/provider/quiz_overlay_provider.dart';
 
-import '../../utilities/export.dart';
+part of 'quiz_form.dart';
 
 class CreateQuizOverlay extends ConsumerStatefulWidget {
   const CreateQuizOverlay({
@@ -60,6 +57,7 @@ class _CreateQuizOverlayState extends ConsumerState<CreateQuizOverlay> {
           ),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
+            curve: Curves.linearToEaseOut,
             height: heightProvider.toHeight,
             width: widthProvider.toWidth,
             child: const Icon(

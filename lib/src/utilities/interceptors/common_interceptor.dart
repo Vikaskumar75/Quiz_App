@@ -12,6 +12,7 @@ class CommonInterceptor extends Interceptor {
         textColor: ColorPallet.orange,
         autoHide: false,
       );
+      // Todo: implement retry request feature.
       return;
     }
     final AppError error = AppError.createError(err);
