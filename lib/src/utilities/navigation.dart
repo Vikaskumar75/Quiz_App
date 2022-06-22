@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/src/app/app_page.dart';
+import 'package:quiz_app/src/quiz/create_quiz/quiz_form.dart';
 import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
 
 import '../authentication/view/authentication_screen.dart';
-import '../quiz_detail/view/quiz_detail.dart';
+import '../quiz/quiz_detail/view/quiz_detail.dart';
 import '../quiz_home/view/quiz_home.dart';
 
 class Navigation extends NavigatorObserver {
@@ -13,6 +14,7 @@ class Navigation extends NavigatorObserver {
   static const String authScreen = '/login';
   static const String quizHome = '/quiz-home';
   static const String quizDetails = '/quiz-details';
+  static const String quizForm = '/quiz-form';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -36,6 +38,11 @@ class Navigation extends NavigatorObserver {
           child: QuizDetails(
             quiz: settings.arguments as Quiz,
           ),
+          routeName: settings.name!,
+        );
+      case quizForm:
+        return _GenerateRoute(
+          child: const QuizForm(),
           routeName: settings.name!,
         );
       default:

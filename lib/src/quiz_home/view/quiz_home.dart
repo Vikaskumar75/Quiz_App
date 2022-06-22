@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/quiz_home/provider/availability_provider.dart';
 import 'package:quiz_app/src/quiz_home/provider/carousel_index_provider.dart';
 import 'package:quiz_app/src/quiz_home/provider/category_provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../utilities/export.dart';
 import '../provider/scroll_to_top_provider.dart';
@@ -52,7 +51,9 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
           const SliverToBoxAdapter(child: _QuizCategory()),
           const SliverToBoxAdapter(child: SizedBox(height: 10)),
           availability.when(
-            data: (QuizAvailability data) => _QuizHomeList(availability: data),
+            data: (QuizAvailability data) {
+              return _QuizHomeList(availability: data);
+            },
             loading: () => const _QuizHomeLoader(),
             error: (Object e, StackTrace? stack) {
               return const SliverToBoxAdapter(
