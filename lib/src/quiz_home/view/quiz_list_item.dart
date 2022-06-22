@@ -29,9 +29,7 @@ class _QuizListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   ShaderMask(
-                    shaderCallback: (Rect rect) {
-                      return ColorPallet.blueGreyGradient.createShader(rect);
-                    },
+                    shaderCallback: (_) => ColorPallet.quizListItemTitleShader,
                     child: Text(
                       quiz.name,
                       style: TextStyle(fontSize: 19.toFont),
@@ -61,14 +59,9 @@ class _QuizListItem extends StatelessWidget {
                       Icons.star,
                       color: ColorPallet.golden,
                     ),
-                    ShaderMask(
-                      shaderCallback: (Rect rect) {
-                        return ColorPallet.blueGreyGradient.createShader(rect);
-                      },
-                      child: Text(
-                        quiz.starRating.toString(),
-                        style: TextStyle(fontSize: 19.toFont),
-                      ),
+                    Text(
+                      quiz.starRating.toString(),
+                      style: TextStyle(fontSize: 19.toFont),
                     )
                   ],
                 ),

@@ -16,7 +16,7 @@ class AvailabilityRepository implements AvailabilityService {
 
   @override
   Future<QuizAvailability> fetchAvailability() async {
-    await Future<void>.delayed(const Duration(seconds: 3));
+    await Future<void>.delayed(const Duration(seconds: 2));
     final String response = await rootBundle.loadString(
       'data/availability.json',
     );

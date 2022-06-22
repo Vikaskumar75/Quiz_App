@@ -7,8 +7,8 @@ class TextWithLeadingIcon extends StatelessWidget {
     Key? key,
     required this.text,
     required this.icon,
-    this.iconColor = ColorPallet.grey,
-    this.textColor = ColorPallet.grey,
+    this.iconColor = ColorPallet.extraLightGrey,
+    this.textColor = ColorPallet.extraLightGrey,
     this.iconSize = 20,
     this.textSize,
   }) : super(key: key);

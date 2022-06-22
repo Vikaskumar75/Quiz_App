@@ -59,12 +59,13 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
     final int _length = data.length;
 
     final int _start = _listItems.length;
-    final int _end = _length >= noOfWidgetsToAdd ? _start + noOfWidgetsToAdd : _length;
+    final int _end =
+        _length >= noOfWidgetsToAdd ? _start + noOfWidgetsToAdd : _length;
 
     for (int i = _start; i < _end; i++) {
       if (i >= _length) break;
       _listItems.insert(i, _QuizListItem(quiz: data[i]));
-      await Future<void>.delayed(const Duration(milliseconds: 5));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
       _listKey.currentState!.insertItem(i);
     }
   }

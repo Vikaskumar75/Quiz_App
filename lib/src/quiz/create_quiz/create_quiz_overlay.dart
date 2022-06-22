@@ -17,7 +17,6 @@ class CreateQuizOverlay extends ConsumerStatefulWidget {
 
 class _CreateQuizOverlayState extends ConsumerState<CreateQuizOverlay> {
   final double _radius = 6;
-  final double _sigma = 16;
   final double _height = 60;
   final double _width = 20;
   final double _maximumWidth = 150;
@@ -61,18 +60,14 @@ class _CreateQuizOverlayState extends ConsumerState<CreateQuizOverlay> {
             topRight: Radius.circular(_radius),
             bottomRight: Radius.circular(_radius),
           ),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: _sigma, sigmaY: _sigma),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              height: heightProvider.toHeight,
-              width: widthProvider.toWidth,
-              color: Colors.grey.shade400.withOpacity(0.2),
-              child: const Icon(
-                Icons.arrow_right_sharp,
-                size: 18,
-              ),
-            ),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            height: heightProvider.toHeight,
+            width: widthProvider.toWidth,
+            child: const Icon(
+              Icons.arrow_right_sharp,
+              size: 18,
+            ).glassMorphism(),
           ),
         ),
       ),

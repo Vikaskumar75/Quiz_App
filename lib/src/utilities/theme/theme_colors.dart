@@ -46,6 +46,14 @@ abstract class ColorPallet {
         Color(0xffE9A0FE),
       ],
     ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
+  static final Shader quizListItemTitleShader = LinearGradient(
+    colors: <Color>[
+      ColorPallet.white,
+      ColorPallet.white.withOpacity(0.8),
+      ColorPallet.white.withOpacity(0.5)
+    ],
+  ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 }
 
 class DarkPallet with ColorPallet {
@@ -56,7 +64,7 @@ class DarkPallet with ColorPallet {
   Color get accentColor => Colors.blue.shade700;
 
   @override
-  Color get scaffoldColor => ColorPallet.darkBlueGrey.withOpacity(0.98);
+  Color get scaffoldColor => ColorPallet.darkBlueGrey;
 }
 
 class LightPallet with ColorPallet {

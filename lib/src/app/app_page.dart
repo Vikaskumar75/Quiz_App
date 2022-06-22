@@ -16,7 +16,6 @@ class _AppPageState extends State<AppPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorPallet.black,
       body: Stack(
         children: <Widget>[
           getInitialScreen(),
