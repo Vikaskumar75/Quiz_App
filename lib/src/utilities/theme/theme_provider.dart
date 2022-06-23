@@ -19,6 +19,11 @@ class CustomTheme extends StateNotifier<ThemeMode> {
     brightness: Brightness.dark,
     primaryColor: _darkPallet.primaryColor,
     scaffoldBackgroundColor: _darkPallet.scaffoldColor,
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: ColorPallet.grey.withOpacity(0.4),
+      cursorColor: ColorPallet.white,
+      selectionHandleColor: ColorPallet.white,
+    ),
     colorScheme: ColorScheme.dark(
       primary: _darkPallet.primaryColor,
       secondary: _darkPallet.accentColor,
@@ -31,6 +36,11 @@ class CustomTheme extends StateNotifier<ThemeMode> {
     brightness: Brightness.light,
     primaryColor: _lightPallet.primaryColor,
     scaffoldBackgroundColor: _lightPallet.scaffoldColor,
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: ColorPallet.black.withOpacity(0.4),
+      cursorColor: ColorPallet.white,
+      selectionHandleColor: ColorPallet.white,
+    ),
     colorScheme: ColorScheme.light(
       primary: _lightPallet.primaryColor,
       secondary: _lightPallet.accentColor,

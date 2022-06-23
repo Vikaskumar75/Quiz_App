@@ -12,6 +12,7 @@ class LabelTextField extends StatefulWidget {
     this.obsecure = false,
     this.showLoader = false,
     this.validator,
+    this.autofocus = false,
     required this.controller,
   }) : super(key: key);
 
@@ -22,6 +23,7 @@ class LabelTextField extends StatefulWidget {
   final bool obsecure;
   final String? Function(String?)? validator;
   final bool showLoader;
+  final bool autofocus;
 
   @override
   State<LabelTextField> createState() => _LabelTextFieldState();
@@ -46,6 +48,7 @@ class _LabelTextFieldState extends State<LabelTextField> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Text(
           widget.labelText ?? '',
@@ -65,6 +68,7 @@ class _LabelTextFieldState extends State<LabelTextField> {
           obscuringCharacter: '*',
           validator: widget.validator,
           cursorColor: ColorPallet.white,
+          autofocus: widget.autofocus,
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: CustomTheme.bodyText1.copyWith(

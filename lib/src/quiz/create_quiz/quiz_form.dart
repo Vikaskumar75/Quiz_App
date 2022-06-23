@@ -1,25 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/quiz/provider/quiz_creation_provider.dart';
 import 'package:quiz_app/src/utilities/export.dart';
 
 import '../provider/quiz_overlay_provider.dart';
 
+part 'progress_bar.dart';
+part 'quiz_creation_overlay.dart';
+part 'quiz_creation_pageview.dart';
 part 'quiz_form_intro.dart';
-part 'create_quiz_overlay.dart';
-class QuizForm extends StatefulWidget {
+part 'quiz_title.dart';
+
+class QuizForm extends ConsumerStatefulWidget {
   const QuizForm({Key? key}) : super(key: key);
 
   @override
-  State<QuizForm> createState() => _QuizFormState();
+  ConsumerState<QuizForm> createState() => _QuizFormState();
 }
 
-class _QuizFormState extends State<QuizForm> {
+class _QuizFormState extends ConsumerState<QuizForm>
+    with TickerProviderStateMixin {
+  final Offset initialOffset = Offset.zero;
+  final Offset endOffset = const Offset(-1, 0);
+
+  late AnimationController controller;
+  late Animation<Offset> animation;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+
+    animation = Tween<Offset>(
+      begin: initialOffset,
+      end: endOffset,
+    ).animate(
+      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
+    );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: _QuizFormIntro(),
+    final QuizCreationState state = ref.watch(quizCreationProvider);
+    return Scaffold(
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 600),
+        child: (state == QuizCreationState.quizIntroInitial)
+            ? SlideTransition(
+                position: animation,
+                child: _QuizFormIntro(
+                  onGettingStarted: () {
+                    controller.forward();
+                    ref.read(quizCreationProvider.notifier).createNewQuiz();
+                  },
+                ),
+              )
+            : const _QuizCreationPageView(),
+      ),
     );
   }
 }
-
-

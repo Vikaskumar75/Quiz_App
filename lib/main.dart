@@ -28,13 +28,3 @@ Future<void> main() async {
     ),
   );
 }
-
-
-
-//! Things to do
-// register
-// login
-// make a logger
-// interceptors
-// Error handler
-//? dialog service
