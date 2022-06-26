@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_app/src/quiz_home/provider/carousel_index_provider.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
+import '../../quiz/provider/carousel_index_provider.dart';
 import '../export.dart';
 
 class Flipper extends ConsumerStatefulWidget {

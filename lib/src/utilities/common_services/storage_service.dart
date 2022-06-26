@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:quiz_app/src/authentication/repository/authentication_repo.dart';
-import 'package:quiz_app/src/utilities/export.dart';
+import '../../authentication/repository/authentication_repo.dart';
+import '../export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {

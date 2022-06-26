@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:quiz_app/src/utilities/export.dart';
+import 'export.dart';
 
 class InternetConnectivity {
   InternetConnectivity._();

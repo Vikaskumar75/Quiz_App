@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/src/app/app_page.dart';
-import 'package:quiz_app/src/quiz/create_quiz/quiz_form.dart';
-import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
+import '../app/app_page.dart';
+import '../quiz/create_quiz/quiz_form.dart';
+
 
 import '../authentication/view/authentication_screen.dart';
 import '../quiz/quiz_detail/view/quiz_detail.dart';
-import '../quiz_home/view/quiz_home.dart';
+import '../quiz/quiz_home/repository/availability_repo.dart';
+import '../quiz/quiz_home/view/quiz_home.dart';
+
 
 class Navigation extends NavigatorObserver {
   static List<Route<dynamic>> routeStack = <Route<dynamic>>[];

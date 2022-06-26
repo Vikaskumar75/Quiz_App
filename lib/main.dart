@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_app/src/authentication/repository/authentication_repo.dart';
-import 'package:quiz_app/src/quiz_home/repository/availability_repo.dart';
+import 'src/authentication/repository/authentication_repo.dart';
 
 import 'src/app/app.dart';
 import 'src/app/app_service.dart';
+import 'src/quiz/quiz_home/repository/availability_repo.dart';
 import 'src/utilities/export.dart';
 
 Future<void> main() async {

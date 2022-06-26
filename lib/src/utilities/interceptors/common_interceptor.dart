@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:quiz_app/src/utilities/export.dart';
+import '../export.dart';
 
 class CommonInterceptor extends Interceptor {
   @override

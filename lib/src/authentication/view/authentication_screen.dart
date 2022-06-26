@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-import 'package:quiz_app/src/authentication/provider/authentication_provider.dart';
+import '../provider/authentication_provider.dart';
 
 import '../../utilities/export.dart';
 

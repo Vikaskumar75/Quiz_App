@@ -11,6 +11,7 @@ class _QuizCreationPageView extends ConsumerStatefulWidget {
 class __QuizCreationPageViewState extends ConsumerState<_QuizCreationPageView> {
   final List<Widget> screens = <Widget>[
     const _QuizTitle(),
+    const _QuizCategory(),
   ];
   @override
   Widget build(BuildContext context) {

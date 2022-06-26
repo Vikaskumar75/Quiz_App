@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:quiz_app/src/utilities/interceptors/common_interceptor.dart';
+import '../interceptors/common_interceptor.dart';
 
 class ApiClient {
   ApiClient._();

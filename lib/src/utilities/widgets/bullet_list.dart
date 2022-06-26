@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/src/utilities/export.dart';
+import '../export.dart';
 
 class BulletList extends StatelessWidget {
   const BulletList(this.strings, {Key? key, this.style}) : super(key: key);
