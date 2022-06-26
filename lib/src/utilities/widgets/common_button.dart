@@ -17,7 +17,7 @@ class CommonButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        primary: ColorPallet.buttonColor,
+        primary: ColorPallet.darkBlue,
       ),
       child: Text(
         text,
