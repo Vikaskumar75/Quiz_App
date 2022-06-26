@@ -23,7 +23,7 @@ class _QuizTitle extends ConsumerWidget {
           },
           onNext: () {
             if (formKey.currentState!.validate()) {
-              ref.read(pageIndexProvider.notifier).state++;
+              ref.read(quizPageIndexProvider.notifier).state++;
             }
           },
         ),

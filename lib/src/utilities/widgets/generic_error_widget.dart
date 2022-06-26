@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/utilities/app_error.dart';
 import '../theme/theme_provider.dart';
 
 class GenericErrorWidget extends StatelessWidget {
@@ -7,7 +8,7 @@ class GenericErrorWidget extends StatelessWidget {
     this.error,
     this.stack,
   }) : super(key: key);
-  final Object? error;
+  final AppError? error;
   final StackTrace? stack;
 
   @override

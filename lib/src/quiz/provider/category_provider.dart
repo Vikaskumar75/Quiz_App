@@ -5,6 +5,7 @@ import 'package:quiz_app/src/utilities/app_error.dart';
 import '../../app/app_service.dart';
 import '../quiz_home/repository/availability_repo.dart';
 
+// ignore: always_specify_types
 final categoryProvider = StateNotifierProvider<CategoryProvider, CategoryState>(
   (_) => CategoryProvider(),
 );
@@ -25,7 +26,7 @@ class CategoryProvider extends StateNotifier<CategoryState> {
 
 abstract class CategoryState extends Equatable {
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class CategoryInitial extends CategoryState {}
@@ -38,7 +39,7 @@ class CategoryError extends CategoryState {
   CategoryError(this.error);
 
   @override
-  List<Object?> get props => [error];
+  List<AppError> get props => <AppError>[error];
 }
 
 class CategorySuccess extends CategoryState {
@@ -47,5 +48,5 @@ class CategorySuccess extends CategoryState {
   CategorySuccess(this.data);
 
   @override
-  List<Object?> get props => [data];
+  List<CategoriesModel> get props => <CategoriesModel>[data];
 }

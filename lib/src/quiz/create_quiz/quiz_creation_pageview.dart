@@ -25,21 +25,18 @@ class __QuizCreationPageViewState extends ConsumerState<_QuizCreationPageView> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(pageIndexProvider, pageIndexChangeListener);
+    ref.listen(quizPageIndexProvider, pageIndexChangeListener);
     return Scaffold(
-      body: Form(
-        key: ref.read(quizCreationFormKeyProvider),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.0.toWidth),
-          child: Stack(
-            children: <Widget>[
-              const _ProgressBar(),
-              PageView(
-                controller: controller,
-                physics: const NeverScrollableScrollPhysics(),
-                children: screens,
-              ),
-            ],
+      body: SafeArea(
+        child: Form(
+          key: ref.read(quizCreationFormKeyProvider),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14.0.toWidth),
+            child: PageView(
+              controller: controller,
+              physics: const NeverScrollableScrollPhysics(),
+              children: screens,
+            ),
           ),
         ),
       ),
