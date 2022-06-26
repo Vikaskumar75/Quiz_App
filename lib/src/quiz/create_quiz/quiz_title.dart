@@ -22,7 +22,9 @@ class _QuizTitle extends ConsumerWidget {
             return null;
           },
           onNext: () {
-            if (formKey.currentState!.validate()) {}
+            if (formKey.currentState!.validate()) {
+              ref.read(pageIndexProvider.notifier).state++;
+            }
           },
         ),
         SizedBox(height: 10.toHeight),

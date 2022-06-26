@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/authentication/provider/authentication_provider.dart';
 import '../provider/quiz_creation_provider.dart';
 import '../../utilities/export.dart';
 
