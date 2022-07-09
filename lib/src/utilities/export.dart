@@ -36,3 +36,5 @@ export 'widgets/snake_loader.dart';
 export 'widgets/text_with_leading_icon.dart';
 export 'widgets/common_button.dart';
 export 'widgets/custom_action_chip.dart';
+export 'widgets/drag_switch.dart';
+

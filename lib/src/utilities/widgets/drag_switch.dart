@@ -1,16 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-part of 'quiz_form.dart';
+import '../export.dart';
 
-class CreateQuizOverlay extends ConsumerStatefulWidget {
-  const CreateQuizOverlay({
+class DragSwitch extends ConsumerStatefulWidget {
+  const DragSwitch({
     Key? key,
   }) : super(key: key);
 
   @override
-  ConsumerState<CreateQuizOverlay> createState() => _CreateQuizOverlayState();
+  ConsumerState<DragSwitch> createState() => _CreateQuizOverlayState();
 }
 
-class _CreateQuizOverlayState extends ConsumerState<CreateQuizOverlay> {
+class _CreateQuizOverlayState extends ConsumerState<DragSwitch> {
   final double _radius = 6;
   final double _height = 60;
   final double _width = 20;
@@ -70,3 +72,13 @@ class _CreateQuizOverlayState extends ConsumerState<CreateQuizOverlay> {
     );
   }
 }
+
+final StateProviderFamily<double, double> overlayWidthProvider =
+    StateProvider.family<double, double>((_, double width) {
+  return width;
+});
+
+final StateProviderFamily<double, double> overlayHeightProvider =
+    StateProvider.family<double, double>((_, double height) {
+  return height;
+});
