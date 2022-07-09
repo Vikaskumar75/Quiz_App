@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/utilities/export.dart';
@@ -7,7 +8,6 @@ import '../../provider/quiz_creation_provider.dart';
 import '../../repository/availability_repo.dart';
 
 part 'no_of_question.dart';
-part 'progress_bar.dart';
 part 'quiz_category_selection.dart';
 part 'quiz_creation_pageview.dart';
 part 'quiz_form_intro.dart';

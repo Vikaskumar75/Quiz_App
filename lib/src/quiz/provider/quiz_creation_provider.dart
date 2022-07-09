@@ -21,10 +21,8 @@ final quizCreationPageControllerProvider = Provider.autoDispose(
   },
 );
 
-final quizCreationProvider =
-    StateNotifierProvider<QuizCreationProvider, QuizCreationState>(
-  (_) => QuizCreationProvider(),
-);
+// This will determine how many questions will a quiz have while creating it.
+final StateProvider<int> noOfquestionsProvider = StateProvider<int>((_) => 2);
 
 final selectedCategoryProvider =
     StateNotifierProvider<SelectCategoryProvider, List<Category>>(
@@ -51,7 +49,10 @@ class SelectCategoryProvider extends StateNotifier<List<Category>> {
   }
 }
 
-enum QuizCreationState { quizIntroInitial, quizCreationInitial }
+final quizCreationProvider =
+    StateNotifierProvider<QuizCreationProvider, QuizCreationState>(
+  (_) => QuizCreationProvider(),
+);
 
 class QuizCreationProvider extends StateNotifier<QuizCreationState> {
   QuizCreationProvider() : super(QuizCreationState.quizIntroInitial);
@@ -60,3 +61,5 @@ class QuizCreationProvider extends StateNotifier<QuizCreationState> {
     state = QuizCreationState.quizCreationInitial;
   }
 }
+
+enum QuizCreationState { quizIntroInitial, quizCreationInitial }

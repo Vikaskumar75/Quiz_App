@@ -102,7 +102,7 @@ class _SignupHeader extends StatelessWidget {
         SizedBox(height: 30.toHeight),
         LazyLoadingText(
           'Welcome, Onboard',
-          style: CustomTheme.headline4.copyWith(color: ColorPallet.white),
+          style: CustomTheme.headline4,
         ),
       ],
     );
