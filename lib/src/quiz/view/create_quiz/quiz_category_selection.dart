@@ -39,6 +39,7 @@ class _QuizCategoryState extends ConsumerState<_QuizCategory> {
         CommonButton(
           text: 'Next',
           width: double.maxFinite,
+          enable: selectedCategory.isNotEmpty,
           onTap: () {
             ref.read(quizPageIndexProvider.notifier).state++;
           },
@@ -113,7 +114,8 @@ class _QuizCategorySelectionList extends ConsumerWidget {
                           dividerColor: ColorPallet.grey,
                           onTap: () {
                             ref.read(selectedCategoryProvider.notifier).add(
-                                state.data.categoriesData.categories[index]);
+                                  state.data.categoriesData.categories[index],
+                                );
                           },
                         ),
                       );

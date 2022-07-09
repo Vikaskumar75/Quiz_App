@@ -11,6 +11,7 @@ class CommonButton extends StatelessWidget {
     this.radius,
     this.width,
     this.height,
+    this.enable = true,
   }) : super(key: key);
 
   final VoidCallback onTap;
@@ -19,11 +20,12 @@ class CommonButton extends StatelessWidget {
   final double? radius;
   final double? width;
   final double? height;
+  final bool enable;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onTap,
+      onPressed: enable ? onTap : null,
       style: ElevatedButton.styleFrom(
         primary: ColorPallet.darkBlue,
         shape: RoundedRectangleBorder(
