@@ -10,7 +10,7 @@ class CommonInterceptor extends Interceptor {
       DialogService.instance.showDialog(
         message: Strings.internetError,
         textColor: ColorPallet.orange,
-        autoHide: false,
+        autoHide: true,
       );
       // Todo: implement retry request feature.
       return;

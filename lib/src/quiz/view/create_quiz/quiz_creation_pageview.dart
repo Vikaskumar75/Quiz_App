@@ -9,10 +9,11 @@ class _QuizCreationPageView extends ConsumerStatefulWidget {
 }
 
 class __QuizCreationPageViewState extends ConsumerState<_QuizCreationPageView> {
-  final PageController controller = PageController();
+  late PageController controller;
   final List<Widget> screens = <Widget>[
     const _QuizTitle(),
     const _QuizCategory(),
+    const _NoOfQuestions(),
   ];
 
   void pageIndexChangeListener(int? previous, int next) {
@@ -26,6 +27,7 @@ class __QuizCreationPageViewState extends ConsumerState<_QuizCreationPageView> {
   @override
   Widget build(BuildContext context) {
     ref.listen(quizPageIndexProvider, pageIndexChangeListener);
+    controller = ref.read(quizCreationPageControllerProvider);
     return Scaffold(
       body: SafeArea(
         child: Form(
@@ -41,11 +43,5 @@ class __QuizCreationPageViewState extends ConsumerState<_QuizCreationPageView> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
   }
 }

@@ -3,7 +3,6 @@ import '../authentication/view/authentication_screen.dart';
 
 import '../../src/utilities/export.dart';
 import '../quiz/export.dart';
-import '../quiz/quiz_home/view/quiz_home.dart';
 
 class AppPage extends StatefulWidget {
   const AppPage({Key? key}) : super(key: key);

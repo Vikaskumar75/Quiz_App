@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_app/src/quiz/quiz_home/repository/availability_repo.dart';
+import 'package:quiz_app/src/utilities/export.dart';
 
-import '../../utilities/export.dart';
-import '../provider/category_provider.dart';
-import '../provider/quiz_creation_provider.dart';
-import '../provider/quiz_overlay_provider.dart';
+import '../../provider/category_provider.dart';
+import '../../provider/quiz_creation_provider.dart';
+import '../../provider/quiz_overlay_provider.dart';
+import '../../repository/availability_repo.dart';
 
+part 'no_of_question.dart';
 part 'progress_bar.dart';
 part 'quiz_category_selection.dart';
 part 'quiz_creation_overlay.dart';

@@ -29,7 +29,7 @@ class _QuizCategory extends ConsumerWidget {
 
             return Chip(
               backgroundColor: isSelected
-                  ? ColorPallet.darkGolden
+                  ? ColorPallet.darkBlue
                   : ColorPallet.grey.withOpacity(0.5),
               label: Text(
                 state.data.categoriesData.categories[index].name.capitalize(),

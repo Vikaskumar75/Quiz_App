@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
-import '../../../utilities/export.dart';
+import '../../utilities/export.dart';
+
+
 
 part 'availability_service.dart';
 part 'models/availability_model.dart';

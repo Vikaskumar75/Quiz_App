@@ -4,8 +4,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:quiz_app/src/app/app_service.dart';
 import 'package:quiz_app/src/authentication/view/authentication_screen.dart';
-import 'package:quiz_app/src/quiz/quiz_home/repository/availability_repo.dart';
-import 'package:quiz_app/src/quiz/quiz_home/view/quiz_home.dart';
+import 'package:quiz_app/src/quiz/export.dart';
+
+import 'package:quiz_app/src/quiz/repository/availability_repo.dart';
 
 
 void main() {

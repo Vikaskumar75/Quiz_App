@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/app_service.dart';
-import '../quiz_home/repository/availability_repo.dart';
+import '../repository/availability_repo.dart';
+
 
 // ignore: always_specify_types
 final availabilityProvider = FutureProvider<QuizAvailability>((_) async {

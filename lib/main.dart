@@ -4,7 +4,8 @@ import 'src/authentication/repository/authentication_repo.dart';
 
 import 'src/app/app.dart';
 import 'src/app/app_service.dart';
-import 'src/quiz/quiz_home/repository/availability_repo.dart';
+
+import 'src/quiz/repository/availability_repo.dart';
 import 'src/utilities/export.dart';
 
 Future<void> main() async {

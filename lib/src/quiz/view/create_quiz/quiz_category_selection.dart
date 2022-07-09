@@ -30,11 +30,19 @@ class _QuizCategoryState extends ConsumerState<_QuizCategory> {
         LabelTextField(
           controller: controller,
           hintText: 'Ex: TV Series',
-          labelText: 'Categories',
+          labelText: 'Search for Category',
           autofocus: true,
         ),
         SizedBox(height: 30.toHeight),
         const _QuizCategorySelectionList(),
+        SizedBox(height: 20.toHeight),
+        CommonButton(
+          text: 'Next',
+          width: double.maxFinite,
+          onTap: () {
+            ref.read(quizPageIndexProvider.notifier).state++;
+          },
+        ),
       ],
     );
   }
@@ -78,42 +86,54 @@ class _QuizCategorySelectionList extends ConsumerWidget {
     final List<Category> selectedCategory = ref.watch(selectedCategoryProvider);
 
     if (state is CategorySuccess) {
-      return Wrap(
-        children: List<Widget>.generate(
-          state.data.categoriesData.categories.length,
-          (int index) {
-            final bool isSelected = selectedCategory.contains(
-              state.data.categoriesData.categories[index],
-            );
-            return isSelected
-                ? const SizedBox.shrink()
-                : Padding(
-                    padding: EdgeInsets.only(
-                      right: 10.0.toWidth,
-                      bottom: 10.toHeight,
-                    ),
-                    child: CustomActionChip(
-                      label: state.data.categoriesData.categories[index].name
-                          .capitalize(),
-                      actionIcon: Icons.add,
-                      backgroundColor: ColorPallet.white,
-                      labelColor: ColorPallet.black,
-                      actionIconColor: ColorPallet.black,
-                      dividerColor: ColorPallet.grey,
-                      onTap: () {
-                        ref
-                            .read(selectedCategoryProvider.notifier)
-                            .add(state.data.categoriesData.categories[index]);
-                      },
-                    ),
-                  );
-          },
+      return Expanded(
+        child: SingleChildScrollView(
+          child: Wrap(
+            children: List<Widget>.generate(
+              state.data.categoriesData.categories.length,
+              (int index) {
+                final bool isSelected = selectedCategory.contains(
+                  state.data.categoriesData.categories[index],
+                );
+                return isSelected
+                    ? const SizedBox.shrink()
+                    : Padding(
+                        padding: EdgeInsets.only(
+                          right: 10.0.toWidth,
+                          bottom: 10.toHeight,
+                        ),
+                        child: CustomActionChip(
+                          label: state
+                              .data.categoriesData.categories[index].name
+                              .capitalize(),
+                          actionIcon: Icons.add,
+                          backgroundColor: ColorPallet.white,
+                          labelColor: ColorPallet.black,
+                          actionIconColor: ColorPallet.black,
+                          dividerColor: ColorPallet.grey,
+                          onTap: () {
+                            ref.read(selectedCategoryProvider.notifier).add(
+                                state.data.categoriesData.categories[index]);
+                          },
+                        ),
+                      );
+              },
+            ),
+          ),
         ),
       );
     } else if (state is CategoryError) {
       return GenericErrorWidget(error: state.error);
     } else {
-      return const LinearProgressIndicator();
+      return const Expanded(
+        child: Center(
+          child: CircularProgressIndicator(
+            color: ColorPallet.darkBlue,
+            strokeWidth: 2,
+            backgroundColor: ColorPallet.white,
+          ),
+        ),
+      );
     }
   }
 }
