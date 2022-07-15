@@ -23,6 +23,8 @@ class _QuizQuestionsState extends ConsumerState<_QuizQuestions> {
   @override
   Widget build(BuildContext context) {
     final int noOfQuestions = ref.watch(noOfQuestionsProvider);
+    final int currentQuestion = ref.watch(currentQuestionProvider);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -39,20 +41,14 @@ class _QuizQuestionsState extends ConsumerState<_QuizQuestions> {
         Expanded(
           child: PageView.builder(
             controller: _pageController,
-            padEnds: false,
+            padEnds: currentQuestion >= (noOfQuestions - 1),
             scrollDirection: Axis.vertical,
             itemCount: noOfQuestions,
+            itemBuilder: (_, int index) => _AddQuestionCard(
+              hasFocus: index == currentQuestion,
+            ),
             onPageChanged: (int index) {
               ref.read(currentQuestionProvider.notifier).state = index;
-            },
-            itemBuilder: (_, int index) {
-              return Container(
-                color: index % 2 == 0 ? ColorPallet.green : Colors.yellow,
-                child: Text(
-                  'Title $index',
-                  style: CustomTheme.headline4,
-                ),
-              );
             },
           ),
         ),
@@ -78,7 +74,7 @@ class _ProgressTrail extends ConsumerWidget {
             return Expanded(
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInToLinear,
+                curve: Curves.easeInOutCubic,
                 height: 4.toHeight,
                 margin: EdgeInsets.only(right: 2.toWidth),
                 decoration: BoxDecoration(

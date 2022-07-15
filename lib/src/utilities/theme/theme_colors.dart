@@ -48,6 +48,22 @@ abstract class ColorPallet {
       ],
     ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
+  static final Paint whiteTextStyleForeground = Paint()
+    ..shader = LinearGradient(
+      colors: <Color>[
+        ColorPallet.white.withOpacity(0.4),
+        ColorPallet.white.withOpacity(0.4),
+      ],
+    ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
+  static final Paint lightWhiteTextStyleForeground = Paint()
+    ..shader = LinearGradient(
+      colors: <Color>[
+        ColorPallet.white.withOpacity(0.2),
+        ColorPallet.white.withOpacity(0.2),
+      ],
+    ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+
   static final Shader quizListItemTitleShader = LinearGradient(
     colors: <Color>[
       ColorPallet.white,

@@ -7,6 +7,7 @@ import '../../provider/category_provider.dart';
 import '../../provider/quiz_creation_provider.dart';
 import '../../repository/availability_repo.dart';
 
+part 'add_question_card.dart';
 part 'no_of_question.dart';
 part 'quiz_category_selection.dart';
 part 'quiz_creation_pageview.dart';
