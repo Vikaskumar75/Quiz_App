@@ -42,7 +42,7 @@ class _NumberCarousel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(
       builder: (_, WidgetRef ref, Widget? child) {
-        final int noOfQuestion = ref.watch(noOfquestionsProvider);
+        final int noOfQuestion = ref.watch(noOfQuestionsProvider);
         return CarouselSlider.builder(
           itemCount: 10,
           itemBuilder: (_, int index, __) {
@@ -62,7 +62,7 @@ class _NumberCarousel extends StatelessWidget {
             viewportFraction: 0.4,
             initialPage: noOfQuestion - 1,
             onPageChanged: (int index, _) {
-              ref.read(noOfquestionsProvider.notifier).state = index + 1;
+              ref.read(noOfQuestionsProvider.notifier).state = index + 1;
             },
           ),
         );

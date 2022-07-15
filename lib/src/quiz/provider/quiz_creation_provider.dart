@@ -22,7 +22,10 @@ final quizCreationPageControllerProvider = Provider.autoDispose(
 );
 
 // This will determine how many questions will a quiz have while creating it.
-final StateProvider<int> noOfquestionsProvider = StateProvider<int>((_) => 2);
+final StateProvider<int> noOfQuestionsProvider = StateProvider<int>((_) => 2);
+
+// This will tell us  which question details user is filling.
+final currentQuestionProvider = StateProvider<int>((_) => 0);
 
 final selectedCategoryProvider =
     StateNotifierProvider<SelectCategoryProvider, List<Category>>(
