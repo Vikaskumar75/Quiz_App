@@ -10,6 +10,7 @@ class _QuizQuestions extends ConsumerStatefulWidget {
 class _QuizQuestionsState extends ConsumerState<_QuizQuestions> {
   ValueNotifier<int> currentPage = ValueNotifier<int>(0);
   late PageController _pageController;
+  final List<Question> questions = <Question>[];
 
   @override
   void initState() {
@@ -24,6 +25,8 @@ class _QuizQuestionsState extends ConsumerState<_QuizQuestions> {
   Widget build(BuildContext context) {
     final int noOfQuestions = ref.watch(noOfQuestionsProvider);
     final int currentQuestion = ref.watch(currentQuestionProvider);
+    final List<QuizQuestionController> controllers =
+        ref.watch(questionControllers);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,9 +47,13 @@ class _QuizQuestionsState extends ConsumerState<_QuizQuestions> {
             padEnds: currentQuestion >= (noOfQuestions - 1),
             scrollDirection: Axis.vertical,
             itemCount: noOfQuestions,
-            itemBuilder: (_, int index) => _AddQuestionCard(
-              hasFocus: index == currentQuestion,
-            ),
+            itemBuilder: (_, int index) {
+              return _AddQuestionCard(
+                controller: controllers[index].titleController,
+                optionControllers: controllers[index].optionControllers,
+                hasFocus: index == currentQuestion,
+              );
+            },
             onPageChanged: (int index) {
               ref.read(currentQuestionProvider.notifier).state = index;
             },

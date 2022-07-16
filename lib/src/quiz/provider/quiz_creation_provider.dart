@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: always_specify_types
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,6 +27,48 @@ final StateProvider<int> noOfQuestionsProvider = StateProvider<int>((_) => 2);
 
 // This will tell us  which question details user is filling.
 final currentQuestionProvider = StateProvider<int>((_) => 0);
+
+// This provider will control the number of options.
+// You can change it to anything before coming to _QuizQuestions widget.
+final noOfOptionsPerQuestionProvider = Provider((_) => 4);
+
+// This will provide controllers to each and every question so that they can be worked on or modified independently.
+// Here we are the creating controllers for each and every question
+// It will consist of one [QuizQuestionController].
+// In there we have on titleController and option controller list based on noOfOptionsPerQuestionProvider
+final questionControllers = Provider((ref) {
+  final noOfQuestions = ref.read(noOfQuestionsProvider);
+  final noOfOptionsPerQuestion = ref.read(noOfOptionsPerQuestionProvider);
+
+  return List<QuizQuestionController>.generate(noOfQuestions, (index) {
+    return QuizQuestionController(
+      titleController: TextEditingController(),
+      optionControllers: List<QuizOptionController>.generate(
+        noOfOptionsPerQuestion,
+        (_) => QuizOptionController(controller: TextEditingController()),
+      ),
+    );
+  });
+});
+
+class QuizQuestionController {
+  final TextEditingController titleController;
+  List<QuizOptionController> optionControllers;
+
+  QuizQuestionController({
+    required this.titleController,
+    required this.optionControllers,
+  });
+}
+
+class QuizOptionController {
+  final TextEditingController controller;
+  final bool isCorrect;
+  QuizOptionController({
+    required this.controller,
+    this.isCorrect = false,
+  });
+}
 
 final selectedCategoryProvider =
     StateNotifierProvider<SelectCategoryProvider, List<Category>>(

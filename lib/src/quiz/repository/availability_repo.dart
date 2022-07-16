@@ -10,6 +10,7 @@ import '../../utilities/export.dart';
 part 'availability_service.dart';
 part 'models/availability_model.dart';
 part 'models/categories_model.dart';
+part 'models/questions_model.dart';
 
 class AvailabilityRepository implements AvailabilityService {
   AvailabilityRepository._();

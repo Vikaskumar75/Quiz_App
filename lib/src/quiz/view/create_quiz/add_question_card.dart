@@ -4,8 +4,12 @@ class _AddQuestionCard extends StatelessWidget {
   const _AddQuestionCard({
     Key? key,
     required this.hasFocus,
+    required this.controller,
+    required this.optionControllers,
   }) : super(key: key);
   final bool hasFocus;
+  final TextEditingController controller;
+  final List<QuizOptionController> optionControllers;
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +25,13 @@ class _AddQuestionCard extends StatelessWidget {
         color: hasFocus
             ? ColorPallet.black.withOpacity(0.15)
             : ColorPallet.black.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.circular(12.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextField(
+            controller: controller,
             autofocus: hasFocus,
             enabled: hasFocus,
             style: CustomTheme.headline4.copyWith(
@@ -51,6 +56,12 @@ class _AddQuestionCard extends StatelessWidget {
               color: ColorPallet.white.withOpacity(0.4),
             ),
           ),
+      //  ListView.builder(
+      //    itemCount: optionControllers.length,
+      //    itemBuilder: (BuildContext context, int index) {
+      //      return ;
+      //    },
+      //  ),
         ],
       ),
     );
