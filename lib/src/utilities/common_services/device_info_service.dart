@@ -8,24 +8,24 @@ class DeviceInfoService {
   static DeviceInfoService get getInstacne => _instance;
 
   Future<void> initialize() async {
-    final DeviceInfoPlugin _deviceInfoPlugin = DeviceInfoPlugin();
+    final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
     if (Platform.isAndroid) {
-      final AndroidDeviceInfo _deviceInfo = await _deviceInfoPlugin.androidInfo;
-      final AndroidBuildVersion _version = _deviceInfo.version;
-      _osVersion = _version.baseOS ?? _version.release ?? 'Unknown';
-      _deviceName = _deviceInfo.device ?? 'Android';
-      _manufacturer = _deviceInfo.manufacturer ?? 'Unknown';
+      final AndroidDeviceInfo deviceInfo = await deviceInfoPlugin.androidInfo;
+      final AndroidBuildVersion version = deviceInfo.version;
+      _osVersion = version.baseOS ?? version.release ?? 'Unknown';
+      _deviceName = deviceInfo.device ?? 'Android';
+      _manufacturer = deviceInfo.manufacturer ?? 'Unknown';
     } else if (Platform.isIOS) {
-      final IosDeviceInfo _deviceInfo = await _deviceInfoPlugin.iosInfo;
-      _osVersion = _deviceInfo.systemVersion ?? 'Unknown';
-      _deviceName = _deviceInfo.name ?? 'Apple Device';
+      final IosDeviceInfo deviceInfo = await deviceInfoPlugin.iosInfo;
+      _osVersion = deviceInfo.systemVersion ?? 'Unknown';
+      _deviceName = deviceInfo.name ?? 'Apple Device';
       _manufacturer = 'Apple';
     } else {
-      final WebBrowserInfo _deviceInfo = await _deviceInfoPlugin.webBrowserInfo;
-      _osVersion = _deviceInfo.appVersion ?? 'Unknown';
-      _deviceName = _deviceInfo.platform ?? 'Unknown';
-      _manufacturer = _deviceInfo.browserName.name;
+      final WebBrowserInfo deviceInfo = await deviceInfoPlugin.webBrowserInfo;
+      _osVersion = deviceInfo.appVersion ?? 'Unknown';
+      _deviceName = deviceInfo.platform ?? 'Unknown';
+      _manufacturer = deviceInfo.browserName.name;
     }
   }
 

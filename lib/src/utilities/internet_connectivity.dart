@@ -15,8 +15,8 @@ class InternetConnectivity {
   ConnectivityResult? _previousConnectivity;
 
   Future<void> startListeningForInternetConnectivity() async {
-    final ConnectivityResult _result = await _connectivity.checkConnectivity();
-    _showDialog(_result);
+    final ConnectivityResult result = await _connectivity.checkConnectivity();
+    _showDialog(result);
     _connectivity.onConnectivityChanged.listen(_showDialog);
   }
 

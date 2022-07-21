@@ -42,8 +42,8 @@ class AuthProvider extends StateNotifier<AuthState> {
     try {
       state = AuthState.otpLoading;
       final String email = ref.read(emailControllerProvider).text;
-      OtpModel _otpModel = await _repo.sendOtp(email: email);
-      otp = _otpModel.data.otp;
+      OtpModel otpModel = await _repo.sendOtp(email: email);
+      otp = otpModel.data.otp;
       state = AuthState.otpSuccess;
     } on AppError catch (e) {
       state = AuthState.otpError;
@@ -69,13 +69,13 @@ class AuthProvider extends StateNotifier<AuthState> {
     try {
       state = AuthState.registerLoading;
 
-      final RegistrationModel _model = RegistrationModel(
+      final RegistrationModel model = RegistrationModel(
         email: ref.read(emailControllerProvider).text,
         name: ref.read(emailControllerProvider).text,
         password: ref.read(passwordControllerProvider).text,
       );
-      final AuthenticationModel _authModel = await _repo.signUp(_model);
-      await startSession(_authModel);
+      final AuthenticationModel authModel = await _repo.signUp(model);
+      await startSession(authModel);
       state = AuthState.registerSuccess;
     } on AppError catch (e) {
       state = AuthState.registerError;
@@ -88,11 +88,11 @@ class AuthProvider extends StateNotifier<AuthState> {
       state = AuthState.loginLoading;
       final String email = ref.read(emailControllerProvider).text;
       final String password = ref.read(passwordControllerProvider).text;
-      final AuthenticationModel _authModel = await _repo.login(
+      final AuthenticationModel authModel = await _repo.login(
         email: email,
         password: password,
       );
-      await startSession(_authModel);
+      await startSession(authModel);
       state = AuthState.loginSuccess;
     } on AppError catch (e) {
       state = AuthState.loginError;

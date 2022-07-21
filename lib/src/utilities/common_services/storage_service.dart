@@ -32,8 +32,8 @@ class StorageService {
 
   Future<void> saveAuthData(AuthenticationModel model) async {
     try {
-      final String _authString = jsonEncode(model);
-      await saveString(GlobalKeys.login, _authString);
+      final String authString = jsonEncode(model);
+      await saveString(GlobalKeys.login, authString);
       readAuthData();
     } catch (e) {
       throw AppError.createError('Could not save the session');
@@ -41,14 +41,14 @@ class StorageService {
   }
 
   void readAuthData() {
-    final String? _authString = readString(GlobalKeys.login);
-    if (_authString == null) {
+    final String? authString = readString(GlobalKeys.login);
+    if (authString == null) {
       _isLoggedIn = false;
       return;
     }
 
     try {
-      _model = authenticationModelFromJson(_authString);
+      _model = authenticationModelFromJson(authString);
       _isLoggedIn = true;
       _accessToken = _model!.data.token;
     } catch (e) {

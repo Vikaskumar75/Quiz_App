@@ -1,13 +1,13 @@
 part of 'dialog_service.dart';
 
-abstract class _DialogState extends Equatable {
+abstract class DialogState extends Equatable {
   @override
   List<Object?> get props => <Object>[];
 }
 
-class _InitialDialogState extends _DialogState {}
+class _InitialDialogState extends DialogState {}
 
-class _ShowDialogState extends _DialogState {
+class _ShowDialogState extends DialogState {
   final String message;
   final Color? textColor;
   _ShowDialogState({

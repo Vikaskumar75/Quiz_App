@@ -56,12 +56,16 @@ class _AddQuestionCard extends StatelessWidget {
               color: ColorPallet.white.withOpacity(0.4),
             ),
           ),
-      //  ListView.builder(
-      //    itemCount: optionControllers.length,
-      //    itemBuilder: (BuildContext context, int index) {
-      //      return ;
-      //    },
-      //  ),
+       Expanded(
+         child: ListView.builder(
+           itemCount: optionControllers.length,
+           itemBuilder: (BuildContext context, int index) {
+             return Row(
+              children: const <Widget>[],
+             );
+           },
+         ),
+       ),
         ],
       ),
     );

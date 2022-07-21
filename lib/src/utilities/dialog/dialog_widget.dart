@@ -1,7 +1,7 @@
 part of 'dialog_service.dart';
 
-final StateNotifierProvider<DialogService, _DialogState> dialogServiceProvider =
-    StateNotifierProvider<DialogService, _DialogState>((_) {
+final StateNotifierProvider<DialogService, DialogState> dialogServiceProvider =
+    StateNotifierProvider<DialogService, DialogState>((_) {
   return DialogService.instance;
 });
 
@@ -10,7 +10,7 @@ class _Dialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _DialogState state = ref.watch(dialogServiceProvider);
+    final DialogState state = ref.watch(dialogServiceProvider);
 
     if (state is! _ShowDialogState) return const SizedBox.shrink();
 

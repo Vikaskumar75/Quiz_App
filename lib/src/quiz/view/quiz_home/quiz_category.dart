@@ -2,7 +2,7 @@ part of 'quiz_home.dart';
 
 class _QuizCategory extends ConsumerWidget {
   const _QuizCategory({
-    Key? key,
+    Key?  key,
   }) : super(key: key);
 
   @override

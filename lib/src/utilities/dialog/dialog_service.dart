@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../export.dart';
 
 part 'dialog_state.dart';
 part 'dialog_widget.dart';
 
-class DialogService extends StateNotifier<_DialogState> {
+class DialogService extends StateNotifier<DialogState> {
   DialogService._() : super(_InitialDialogState());
   static final DialogService instance = DialogService._();
 

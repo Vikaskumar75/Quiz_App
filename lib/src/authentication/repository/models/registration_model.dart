@@ -12,14 +12,14 @@ class RegistrationModel {
   });
 
   Map<String, dynamic> toJson() {
-    final DeviceInfoService _deviceInfo = DeviceInfoService.getInstacne;
+    final DeviceInfoService deviceInfo = DeviceInfoService.getInstacne;
     return <String, dynamic>{
       'name': name,
       'email': email,
       'password': password,
-      'device_name': _deviceInfo.deviceName,
-      'device_manufacturer': _deviceInfo.manufacturer,
-      'os_version': _deviceInfo.osVerison,
+      'device_name': deviceInfo.deviceName,
+      'device_manufacturer': deviceInfo.manufacturer,
+      'os_version': deviceInfo.osVerison,
     };
   }
 }

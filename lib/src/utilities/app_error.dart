@@ -86,7 +86,7 @@ class AppError extends DioError {
         errorMessage = 'Unhandled status code Error: $statusCode';
     }
 
-    AppError _appError = AppError._(
+    AppError appError = AppError._(
       errorMessage,
       options: err.requestOptions,
       serverMessage: _serverMessageMapper(err.response?.data),
@@ -94,7 +94,7 @@ class AppError extends DioError {
       statusCode: statusCode,
     );
 
-    return _appError;
+    return appError;
   }
 
   static AppError _handleExceptions(dynamic err) {
@@ -130,14 +130,14 @@ class AppError extends DioError {
       }
     }
 
-    AppError _appError = AppError._(
+    AppError appError = AppError._(
       errorMessage,
       options: err.requestOptions,
       serverMessage: _serverMessageMapper(err.response?.data),
       endPoint: err.requestOptions.path,
     );
 
-    return _appError;
+    return appError;
   }
 
   static String _misellaneousErrors(DioError err) {

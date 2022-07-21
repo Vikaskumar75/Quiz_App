@@ -21,11 +21,11 @@ class _PasswordScreenState extends ConsumerState<_PasswordScreen> {
       children: <Widget>[
         BackButton(
           onPressed: () {
-            final int _state = ref.read(pageIndexProvider.notifier).state;
+            final int state = ref.read(pageIndexProvider.notifier).state;
             if (_isSignup) {
-              ref.read(pageIndexProvider.notifier).state = _state - 2;
+              ref.read(pageIndexProvider.notifier).state = state - 2;
             } else {
-              ref.read(pageIndexProvider.notifier).state = _state - 1;
+              ref.read(pageIndexProvider.notifier).state = state - 1;
             }
           },
           color: ColorPallet.white,

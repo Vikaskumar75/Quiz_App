@@ -21,7 +21,7 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
     super.initState();
     _listKey = GlobalKey<SliverAnimatedListState>();
 
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController = ref.read(scrollControllerProvider);
       _scrollController.addListener(scrollListener);
       _addWidgets();
@@ -56,14 +56,14 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
     if (data.isEmpty) return;
     if (_listItems.length == data.length) return;
 
-    final int _length = data.length;
+    final int length = data.length;
 
-    final int _start = _listItems.length;
-    final int _end =
-        _length >= noOfWidgetsToAdd ? _start + noOfWidgetsToAdd : _length;
+    final int start = _listItems.length;
+    final int end =
+        length >= noOfWidgetsToAdd ? start + noOfWidgetsToAdd : length;
 
-    for (int i = _start; i < _end; i++) {
-      if (i >= _length) break;
+    for (int i = start; i < end; i++) {
+      if (i >= length) break;
       _listItems.insert(i, _QuizListItem(quiz: data[i]));
       await Future<void>.delayed(const Duration(milliseconds: 50));
       _listKey.currentState!.insertItem(i);
@@ -71,8 +71,8 @@ class __AvailabilityListState extends ConsumerState<_QuizHomeList> {
   }
 
   void scrollListener() {
-    final ScrollPosition _position = _scrollController.position;
-    if (_position.pixels > _position.maxScrollExtent - 120) {
+    final ScrollPosition position = _scrollController.position;
+    if (position.pixels > position.maxScrollExtent - 120) {
       _addWidgets(noOfWidgetsToAdd: 1);
     }
 

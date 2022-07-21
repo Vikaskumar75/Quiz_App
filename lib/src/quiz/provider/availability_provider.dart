@@ -6,8 +6,8 @@ import '../repository/availability_repo.dart';
 
 // ignore: always_specify_types
 final availabilityProvider = FutureProvider<QuizAvailability>((_) async {
-  final AvailabilityRepository _repo = AppService.getInstance.availabilityRepo;
-  final QuizAvailability availability = await _repo.fetchAvailability();
+  final AvailabilityRepository repo = AppService.getInstance.availabilityRepo;
+  final QuizAvailability availability = await repo.fetchAvailability();
 
   return availability;
 });

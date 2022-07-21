@@ -1,5 +1,4 @@
 import 'package:logger/logger.dart';
-
 class Console {
   static void log(dynamic text) => Logger().d(text);
   static void error(dynamic text) => Logger().e(text);
