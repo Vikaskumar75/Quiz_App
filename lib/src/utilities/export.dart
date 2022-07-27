@@ -37,4 +37,5 @@ export 'widgets/text_with_leading_icon.dart';
 export 'widgets/common_button.dart';
 export 'widgets/custom_action_chip.dart';
 export 'widgets/drag_switch.dart';
+export 'widgets/custom_floating_button.dart';
 

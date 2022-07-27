@@ -36,7 +36,7 @@ final noOfOptionsPerQuestionProvider = Provider((_) => 4);
 // Here we are the creating controllers for each and every question
 // It will consist of one [QuizQuestionController].
 // In there we have on titleController and option controller list based on noOfOptionsPerQuestionProvider
-final questionControllers = Provider((ref) {
+final questionControllers = StateProvider((ref) {
   final noOfQuestions = ref.read(noOfQuestionsProvider);
   final noOfOptionsPerQuestion = ref.read(noOfOptionsPerQuestionProvider);
 
@@ -59,15 +59,35 @@ class QuizQuestionController {
     required this.titleController,
     required this.optionControllers,
   });
+
+  QuizQuestionController copyWith({
+    TextEditingController? titleController,
+    List<QuizOptionController>? optionControllers,
+  }) {
+    return QuizQuestionController(
+      titleController: titleController ?? this.titleController,
+      optionControllers: optionControllers ?? this.optionControllers,
+    );
+  }
 }
 
 class QuizOptionController {
   final TextEditingController controller;
-  final bool isCorrect;
+  bool isCorrect;
   QuizOptionController({
     required this.controller,
     this.isCorrect = false,
   });
+
+  QuizOptionController copyWith({
+    TextEditingController? controller,
+    bool? isCorrect,
+  }) {
+    return QuizOptionController(
+      controller: controller ?? this.controller,
+      isCorrect: isCorrect ?? this.isCorrect,
+    );
+  }
 }
 
 final selectedCategoryProvider =
