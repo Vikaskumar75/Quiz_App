@@ -1,7 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'quiz_form.dart';
 
-class _AddQuestionCard extends ConsumerWidget {
+class _AddQuestionCard extends ConsumerStatefulWidget {
   const _AddQuestionCard({
     Key? key,
     required this.hasFocus,
@@ -9,10 +8,19 @@ class _AddQuestionCard extends ConsumerWidget {
   final bool hasFocus;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_AddQuestionCard> createState() => _AddQuestionCardState();
+}
+
+class _AddQuestionCardState extends ConsumerState<_AddQuestionCard> {
+  late List<QuizQuestionController> quizControllers;
+  late QuizQuestionController quizController;
+
+  @override
+  Widget build(BuildContext context) {
     final int currentQuestion = ref.read(currentQuestionProvider);
-    final QuizQuestionController quizControllers =
-        ref.read(questionControllers)[currentQuestion];
+
+    quizControllers = ref.read(quizControllersProvider);
+    quizController = quizControllers[currentQuestion];
 
     return Container(
       margin: EdgeInsets.symmetric(
@@ -23,7 +31,7 @@ class _AddQuestionCard extends ConsumerWidget {
         horizontal: 22.toWidth,
       ),
       decoration: BoxDecoration(
-        color: hasFocus
+        color: widget.hasFocus
             ? ColorPallet.black.withOpacity(0.15)
             : ColorPallet.black.withOpacity(0.05),
         borderRadius: BorderRadius.circular(12.0),
@@ -32,9 +40,9 @@ class _AddQuestionCard extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextField(
-            controller: quizControllers.titleController,
-            autofocus: hasFocus,
-            enabled: hasFocus,
+            controller: quizController.titleController,
+            autofocus: widget.hasFocus,
+            enabled: widget.hasFocus,
             style: CustomTheme.headline4.copyWith(
               foreground: ColorPallet.dialogShaderPaint,
             ),
@@ -44,7 +52,7 @@ class _AddQuestionCard extends ConsumerWidget {
               border: InputBorder.none,
               hintText: 'Enter Question',
               hintStyle: CustomTheme.headline4.copyWith(
-                foreground: hasFocus
+                foreground: widget.hasFocus
                     ? ColorPallet.whiteTextStyleForeground
                     : ColorPallet.lightWhiteTextStyleForeground,
               ),
@@ -54,7 +62,7 @@ class _AddQuestionCard extends ConsumerWidget {
           Text(
             'Options',
             style: CustomTheme.headline5.copyWith(
-              color: hasFocus
+              color: widget.hasFocus
                   ? ColorPallet.white
                   : ColorPallet.white.withOpacity(0.2),
             ),
@@ -63,7 +71,7 @@ class _AddQuestionCard extends ConsumerWidget {
           Text(
             "Don't forget to mark the correct oprtion ",
             style: CustomTheme.headline6.copyWith(
-              color: hasFocus
+              color: widget.hasFocus
                   ? ColorPallet.white.withOpacity(0.4)
                   : ColorPallet.white.withOpacity(0.2),
             ),
@@ -72,107 +80,16 @@ class _AddQuestionCard extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List<Widget>.generate(
-                quizControllers.optionControllers.length,
+                quizController.optionControllers.length,
                 (int index) => _OptionWidget(
-                  hasFocus: hasFocus,
+                  hasFocus: widget.hasFocus,
                   optionNumber: index,
+                  option: quizController.optionControllers[index],
                 ),
               ),
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class _OptionWidget extends ConsumerStatefulWidget {
-  const _OptionWidget({
-    Key? key,
-    required this.hasFocus,
-    required this.optionNumber,
-  }) : super(key: key);
-
-  final bool hasFocus;
-  final int optionNumber;
-
-  @override
-  ConsumerState<_OptionWidget> createState() => _OptionWidgetState();
-}
-
-class _OptionWidgetState extends ConsumerState<_OptionWidget> {
-  @override
-  Widget build(BuildContext context) {
-    final int currentQuestion = ref.read(currentQuestionProvider);
-    final QuizOptionController option = ref
-        .read(questionControllers)[currentQuestion]
-        .optionControllers[widget.optionNumber];
-    return Row(
-      children: <Widget>[
-        Text(
-          '${widget.optionNumber + 1}.',
-          style: CustomTheme.headline4.copyWith(
-            color: widget.hasFocus
-                ? ColorPallet.white
-                : ColorPallet.white.withOpacity(0.4),
-          ),
-        ),
-        SizedBox(
-          width: 10.toWidth,
-        ),
-        Expanded(
-          child: TextFormField(
-            controller: option.controller,
-            style: CustomTheme.headline6,
-            decoration: InputDecoration(
-              border: _border(
-                color: ColorPallet.white.withOpacity(0.2),
-              ),
-              focusedBorder: _border(),
-              suffixIcon: Transform.scale(
-                scale: 0.44,
-                child: GestureDetector(
-                  onTap: () {
-                    option.isCorrect = !option.isCorrect;
-                    setState(() {});
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    decoration: BoxDecoration(
-                      color: option.isCorrect
-                          ? ColorPallet.darkBlue
-                          : ColorPallet.transparent,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: option.isCorrect
-                            ? ColorPallet.darkBlue
-                            : ColorPallet.white,
-                      ),
-                    ),
-                    child: Visibility(
-                      visible: option.isCorrect,
-                      child: const Icon(
-                        Icons.check,
-                        color: ColorPallet.white,
-                        size: 30,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  OutlineInputBorder _border({Color? color}) {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(6.0),
-      borderSide: BorderSide(
-        color: color ?? ColorPallet.white,
-        width: widget.hasFocus ? 1.2 : 1.0,
       ),
     );
   }

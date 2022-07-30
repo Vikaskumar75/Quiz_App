@@ -1,5 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: always_specify_types
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/utilities/dialog/dialog_service.dart';
@@ -17,9 +17,9 @@ final quizPageIndexProvider = StateProvider((_) => 0);
 
 // PageController to control the navigation throught create_quiz_pageview
 final quizCreationPageControllerProvider = Provider.autoDispose(
-  (ref) {
-    return PageController(initialPage: ref.read(quizPageIndexProvider));
-  },
+  (ref) => PageController(
+    initialPage: ref.read(quizPageIndexProvider),
+  ),
 );
 
 // This will determine how many questions will a quiz have while creating it.
@@ -36,18 +36,12 @@ final noOfOptionsPerQuestionProvider = Provider((_) => 4);
 // Here we are the creating controllers for each and every question
 // It will consist of one [QuizQuestionController].
 // In there we have on titleController and option controller list based on noOfOptionsPerQuestionProvider
-final questionControllers = StateProvider((ref) {
-  final noOfQuestions = ref.read(noOfQuestionsProvider);
+final quizControllersProvider = StateProvider((ref) {
   final noOfOptionsPerQuestion = ref.read(noOfOptionsPerQuestionProvider);
+  final noOfQuestions = ref.read(noOfQuestionsProvider);
 
   return List<QuizQuestionController>.generate(noOfQuestions, (index) {
-    return QuizQuestionController(
-      titleController: TextEditingController(),
-      optionControllers: List<QuizOptionController>.generate(
-        noOfOptionsPerQuestion,
-        (_) => QuizOptionController(controller: TextEditingController()),
-      ),
-    );
+    return QuizQuestionController.getInstance(noOfOptionsPerQuestion);
   });
 });
 
@@ -60,13 +54,13 @@ class QuizQuestionController {
     required this.optionControllers,
   });
 
-  QuizQuestionController copyWith({
-    TextEditingController? titleController,
-    List<QuizOptionController>? optionControllers,
-  }) {
+  factory QuizQuestionController.getInstance(int noOfOptionsPerQuestion) {
     return QuizQuestionController(
-      titleController: titleController ?? this.titleController,
-      optionControllers: optionControllers ?? this.optionControllers,
+      titleController: TextEditingController(),
+      optionControllers: List<QuizOptionController>.generate(
+        noOfOptionsPerQuestion,
+        (_) => QuizOptionController(controller: TextEditingController()),
+      ),
     );
   }
 }
@@ -78,18 +72,9 @@ class QuizOptionController {
     required this.controller,
     this.isCorrect = false,
   });
-
-  QuizOptionController copyWith({
-    TextEditingController? controller,
-    bool? isCorrect,
-  }) {
-    return QuizOptionController(
-      controller: controller ?? this.controller,
-      isCorrect: isCorrect ?? this.isCorrect,
-    );
-  }
 }
 
+// This category manages all the categories that are selected to create a quiz.
 final selectedCategoryProvider =
     StateNotifierProvider<SelectCategoryProvider, List<Category>>(
   (_) => SelectCategoryProvider(),
@@ -98,6 +83,7 @@ final selectedCategoryProvider =
 class SelectCategoryProvider extends StateNotifier<List<Category>> {
   SelectCategoryProvider() : super([]);
 
+  // This no. is controlled to manage how many categories a quiz can have.
   final int maximumCategorySelcted = 3;
 
   void add(Category category) {

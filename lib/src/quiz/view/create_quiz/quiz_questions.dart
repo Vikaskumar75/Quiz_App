@@ -25,8 +25,6 @@ class _QuizQuestionsState extends ConsumerState<_QuizQuestions> {
   Widget build(BuildContext context) {
     final int noOfQuestions = ref.watch(noOfQuestionsProvider);
     final int currentQuestion = ref.watch(currentQuestionProvider);
-    final List<QuizQuestionController> controllers =
-        ref.watch(questionControllers);
 
     return Scaffold(
       body: Column(
