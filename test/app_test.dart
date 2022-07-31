@@ -5,9 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:quiz_app/src/app/app_service.dart';
 import 'package:quiz_app/src/authentication/view/authentication_screen.dart';
 import 'package:quiz_app/src/quiz/export.dart';
-
-import 'package:quiz_app/src/quiz/repository/availability_repo.dart';
-
+import 'package:quiz_app/src/quiz/repository/quiz_repo.dart';
 
 void main() {
   final AppService appService = AppService.getInstance;
@@ -48,16 +46,16 @@ void main() {
     'availability test',
     () async {
       final QuizAvailability result =
-          await appService.availabilityRepo.fetchAvailability();
+          await appService.availabilityRepo.fetchQuiz();
 
       expect(result.data, isEmpty);
     },
   );
 }
 
-class MockAvailabilityRepo extends Mock implements AvailabilityRepository {
+class MockAvailabilityRepo extends Mock implements QuizRepository {
   @override
-  Future<QuizAvailability> fetchAvailability() {
+  Future<QuizAvailability> fetchQuiz() {
     return Future<QuizAvailability>.value(QuizAvailability(
       status: '',
       total: 10,

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/utilities/app_error.dart';
 
 import '../../app/app_service.dart';
-import '../repository/availability_repo.dart';
+import '../repository/quiz_repo.dart';
 
 // ignore: always_specify_types
 final categoryProvider = StateNotifierProvider<CategoryProvider, CategoryState>(
@@ -15,7 +15,7 @@ class CategoryProvider extends StateNotifier<CategoryState> {
     getCategories();
   }
 
-  final AvailabilityRepository _repo = AppService.getInstance.availabilityRepo;
+  final QuizRepository _repo = AppService.getInstance.availabilityRepo;
 
   Future<void> getCategories() async {
     state = CategoryLoading();

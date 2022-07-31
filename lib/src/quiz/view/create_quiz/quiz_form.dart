@@ -5,16 +5,16 @@ import 'package:quiz_app/src/utilities/export.dart';
 
 import '../../provider/category_provider.dart';
 import '../../provider/quiz_creation_provider.dart';
-import '../../repository/availability_repo.dart';
+import '../../repository/quiz_repo.dart';
 
 part 'add_question_card.dart';
 part 'no_of_question.dart';
+part 'option_widget.dart';
 part 'quiz_category_selection.dart';
 part 'quiz_creation_pageview.dart';
 part 'quiz_form_intro.dart';
 part 'quiz_questions.dart';
 part 'quiz_title.dart';
-part 'option_widget.dart';
 
 class QuizForm extends ConsumerStatefulWidget {
   const QuizForm({Key? key}) : super(key: key);
@@ -66,7 +66,9 @@ class _QuizFormState extends ConsumerState<QuizForm>
                 child: _QuizFormIntro(
                   onGettingStarted: () {
                     controller.forward();
-                    ref.read(quizCreationProvider.notifier).createNewQuiz();
+                    ref
+                        .read(quizCreationProvider.notifier)
+                        .startCreatingNewQuiz();
                   },
                 ),
               )

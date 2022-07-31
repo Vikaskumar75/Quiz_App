@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../utilities/export.dart';
-import '../../repository/availability_repo.dart';
+import '../../repository/quiz_repo.dart';
 
 part 'quiz_detail_card.dart';
 part 'quiz_detail_list_tile.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../app/app_page.dart';
 import '../authentication/view/authentication_screen.dart';
 import '../quiz/export.dart';
-import '../quiz/repository/availability_repo.dart';
+import '../quiz/repository/quiz_repo.dart';
 
 class Navigation extends NavigatorObserver {
   static List<Route<dynamic>> routeStack = <Route<dynamic>>[];

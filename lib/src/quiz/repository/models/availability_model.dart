@@ -1,4 +1,4 @@
-part of '../availability_repo.dart';
+part of '../quiz_repo.dart';
 
 QuizAvailability availabilityFromJson(String str) => QuizAvailability.fromJson(
       json.decode(str),

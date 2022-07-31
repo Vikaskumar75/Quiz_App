@@ -1,8 +1,6 @@
-import '../authentication/repository/authentication_repo.dart';
-
 import '../../src/utilities/export.dart';
-import '../quiz/repository/availability_repo.dart';
-
+import '../authentication/repository/authentication_repo.dart';
+import '../quiz/repository/quiz_repo.dart';
 
 // This class is used to initialize every required dependency in the app
 // For ex: 1. Shared Preferences 2. Any startup dependencies etc.
@@ -15,7 +13,7 @@ class AppService {
   // There is a reason that all the repositories are nullable.
   // OtherWise for the test cases we have to initialize each and every repo and that is not feasible.
   Future<void> initialize({
-    AvailabilityRepository? availabilityRepository,
+    QuizRepository? availabilityRepository,
     AuthenticationRepo? authenticationRepo,
   }) async {
     // Initializing screen scale so that the screen layout can be adjusted according to screen size.
@@ -39,8 +37,8 @@ class AppService {
 
   // Defining all the repositories required with in the app.
   // [ Note: Make sure to check for null value while sending any repo. OtherWise throw an Exception. ]
-  AvailabilityRepository? _availabilityRepository;
-  AvailabilityRepository get availabilityRepo {
+  QuizRepository? _availabilityRepository;
+  QuizRepository get availabilityRepo {
     if (_availabilityRepository != null) return _availabilityRepository!;
     throw Exception('AvailabilityRepository not initialized');
   }

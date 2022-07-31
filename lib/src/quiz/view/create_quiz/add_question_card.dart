@@ -1,11 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'quiz_form.dart';
 
 class _AddQuestionCard extends ConsumerStatefulWidget {
   const _AddQuestionCard({
     Key? key,
     required this.hasFocus,
+    required this.quizController,
   }) : super(key: key);
   final bool hasFocus;
+  final QuizQuestionController quizController;
 
   @override
   ConsumerState<_AddQuestionCard> createState() => _AddQuestionCardState();
@@ -13,15 +16,9 @@ class _AddQuestionCard extends ConsumerStatefulWidget {
 
 class _AddQuestionCardState extends ConsumerState<_AddQuestionCard> {
   late List<QuizQuestionController> quizControllers;
-  late QuizQuestionController quizController;
 
   @override
   Widget build(BuildContext context) {
-    final int currentQuestion = ref.read(currentQuestionProvider);
-
-    quizControllers = ref.read(quizControllersProvider);
-    quizController = quizControllers[currentQuestion];
-
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 10.toHeight,
@@ -40,7 +37,7 @@ class _AddQuestionCardState extends ConsumerState<_AddQuestionCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextField(
-            controller: quizController.titleController,
+            controller: widget.quizController.titleController,
             autofocus: widget.hasFocus,
             enabled: widget.hasFocus,
             style: CustomTheme.headline4.copyWith(
@@ -80,11 +77,11 @@ class _AddQuestionCardState extends ConsumerState<_AddQuestionCard> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List<Widget>.generate(
-                quizController.optionControllers.length,
+                widget.quizController.optionControllers.length,
                 (int index) => _OptionWidget(
                   hasFocus: widget.hasFocus,
                   optionNumber: index,
-                  option: quizController.optionControllers[index],
+                  option: widget.quizController.optionControllers[index],
                 ),
               ),
             ),

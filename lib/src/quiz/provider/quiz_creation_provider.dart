@@ -2,9 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/utilities/app_error.dart';
 import 'package:quiz_app/src/utilities/dialog/dialog_service.dart';
 
-import '../repository/availability_repo.dart';
+import '../repository/quiz_repo.dart';
 
 // This form is responsible for all the validators in quiz creation process
 final quizCreationFormKeyProvider = Provider((_) => GlobalKey<FormState>());
@@ -103,14 +104,66 @@ class SelectCategoryProvider extends StateNotifier<List<Category>> {
 
 final quizCreationProvider =
     StateNotifierProvider<QuizCreationProvider, QuizCreationState>(
-  (_) => QuizCreationProvider(),
+  (ref) => QuizCreationProvider(ref),
 );
 
 class QuizCreationProvider extends StateNotifier<QuizCreationState> {
-  QuizCreationProvider() : super(QuizCreationState.quizIntroInitial);
+  final Ref ref;
+  QuizCreationProvider(this.ref) : super(QuizCreationState.quizIntroInitial);
 
-  void createNewQuiz() {
-    state = QuizCreationState.quizCreationInitial;
+  final QuizRepository _repo = QuizRepository.instance;
+
+  void startCreatingNewQuiz() => state = QuizCreationState.quizCreationInitial;
+
+  Future<void> createQuiz() async {
+    final List<QuestionModel> questions = List.generate(
+      ref.read(noOfQuestionsProvider),
+      (int index) {
+        final QuizQuestionController controller =
+            ref.read(quizControllersProvider)[index];
+
+        return QuestionModel(
+          title: controller.titleController.text,
+          options: List.generate(
+            controller.optionControllers.length,
+            (optionIndex) {
+              final QuizOptionController optionController =
+                  controller.optionControllers[optionIndex];
+              return Options(
+                answer: optionController.controller.text,
+                isCorrect: optionController.isCorrect,
+              );
+            },
+          ),
+        );
+      },
+    );
+
+    QuizModel quizModel = QuizModel(
+      title: ref.read(quizTitleControllerProvider).text,
+      avgTimePerQuestion: 2,
+      pointsForCorrectAnswer: 10,
+      pointsToWin: 10,
+      categoriesId: ref
+          .read(selectedCategoryProvider)
+          .map((element) => element.id)
+          .toList(),
+      warnings: [
+        '10 point awarded for a correct answer and no marks for a incorrect answer',
+        'Tap on options to select the correct answer',
+        'Tap on the bookmark icon to save interesting questions',
+        'Click submit if you are sure you want to complete all the quizzes'
+      ],
+      questions: questions,
+    );
+
+    try {
+      await _repo.createQuiz(quizModel);
+    } on AppError catch (e) {
+      DialogService.instance.showDialog(
+        message: e.serverMessage ?? e.errorMessage,
+      );
+    }
   }
 }
 

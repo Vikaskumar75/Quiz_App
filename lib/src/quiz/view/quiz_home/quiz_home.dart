@@ -8,7 +8,7 @@ import '../../provider/availability_provider.dart';
 import '../../provider/carousel_index_provider.dart';
 import '../../provider/category_provider.dart';
 import '../../provider/scroll_to_top_provider.dart';
-import '../../repository/availability_repo.dart';
+import '../../repository/quiz_repo.dart';
 
 part 'quiz_carousel.dart';
 part 'quiz_category.dart';

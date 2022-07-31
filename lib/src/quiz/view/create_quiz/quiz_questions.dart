@@ -10,7 +10,7 @@ class _QuizQuestions extends ConsumerStatefulWidget {
 class _QuizQuestionsState extends ConsumerState<_QuizQuestions> {
   ValueNotifier<int> currentPage = ValueNotifier<int>(0);
   late PageController _pageController;
-  final List<Question> questions = <Question>[];
+  final List<QuestionModel> questions = <QuestionModel>[];
 
   @override
   void initState() {
@@ -50,6 +50,7 @@ class _QuizQuestionsState extends ConsumerState<_QuizQuestions> {
               itemBuilder: (_, int index) {
                 return _AddQuestionCard(
                   hasFocus: index == currentQuestion,
+                  quizController: ref.read(quizControllersProvider)[index],
                 );
               },
               onPageChanged: (int index) {
@@ -97,7 +98,9 @@ class _PageNavigatorButton extends ConsumerWidget {
           CustomFloatingButton(
             tag: 'submit',
             icon: Icons.check_circle,
-            onTap: () {},
+            onTap: () {
+              ref.read(quizCreationProvider.notifier).createQuiz();
+            },
           )
       ],
     );

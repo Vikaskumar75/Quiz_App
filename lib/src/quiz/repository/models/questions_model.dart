@@ -1,16 +1,16 @@
-part of '../availability_repo.dart';
+part of '../quiz_repo.dart';
 
-class Question {
+class QuestionModel {
   final String title;
   final List<Options> options;
 
-  Question({
+  QuestionModel({
     required this.title,
     required this.options,
   });
 
-  factory Question.fromJson(Map<String, dynamic> json) {
-    return Question(
+  factory QuestionModel.fromJson(Map<String, dynamic> json) {
+    return QuestionModel(
       title: json['title'],
       options: List<Options>.from(
         json['options'].map((dynamic element) => Options.formJson(element)),
