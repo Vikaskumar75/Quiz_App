@@ -77,6 +77,7 @@ class _PageNavigatorButton extends ConsumerWidget {
     final int currentQuestion = ref.watch(currentQuestionProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         if (currentQuestion > 0)
@@ -91,7 +92,13 @@ class _PageNavigatorButton extends ConsumerWidget {
             tag: 'down',
             icon: Icons.keyboard_arrow_down_outlined,
             onTap: () => _navigateTo(currentQuestion + 1),
-          ),
+          )
+        else
+          CustomFloatingButton(
+            tag: 'submit',
+            icon: Icons.check_circle,
+            onTap: () {},
+          )
       ],
     );
   }
