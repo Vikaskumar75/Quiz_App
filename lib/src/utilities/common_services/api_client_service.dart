@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+
 import '../interceptors/common_interceptor.dart';
 
 class ApiClient {
@@ -6,7 +9,9 @@ class ApiClient {
   static final ApiClient _instance = ApiClient._();
   static ApiClient get instance => _instance;
 
-  final String baseUrl = 'http://localhost:3000/api/v1';
+  final String baseUrl = Platform.isAndroid
+      ? 'http://10.0.2.2:3000/api/v1'
+      : 'http://localhost:3000/api/v1';
 
   late Dio _dio;
   Dio get getClient => _dio;

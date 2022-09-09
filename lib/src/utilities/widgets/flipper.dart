@@ -36,16 +36,26 @@ class _FlipperState extends ConsumerState<Flipper>
       vsync: this,
       duration: Duration(milliseconds: (milliseconds / 2).floor()),
     );
+
     scaleAnimation = scaleTween.animate(
-      CurvedAnimation(parent: scaleController, curve: Curves.linearToEaseOut),
+      CurvedAnimation(
+        parent: scaleController,
+        curve: Curves.linearToEaseOut,
+      ),
     );
 
     rotateController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: (milliseconds / 2).floor()),
+      duration: Duration(
+        milliseconds: (milliseconds / 2).floor(),
+      ),
     );
+
     rotateAnimation = rotateTween.animate(
-      CurvedAnimation(parent: rotateController, curve: Curves.linearToEaseOut),
+      CurvedAnimation(
+        parent: rotateController,
+        curve: Curves.linearToEaseOut,
+      ),
     );
     super.initState();
   }
@@ -55,19 +65,16 @@ class _FlipperState extends ConsumerState<Flipper>
       milliseconds: (milliseconds / 2).floor(),
     );
 
+    scaleController.forward();
+    await Future<void>.delayed(waitDuration);
+
     if (isForward) {
-      scaleController.forward();
-      await Future<void>.delayed(waitDuration);
       rotateController.forward();
-      await Future<void>.delayed(waitDuration);
-      scaleController.reverse();
     } else {
-      scaleController.forward();
-      await Future<void>.delayed(waitDuration);
       rotateController.reverse();
-      await Future<void>.delayed(waitDuration);
-      scaleController.reverse();
     }
+    await Future<void>.delayed(waitDuration);
+    scaleController.reverse();
   }
 
   @override
@@ -88,26 +95,23 @@ class _FlipperState extends ConsumerState<Flipper>
         ).glassMorphism(),
         ScaleTransition(
           scale: scaleAnimation,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: AnimatedBuilder(
-              animation: rotateAnimation,
-              builder: (BuildContext context, Widget? child) {
-                return Transform(
-                  transform: Matrix4.identity()
-                    ..setEntry(2, 2, 0.01)
-                    ..rotateY(vector.radians(rotateAnimation.value)),
-                  alignment: Alignment.center,
-                  child: rotateAnimation.value < 90
-                      ? widget.firstWidget
-                      : Transform(
-                          transform: Matrix4.identity()..rotateY(pi),
-                          alignment: Alignment.center,
-                          child: widget.secondWidget,
-                        ),
-                );
-              },
-            ),
+          child: AnimatedBuilder(
+            animation: rotateAnimation,
+            builder: (BuildContext context, Widget? child) {
+              return Transform(
+                transform: Matrix4.identity()
+                  ..setEntry(2, 2, 0.01)
+                  ..rotateY(vector.radians(rotateAnimation.value)),
+                alignment: Alignment.center,
+                child: rotateAnimation.value < 90
+                    ? widget.firstWidget
+                    : Transform(
+                        transform: Matrix4.identity()..rotateY(pi),
+                        alignment: Alignment.center,
+                        child: widget.secondWidget,
+                      ),
+              );
+            },
           ),
         ),
       ],
