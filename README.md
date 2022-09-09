@@ -23,3 +23,4 @@ This app is just a personal project to show my full stack skills.
 
 # Design:
   For UI please refer to this [Figma Link](https://www.figma.com/file/eUIrcWyWCNA9s84vK2o1qn/Quiz-App-Design-(Community)?node-id=1%3A124)
+
