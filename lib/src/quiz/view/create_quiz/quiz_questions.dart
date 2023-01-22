@@ -99,7 +99,7 @@ class _PageNavigatorButton extends ConsumerWidget {
             tag: 'submit',
             icon: Icons.check_circle,
             onTap: () {
-              ref.read(quizCreationProvider.notifier).createQuiz();
+              ref.read(quizPageIndexProvider.notifier).state++;
             },
           )
       ],

@@ -33,6 +33,15 @@ final currentQuestionProvider = StateProvider<int>((_) => 0);
 // You can change it to anything before coming to _QuizQuestions widget.
 final noOfOptionsPerQuestionProvider = Provider((_) => 4);
 
+// Time Per Question provider is used on quiz_time_and_points screen to manange time for each question
+// The starting value for this will be 2 because we can't set required time to zero
+final timePerQuestionProvider = StateProvider<double>((_) => 2);
+
+// Points Per Question provider is used on quiz_time_and_points screen to manange points for each question
+final pointsPerQuestionProvider = StateProvider<double>((_) => 5);
+
+final pointsToclearQuizProvider = StateProvider<double>((ref) => 1);
+
 // This will provide controllers to each and every question so that they can be worked on or modified independently.
 // Here we are the creating controllers for each and every question
 // It will consist of one [QuizQuestionController].
@@ -102,7 +111,6 @@ class SelectCategoryProvider extends StateNotifier<List<Category>> {
   }
 }
 
-
 // This provider is ultimately responsibe to create a quiz after every detail is filled
 final quizCreationProvider =
     StateNotifierProvider<QuizCreationProvider, QuizCreationState>(
@@ -143,9 +151,10 @@ class QuizCreationProvider extends StateNotifier<QuizCreationState> {
 
     QuizModel quizModel = QuizModel(
       title: ref.read(quizTitleControllerProvider).text,
-      avgTimePerQuestion: 2,
-      pointsForCorrectAnswer: 10,
-      pointsToWin: 10,
+      avgTimePerQuestion: ref.read(timePerQuestionProvider).toInt(),
+      pointsForCorrectAnswer: ref.read(pointsPerQuestionProvider).toInt(),
+      pointsToWin: ref.read(pointsToclearQuizProvider).toInt() *
+          ref.read(pointsPerQuestionProvider).toInt(),
       categoriesId: ref
           .read(selectedCategoryProvider)
           .map((element) => element.id)

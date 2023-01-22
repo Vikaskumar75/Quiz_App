@@ -28,6 +28,7 @@ class _NoOfQuestions extends ConsumerWidget {
             ref.read(quizPageIndexProvider.notifier).state++;
           },
         ),
+        SizedBox(height: 20.toHeight),
       ],
     );
   }
@@ -93,6 +94,5 @@ class _NumberCarouselState extends ConsumerState<_NumberCarousel> {
     }
 
     ref.read(quizControllersProvider.notifier).state = controllers;
-
   }
 }
