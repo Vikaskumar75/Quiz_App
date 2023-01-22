@@ -74,7 +74,7 @@ class _NumberCarouselState extends ConsumerState<_NumberCarousel> {
     );
   }
 
-  // This listener is needs to be added here since we create a set of TextEditingControllers.
+  // This listener needs to be added here since we create a set of TextEditingControllers.
   // Before entering the _QuizQuestions screen and user can change the no. of questions afterwards.
   // Therefore we need to alter that set of TextEditingControllers and insert more sets based on next and previous value.
   void quizControllerListener(int? previous, int next) {

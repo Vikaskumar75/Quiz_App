@@ -111,14 +111,10 @@ class AuthProvider extends StateNotifier<AuthState> {
 
     if (isSignUp && isUserRegistered) {
       state = AuthState.userRegistered;
-      DialogService.instance.showDialog(
-        message: Strings.emailAlreadyRegistered,
-      );
+      _dialogService.showDialog(message: Strings.emailAlreadyRegistered);
     } else if (!isSignUp && !isUserRegistered) {
       state = AuthState.userNotRegistered;
-      DialogService.instance.showDialog(
-        message: Strings.userNotRegistered,
-      );
+      _dialogService.showDialog(message: Strings.userNotRegistered);
     } else {
       if (isSignUp) {
         state = AuthState.userNotRegistered;

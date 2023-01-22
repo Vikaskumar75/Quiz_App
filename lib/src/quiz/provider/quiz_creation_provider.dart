@@ -73,6 +73,30 @@ class QuizQuestionController {
       ),
     );
   }
+
+  static void validateControllersAndNavigate(WidgetRef ref) {
+    final controllers = ref.read(quizControllersProvider);
+
+    for (int i = 0; i < controllers.length; i++) {
+      if (controllers[i].titleController.text.isEmpty) {
+        DialogService.instance.showDialog(
+          message: 'Please fill the title for question ${i + 1}',
+        );
+        return;
+      }
+
+      for (int j = 0; j < controllers[i].optionControllers.length; j++) {
+        if (controllers[i].optionControllers[j].controller.text.isEmpty) {
+          DialogService.instance.showDialog(
+            message: 'Please fill all options for question ${i + 1}',
+          );
+          return;
+        }
+      }
+    }
+
+    ref.read(quizPageIndexProvider.notifier).state++;
+  }
 }
 
 class QuizOptionController {

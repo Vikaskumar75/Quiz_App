@@ -20,9 +20,7 @@ class _AddQuestionCardState extends ConsumerState<_AddQuestionCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: 10.toHeight,
-      ),
+      margin: EdgeInsets.symmetric(vertical: 10.toHeight),
       padding: EdgeInsets.symmetric(
         vertical: 20.toHeight,
         horizontal: 22.toWidth,
@@ -66,7 +64,7 @@ class _AddQuestionCardState extends ConsumerState<_AddQuestionCard> {
           ),
           SizedBox(height: 5.toHeight),
           Text(
-            "Don't forget to mark the correct oprtion ",
+            "Don't forget to mark the correct option ",
             style: CustomTheme.headline6.copyWith(
               color: widget.hasFocus
                   ? ColorPallet.white.withOpacity(0.4)
