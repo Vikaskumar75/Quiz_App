@@ -41,9 +41,9 @@ class _QuizHomeState extends ConsumerState<QuizHome> {
         slivers: <Widget>[
           const _SliverAppBar(),
           const SliverToBoxAdapter(child: _QuizCarousel()),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          SliverToBoxAdapter(child: SizedBox(height: 10.toHeight)),
           const SliverToBoxAdapter(child: _QuizCategory()),
-          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          SliverToBoxAdapter(child: SizedBox(height: 10.toHeight)),
           availability.when(
             data: (QuizAvailability data) {
               return _QuizHomeList(availability: data);

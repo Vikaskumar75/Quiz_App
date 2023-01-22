@@ -95,23 +95,26 @@ class _FlipperState extends ConsumerState<Flipper>
         ).glassMorphism(),
         ScaleTransition(
           scale: scaleAnimation,
-          child: AnimatedBuilder(
-            animation: rotateAnimation,
-            builder: (BuildContext context, Widget? child) {
-              return Transform(
-                transform: Matrix4.identity()
-                  ..setEntry(2, 2, 0.01)
-                  ..rotateY(vector.radians(rotateAnimation.value)),
-                alignment: Alignment.center,
-                child: rotateAnimation.value < 90
-                    ? widget.firstWidget
-                    : Transform(
-                        transform: Matrix4.identity()..rotateY(pi),
-                        alignment: Alignment.center,
-                        child: widget.secondWidget,
-                      ),
-              );
-            },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: AnimatedBuilder(
+              animation: rotateAnimation,
+              builder: (BuildContext context, Widget? child) {
+                return Transform(
+                  transform: Matrix4.identity()
+                    ..setEntry(2, 2, 0.01)
+                    ..rotateY(vector.radians(rotateAnimation.value)),
+                  alignment: Alignment.center,
+                  child: rotateAnimation.value < 90
+                      ? widget.firstWidget
+                      : Transform(
+                          transform: Matrix4.identity()..rotateY(pi),
+                          alignment: Alignment.center,
+                          child: widget.secondWidget,
+                        ),
+                );
+              },
+            ),
           ),
         ),
       ],

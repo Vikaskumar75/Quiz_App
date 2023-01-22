@@ -32,6 +32,10 @@ class _QuizCategoryState extends ConsumerState<_QuizCategory> {
           hintText: 'Ex: TV Series',
           labelText: 'Search for Category',
           autofocus: true,
+          suffixIcon: Icons.add_circle_outline,
+          onSuffixIconTap: () {
+            ref.read(categoryProvider.notifier).addCategory('category 5');
+          },
         ),
         SizedBox(height: 30.toHeight),
         const _QuizCategorySelectionList(),

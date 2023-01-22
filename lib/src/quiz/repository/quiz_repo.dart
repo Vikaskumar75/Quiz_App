@@ -17,6 +17,20 @@ class QuizRepository implements QuizService {
   final Dio dio = ApiClient.instance.getClient;
 
   @override
+  Future<void> createQuiz(QuizModel quizModel) async {
+    try {
+      final Response<dynamic> response = await dio.post(
+        '/quizzes',
+        data: quizModel.toJson(),
+      );
+      Console.log(response.statusCode);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // Todo: Come back here and implement the actual api instead of fetching data from a file.
+  @override
   Future<QuizAvailability> fetchQuiz() async {
     await Future<void>.delayed(const Duration(seconds: 2));
     final String response = await rootBundle.loadString(
@@ -42,14 +56,21 @@ class QuizRepository implements QuizService {
   }
 
   @override
-  Future<void> createQuiz(QuizModel quizModel) async {
+  Future<Category> addCategory(String categoryName) async {
     try {
       final Response<dynamic> response = await dio.post(
-        '/quizzes',
-        data: quizModel.toJson(),
+        '/categories',
+        data: <String, dynamic>{'name': categoryName},
       );
+      final Category addedCategory = Category.fromJson(
+        response.data['data']['category'],
+      );
+
       Console.log(response.statusCode);
-    } catch (e) {
+      Console.info(addedCategory);
+
+      return addedCategory;
+    } on AppError catch (_) {
       rethrow;
     }
   }

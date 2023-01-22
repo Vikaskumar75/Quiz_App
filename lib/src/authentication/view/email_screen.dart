@@ -62,7 +62,7 @@ class _EmailScreenBodyState extends ConsumerState<_EmailScreenBody> {
               }
               return null;
             },
-            onNext: () {
+            onSuffixIconTap: () {
               if (!_form.currentState!.validate()) return;
               _authProvider.checkUserAvailability();
             },

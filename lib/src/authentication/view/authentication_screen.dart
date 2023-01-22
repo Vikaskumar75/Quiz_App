@@ -2,9 +2,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-import '../provider/authentication_provider.dart';
 
 import '../../utilities/export.dart';
+import '../provider/authentication_provider.dart';
 
 part 'email_screen.dart';
 part 'otp_screen.dart';
@@ -48,7 +48,7 @@ class _AuthenticationScreenState extends ConsumerState<AuthenticationScreen> {
       case AuthState.registerSuccess:
         Navigator.pushNamedAndRemoveUntil(
           context,
-          Navigation.quizHome,
+          Navigation.appPage,
           (_) => false,
         );
         break;

@@ -102,6 +102,8 @@ class SelectCategoryProvider extends StateNotifier<List<Category>> {
   }
 }
 
+
+// This provider is ultimately responsibe to create a quiz after every detail is filled
 final quizCreationProvider =
     StateNotifierProvider<QuizCreationProvider, QuizCreationState>(
   (ref) => QuizCreationProvider(ref),

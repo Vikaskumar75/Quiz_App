@@ -8,7 +8,8 @@ class LabelTextField extends StatefulWidget {
     Key? key,
     this.labelText,
     this.hintText,
-    this.onNext,
+    this.onSuffixIconTap,
+    this.suffixIcon = Icons.arrow_circle_right_outlined,
     this.obsecure = false,
     this.showLoader = false,
     this.validator,
@@ -19,11 +20,12 @@ class LabelTextField extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final TextEditingController controller;
-  final VoidCallback? onNext;
+  final VoidCallback? onSuffixIconTap;
   final bool obsecure;
   final String? Function(String?)? validator;
   final bool showLoader;
   final bool autofocus;
+  final IconData suffixIcon;
 
   @override
   State<LabelTextField> createState() => _LabelTextFieldState();
@@ -98,7 +100,7 @@ class _LabelTextFieldState extends State<LabelTextField> {
   }
 
   Widget? _getSuffixIcon() {
-    if (widget.onNext == null) return null;
+    if (widget.onSuffixIconTap == null) return null;
     if (widget.showLoader) {
       return const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(
@@ -108,9 +110,9 @@ class _LabelTextFieldState extends State<LabelTextField> {
       );
     } else {
       return GestureDetector(
-        onTap: widget.onNext,
+        onTap: widget.onSuffixIconTap,
         child: Icon(
-          Icons.arrow_circle_right_outlined,
+          widget.suffixIcon,
           color: _hasFocus ? ColorPallet.golden : ColorPallet.blackishGolden,
         ),
       );
