@@ -8,11 +8,11 @@ class LabelTextField extends StatefulWidget {
     Key? key,
     this.labelText,
     this.hintText,
-    this.onSuffixIconTap,
-    this.suffixIcon = Icons.arrow_circle_right_outlined,
+    this.onNext,
     this.obsecure = false,
     this.showLoader = false,
     this.validator,
+    this.onChanged,
     this.autofocus = false,
     required this.controller,
   }) : super(key: key);
@@ -20,12 +20,12 @@ class LabelTextField extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final TextEditingController controller;
-  final VoidCallback? onSuffixIconTap;
+  final VoidCallback? onNext;
   final bool obsecure;
   final String? Function(String?)? validator;
+  final Function(String?)? onChanged;
   final bool showLoader;
   final bool autofocus;
-  final IconData suffixIcon;
 
   @override
   State<LabelTextField> createState() => _LabelTextFieldState();
@@ -69,6 +69,7 @@ class _LabelTextFieldState extends State<LabelTextField> {
           obscureText: widget.obsecure,
           obscuringCharacter: '*',
           validator: widget.validator,
+          onChanged: widget.onChanged,
           cursorColor: ColorPallet.white,
           autofocus: widget.autofocus,
           decoration: InputDecoration(
@@ -100,7 +101,7 @@ class _LabelTextFieldState extends State<LabelTextField> {
   }
 
   Widget? _getSuffixIcon() {
-    if (widget.onSuffixIconTap == null) return null;
+    if (widget.onNext == null) return null;
     if (widget.showLoader) {
       return const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(
@@ -110,9 +111,9 @@ class _LabelTextFieldState extends State<LabelTextField> {
       );
     } else {
       return GestureDetector(
-        onTap: widget.onSuffixIconTap,
+        onTap: widget.onNext,
         child: Icon(
-          widget.suffixIcon,
+          Icons.arrow_circle_right_outlined,
           color: _hasFocus ? ColorPallet.golden : ColorPallet.blackishGolden,
         ),
       );

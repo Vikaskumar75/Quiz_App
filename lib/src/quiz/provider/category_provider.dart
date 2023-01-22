@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, always_specify_types
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/utilities/app_error.dart';
@@ -6,7 +6,9 @@ import 'package:quiz_app/src/utilities/app_error.dart';
 import '../../app/app_service.dart';
 import '../repository/quiz_repo.dart';
 
-// ignore: always_specify_types
+// This provider is just to enable/disable the button on [AddCategoryBottomSheet]
+final addCategoryButtonProvider = StateProvider<bool>((_) => false);
+
 final categoryProvider = StateNotifierProvider<CategoryProvider, CategoryState>(
   (_) => CategoryProvider(),
 );
@@ -27,8 +29,8 @@ class CategoryProvider extends StateNotifier<CategoryState> {
   }
 
   Future<void> addCategory(String categoryName) async {
-    final Category category = await _repo.addCategory(categoryName);
     final CategorySuccess successState = state as CategorySuccess;
+    final Category category = await _repo.addCategory(categoryName);
     successState.data.categoriesData.categories.add(category);
     state = successState.copyWith(data: successState.data);
   }

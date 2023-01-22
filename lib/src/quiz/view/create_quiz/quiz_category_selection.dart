@@ -32,12 +32,23 @@ class _QuizCategoryState extends ConsumerState<_QuizCategory> {
           hintText: 'Ex: TV Series',
           labelText: 'Search for Category',
           autofocus: true,
-          suffixIcon: Icons.add_circle_outline,
-          onSuffixIconTap: () {
-            ref.read(categoryProvider.notifier).addCategory('category 5');
-          },
         ),
-        SizedBox(height: 30.toHeight),
+        SizedBox(height: 20.toHeight),
+        GestureDetector(
+          onTap: () {
+            showModalBottomSheet(
+              context: context,
+              backgroundColor: ColorPallet.darkBlueGrey,
+              builder: (_) => const AddCategoryBottomSheet(),
+            );
+          },
+          child: const TextWithLeadingIcon(
+            text: 'Add new category',
+            icon: Icons.add_circle_outline,
+            iconColor: ColorPallet.golden,
+          ),
+        ),
+        SizedBox(height: 20.toHeight),
         const _QuizCategorySelectionList(),
         SizedBox(height: 20.toHeight),
         CommonButton(
@@ -49,6 +60,65 @@ class _QuizCategoryState extends ConsumerState<_QuizCategory> {
           },
         ),
       ],
+    );
+  }
+}
+
+class AddCategoryBottomSheet extends ConsumerStatefulWidget {
+  const AddCategoryBottomSheet({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<AddCategoryBottomSheet> createState() =>
+      _AddCategoryBottomSheetState();
+}
+
+class _AddCategoryBottomSheetState
+    extends ConsumerState<AddCategoryBottomSheet> {
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool enableAddButton = ref.watch(addCategoryButtonProvider);
+
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 22.toHeight,
+        horizontal: 16.toWidth,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          LabelTextField(
+            controller: controller,
+            autofocus: true,
+            labelText: 'New category name',
+            onChanged: (String? value) {
+              if (value == null || value.isEmpty) {
+                ref.read(addCategoryButtonProvider.notifier).state = false;
+              } else {
+                if (ref.read(addCategoryButtonProvider) == false) {
+                  ref.read(addCategoryButtonProvider.notifier).state = true;
+                }
+              }
+            },
+          ),
+          SizedBox(height: 22.toHeight),
+          CommonButton(
+            text: 'ADD',
+            enable: enableAddButton,
+            onTap: () {
+              ref.read(categoryProvider.notifier).addCategory(controller.text);
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
     );
   }
 }

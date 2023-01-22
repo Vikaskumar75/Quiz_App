@@ -41,7 +41,7 @@ class _PasswordScreenState extends ConsumerState<_PasswordScreen> {
                 controller: ref.watch(passwordControllerProvider),
                 obsecure: true,
                 validator: _passwordValidator,
-                onSuffixIconTap: () {
+                onNext: () {
                   if (!_form.currentState!.validate()) return;
                   if (_isSignup) {
                     _authProvider.register();

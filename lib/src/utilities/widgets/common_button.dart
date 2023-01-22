@@ -12,6 +12,7 @@ class CommonButton extends StatelessWidget {
     this.width,
     this.height,
     this.enable = true,
+    this.showLoader = false,
   }) : super(key: key);
 
   final VoidCallback onTap;
@@ -21,6 +22,7 @@ class CommonButton extends StatelessWidget {
   final double? width;
   final double? height;
   final bool enable;
+  final bool showLoader;
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +38,19 @@ class CommonButton extends StatelessWidget {
         height: (height ?? 44).toHeight,
         width: (width ?? double.infinity).toWidth,
         alignment: Alignment.center,
-        child: Text(
-          text,
-          style: style ?? CustomTheme.headline6.copyWith(fontSize: 16.toFont),
-        ),
+        child: showLoader
+            ? const Padding(
+                padding: EdgeInsets.all(4),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(ColorPallet.white),
+                  strokeWidth: 1.5,
+                ),
+              )
+            : Text(
+                text,
+                style: style ??
+                    CustomTheme.headline6.copyWith(fontSize: 16.toFont),
+              ),
       ),
     );
   }

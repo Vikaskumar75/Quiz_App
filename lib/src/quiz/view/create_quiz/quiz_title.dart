@@ -21,7 +21,7 @@ class _QuizTitle extends ConsumerWidget {
             }
             return null;
           },
-          onSuffixIconTap: () {
+          onNext: () {
             if (formKey.currentState!.validate()) {
               ref.read(quizPageIndexProvider.notifier).state++;
             }
