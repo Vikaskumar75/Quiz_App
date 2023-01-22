@@ -38,6 +38,7 @@ class _QuizCategoryState extends ConsumerState<_QuizCategory> {
           onTap: () {
             showModalBottomSheet(
               context: context,
+              isScrollControlled: true,
               backgroundColor: ColorPallet.darkBlueGrey,
               builder: (_) => const AddCategoryBottomSheet(),
             );
@@ -59,6 +60,7 @@ class _QuizCategoryState extends ConsumerState<_QuizCategory> {
             ref.read(quizPageIndexProvider.notifier).state++;
           },
         ),
+        SizedBox(height: 20.toHeight),
       ],
     );
   }
@@ -87,9 +89,11 @@ class _AddCategoryBottomSheetState
     final bool enableAddButton = ref.watch(addCategoryButtonProvider);
 
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 22.toHeight,
-        horizontal: 16.toWidth,
+      padding: EdgeInsets.fromLTRB(
+        16.toWidth,
+        22.toHeight,
+        16.toWidth,
+        MediaQuery.of(context).viewInsets.bottom + 22.toHeight,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
