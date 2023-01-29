@@ -19,11 +19,7 @@ class QuizRepository implements QuizService {
   @override
   Future<void> createQuiz(QuizModel quizModel) async {
     try {
-      final Response<dynamic> response = await dio.post(
-        '/quizzes',
-        data: quizModel.toJson(),
-      );
-      Console.log(response.statusCode);
+      await dio.post('/quizzes', data: quizModel.toJson());
     } catch (e) {
       rethrow;
     }

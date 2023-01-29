@@ -1,7 +1,7 @@
 // ignore_for_file: always_specify_types
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/app/app_service.dart';
 import 'package:quiz_app/src/utilities/app_error.dart';
 import 'package:quiz_app/src/utilities/dialog/dialog_service.dart';
 
@@ -145,7 +145,7 @@ class QuizCreationProvider extends StateNotifier<QuizCreationState> {
   final Ref ref;
   QuizCreationProvider(this.ref) : super(QuizCreationState.quizIntroInitial);
 
-  final QuizRepository _repo = QuizRepository.instance;
+  final QuizRepository _repo = AppService.getInstance.availabilityRepo;
 
   void startCreatingNewQuiz() => state = QuizCreationState.quizCreationInitial;
 
