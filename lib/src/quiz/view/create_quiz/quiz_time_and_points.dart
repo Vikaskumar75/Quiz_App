@@ -64,7 +64,7 @@ class __QuizTimeAndPointsState extends ConsumerState<_QuizTimeAndPoints> {
             text: 'Next',
             width: double.maxFinite,
             onTap: () {
-              ref.read(quizCreationProvider.notifier).createQuiz();
+              ref.read(quizPageIndexProvider.notifier).state++;
             },
           ),
           SizedBox(height: 20.toHeight),

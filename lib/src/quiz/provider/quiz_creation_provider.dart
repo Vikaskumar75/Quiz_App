@@ -2,9 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/app/app_service.dart';
-import 'package:quiz_app/src/utilities/app_error.dart';
-import 'package:quiz_app/src/utilities/dialog/dialog_service.dart';
 
+import '../../utilities/export.dart';
 import '../repository/quiz_repo.dart';
 
 // This form is responsible for all the validators in quiz creation process
@@ -108,6 +107,12 @@ class QuizOptionController {
   });
 }
 
+final warningsControllerProvider =
+    Provider.autoDispose<List<TextEditingController>>((_) {
+  const noOfAllowedWarnings = 4;
+  return List.generate(noOfAllowedWarnings, (index) => TextEditingController());
+});
+
 // This category manages all the categories that are selected to create a quiz.
 final selectedCategoryProvider =
     StateNotifierProvider<SelectCategoryProvider, List<Category>>(
@@ -150,18 +155,30 @@ class QuizCreationProvider extends StateNotifier<QuizCreationState> {
   void startCreatingNewQuiz() => state = QuizCreationState.quizCreationInitial;
 
   Future<void> createQuiz() async {
+    final title = ref.read(quizTitleControllerProvider).text;
+    final timePerQuestion = ref.read(timePerQuestionProvider).toInt();
+    final pointsPerQuestion = ref.read(pointsPerQuestionProvider).toInt();
+    final pointsToClearQuiz = ref.read(pointsToclearQuizProvider).toInt();
+    final categoriesId = ref
+        .read(selectedCategoryProvider)
+        .map((element) => element.id)
+        .toList();
+    final warnings = ref
+        .read(warningsControllerProvider)
+        .map((controller) => controller.text)
+        .where((value) => value.isNotEmpty)
+        .toList();
     final List<QuestionModel> questions = List.generate(
       ref.read(noOfQuestionsProvider),
       (int index) {
-        final QuizQuestionController controller =
-            ref.read(quizControllersProvider)[index];
+        final controller = ref.read(quizControllersProvider)[index];
 
         return QuestionModel(
           title: controller.titleController.text,
           options: List.generate(
             controller.optionControllers.length,
             (optionIndex) {
-              final QuizOptionController optionController =
+              final optionController =
                   controller.optionControllers[optionIndex];
               return Options(
                 answer: optionController.controller.text,
@@ -174,21 +191,12 @@ class QuizCreationProvider extends StateNotifier<QuizCreationState> {
     );
 
     QuizModel quizModel = QuizModel(
-      title: ref.read(quizTitleControllerProvider).text,
-      avgTimePerQuestion: ref.read(timePerQuestionProvider).toInt(),
-      pointsForCorrectAnswer: ref.read(pointsPerQuestionProvider).toInt(),
-      pointsToWin: ref.read(pointsToclearQuizProvider).toInt() *
-          ref.read(pointsPerQuestionProvider).toInt(),
-      categoriesId: ref
-          .read(selectedCategoryProvider)
-          .map((element) => element.id)
-          .toList(),
-      warnings: [
-        '10 point awarded for a correct answer and no marks for a incorrect answer',
-        'Tap on options to select the correct answer',
-        'Tap on the bookmark icon to save interesting questions',
-        'Click submit if you are sure you want to complete all the quizzes'
-      ],
+      title: title,
+      avgTimePerQuestion: timePerQuestion,
+      pointsForCorrectAnswer: pointsPerQuestion,
+      pointsToWin: pointsToClearQuiz * pointsPerQuestion,
+      categoriesId: categoriesId,
+      warnings: warnings,
       questions: questions,
     );
 

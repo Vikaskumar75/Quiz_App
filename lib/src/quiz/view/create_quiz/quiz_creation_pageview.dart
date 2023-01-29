@@ -16,6 +16,7 @@ class __QuizCreationPageViewState extends ConsumerState<_QuizCreationPageView> {
     const _NoOfQuestions(),
     const _QuizQuestions(),
     const _QuizTimeAndPoints(),
+    const _QuizInstructionsAndWarnings(),
   ];
 
   void pageIndexChangeListener(int? previous, int next) {

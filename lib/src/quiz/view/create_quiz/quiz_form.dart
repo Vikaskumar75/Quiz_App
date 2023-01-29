@@ -13,9 +13,10 @@ part 'option_widget.dart';
 part 'quiz_category_selection.dart';
 part 'quiz_creation_pageview.dart';
 part 'quiz_form_intro.dart';
+part 'quiz_instructions_warnings.dart';
 part 'quiz_questions.dart';
-part 'quiz_title.dart';
 part 'quiz_time_and_points.dart';
+part 'quiz_title.dart';
 
 class QuizForm extends ConsumerStatefulWidget {
   const QuizForm({Key? key}) : super(key: key);
