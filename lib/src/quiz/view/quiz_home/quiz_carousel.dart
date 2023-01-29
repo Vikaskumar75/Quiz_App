@@ -1,4 +1,3 @@
-
 part of 'quiz_home.dart';
 
 class _QuizCarousel extends StatelessWidget {
@@ -84,44 +83,10 @@ class _Carousel extends ConsumerWidget {
           },
         ),
         itemBuilder: (_, int itemIndex, int pageViewIndex) {
-          return Stack(
-            alignment: Alignment.bottomCenter,
-            children: <Widget>[
-              Image.asset(
-                _items[itemIndex].asset,
-                fit: BoxFit.cover,
-              ),
-              Container(
-                height: double.maxFinite,
-                width: double.maxFinite,
-                alignment: Alignment.bottomCenter,
-                padding: EdgeInsets.only(bottom: 10.toHeight),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: <Color>[
-                      ColorPallet.black.withOpacity(0.9),
-                      ColorPallet.black.withOpacity(0.5),
-                      ColorPallet.black.withOpacity(0.2),
-                    ],
-                  ),
-                ),
-                child: ListTile(
-                  title: Text(
-                    _items[itemIndex].title,
-                    style: CustomTheme.headline6,
-                  ),
-                  visualDensity: VisualDensity.comfortable,
-                  subtitle: Text(
-                    _items[itemIndex].description,
-                    style: CustomTheme.bodyText1.copyWith(
-                      color: ColorPallet.grey,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          return ImageWithTitleAndDescription(
+            asset: _items[itemIndex].asset,
+            title: _items[itemIndex].title,
+            description: _items[itemIndex].description,
           );
         },
       ),

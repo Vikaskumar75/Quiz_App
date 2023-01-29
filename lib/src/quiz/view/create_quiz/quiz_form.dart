@@ -12,6 +12,7 @@ part 'no_of_question.dart';
 part 'option_widget.dart';
 part 'quiz_category_selection.dart';
 part 'quiz_creation_pageview.dart';
+part 'quiz_creation_preview.dart';
 part 'quiz_form_intro.dart';
 part 'quiz_instructions_warnings.dart';
 part 'quiz_questions.dart';

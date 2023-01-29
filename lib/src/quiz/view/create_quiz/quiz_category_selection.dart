@@ -128,7 +128,11 @@ class _AddCategoryBottomSheetState
 }
 
 class _QuizCategorySelectedList extends ConsumerWidget {
-  const _QuizCategorySelectedList({Key? key}) : super(key: key);
+  const _QuizCategorySelectedList({
+    Key? key,
+    this.actionEnabled = true,
+  }) : super(key: key);
+  final bool actionEnabled;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -143,6 +147,7 @@ class _QuizCategorySelectedList extends ConsumerWidget {
           return CustomActionChip(
             label: selectedCategory[index].name.capitalize(),
             actionIcon: Icons.close,
+            actionEnabled: actionEnabled,
             backgroundColor: ColorPallet.darkBlue,
             onTap: () {
               ref

@@ -81,6 +81,7 @@ class __QuizFormIntroState extends State<_QuizFormIntro>
                         'A quiz should contain at least 1 question.',
                         'A quiz can have 10 questions max.'
                       ],
+                      spacing: 8.0,
                     ),
                     Align(
                       alignment: Alignment.centerRight,

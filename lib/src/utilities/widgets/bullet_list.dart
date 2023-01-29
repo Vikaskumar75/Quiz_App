@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
+
 import '../export.dart';
 
 class BulletList extends StatelessWidget {
-  const BulletList(this.strings, {Key? key, this.style}) : super(key: key);
+  const BulletList(
+    this.strings, {
+    Key? key,
+    this.style,
+    this.spacing,
+  }) : super(key: key);
+
   final List<String> strings;
   final TextStyle? style;
+  final double? spacing;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: strings.map((String str) {
         return Padding(
-          padding: EdgeInsets.only(bottom: 20.0.toHeight),
+          padding: EdgeInsets.symmetric(vertical: spacing ?? 0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

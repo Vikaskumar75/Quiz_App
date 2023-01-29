@@ -39,7 +39,7 @@ final timePerQuestionProvider = StateProvider<double>((_) => 2);
 // Points Per Question provider is used on quiz_time_and_points screen to manange points for each question
 final pointsPerQuestionProvider = StateProvider<double>((_) => 5);
 
-final pointsToclearQuizProvider = StateProvider<double>((ref) => 1);
+final noOfCorrectAnswerToClearQuizProvider = StateProvider<double>((ref) => 1);
 
 // This will provide controllers to each and every question so that they can be worked on or modified independently.
 // Here we are the creating controllers for each and every question
@@ -107,11 +107,48 @@ class QuizOptionController {
   });
 }
 
+// This provider extract values from controllers and create a list of [QuestionModel]
+final questionListProvider = Provider((ref) {
+  return List.generate(
+    ref.read(noOfQuestionsProvider),
+    (int index) {
+      final controller = ref.read(quizControllersProvider)[index];
+
+      return QuestionModel(
+        title: controller.titleController.text,
+        options: List.generate(
+          controller.optionControllers.length,
+          (optionIndex) {
+            final optionController = controller.optionControllers[optionIndex];
+            return Options(
+              answer: optionController.controller.text,
+              isCorrect: optionController.isCorrect,
+            );
+          },
+        ),
+      );
+    },
+  );
+});
+
+// This provider is used to manage all the warnings / rules / description while creating a quiz
 final warningsControllerProvider =
     Provider.autoDispose<List<TextEditingController>>((_) {
   const noOfAllowedWarnings = 4;
   return List.generate(noOfAllowedWarnings, (index) => TextEditingController());
 });
+
+// This provider converts list of warningcontrollers to list of strings
+final warningsListProvider = Provider((ref) {
+  return ref
+      .read(warningsControllerProvider)
+      .map((controller) => controller.text)
+      .where((value) => value.isNotEmpty)
+      .toList();
+});
+
+// This provider is used at the final preview screen to consent before creating the quiz
+final createQuizCheckBoxProvider = StateProvider<bool>((_)=>false);
 
 // This category manages all the categories that are selected to create a quiz.
 final selectedCategoryProvider =
@@ -158,38 +195,14 @@ class QuizCreationProvider extends StateNotifier<QuizCreationState> {
     final title = ref.read(quizTitleControllerProvider).text;
     final timePerQuestion = ref.read(timePerQuestionProvider).toInt();
     final pointsPerQuestion = ref.read(pointsPerQuestionProvider).toInt();
-    final pointsToClearQuiz = ref.read(pointsToclearQuizProvider).toInt();
+    final pointsToClearQuiz =
+        ref.read(noOfCorrectAnswerToClearQuizProvider).toInt();
     final categoriesId = ref
         .read(selectedCategoryProvider)
         .map((element) => element.id)
         .toList();
-    final warnings = ref
-        .read(warningsControllerProvider)
-        .map((controller) => controller.text)
-        .where((value) => value.isNotEmpty)
-        .toList();
-    final List<QuestionModel> questions = List.generate(
-      ref.read(noOfQuestionsProvider),
-      (int index) {
-        final controller = ref.read(quizControllersProvider)[index];
-
-        return QuestionModel(
-          title: controller.titleController.text,
-          options: List.generate(
-            controller.optionControllers.length,
-            (optionIndex) {
-              final optionController =
-                  controller.optionControllers[optionIndex];
-              return Options(
-                answer: optionController.controller.text,
-                isCorrect: optionController.isCorrect,
-              );
-            },
-          ),
-        );
-      },
-    );
-
+    final warnings = ref.read(warningsListProvider);
+    final List<QuestionModel> questions = ref.read(questionListProvider);
     QuizModel quizModel = QuizModel(
       title: title,
       avgTimePerQuestion: timePerQuestion,

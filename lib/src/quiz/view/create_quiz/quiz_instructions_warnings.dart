@@ -30,7 +30,7 @@ class _QuizInstructionsAndWarnings extends ConsumerWidget {
           CommonButton(
             text: 'Next',
             onTap: () {
-              ref.read(quizCreationProvider.notifier).createQuiz();
+              ref.read(quizPageIndexProvider.notifier).state++;
             },
           ),
           SizedBox(height: 20.toHeight),

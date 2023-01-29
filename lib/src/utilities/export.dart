@@ -38,4 +38,5 @@ export 'widgets/common_button.dart';
 export 'widgets/custom_action_chip.dart';
 export 'widgets/drag_switch.dart';
 export 'widgets/custom_floating_button.dart';
+export 'widgets/image_with_title_and_description.dart';
 

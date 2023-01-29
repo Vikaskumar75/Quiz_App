@@ -88,6 +88,10 @@ class _NumberCarouselState extends ConsumerState<_NumberCarousel> {
 
     final int noOfOptionsPerQuestion = ref.read(noOfOptionsPerQuestionProvider);
     for (int i = 0; i < noOfQuestionIncreased; i++) {
+      // we are checking if the controller is already being added or not
+      // Because until we have moved to next screen the [quizControllersProvider] will also add a controller
+      // And we don't want to add it twice
+      if (controllers.length >= next) break;
       controllers.add(
         QuizQuestionController.getInstance(noOfOptionsPerQuestion),
       );

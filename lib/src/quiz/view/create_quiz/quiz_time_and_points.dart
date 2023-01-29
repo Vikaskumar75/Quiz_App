@@ -13,7 +13,8 @@ class __QuizTimeAndPointsState extends ConsumerState<_QuizTimeAndPoints> {
   Widget build(BuildContext context) {
     final double timePerQuestion = ref.watch(timePerQuestionProvider);
     final double pointsPerQuestion = ref.watch(pointsPerQuestionProvider);
-    final double pointsToclearQuiz = ref.watch(pointsToclearQuizProvider);
+    final double pointsToclearQuiz =
+        ref.watch(noOfCorrectAnswerToClearQuizProvider);
     final int noOfQuestion = ref.watch(noOfQuestionsProvider);
     return Scaffold(
       body: Column(
@@ -55,7 +56,8 @@ class __QuizTimeAndPointsState extends ConsumerState<_QuizTimeAndPoints> {
             sliderText:
                 '${pointsToclearQuiz.toInt() * pointsPerQuestion.toInt()} pts.',
             onChanged: (double value) {
-              ref.read(pointsToclearQuizProvider.notifier).state = value;
+              ref.read(noOfCorrectAnswerToClearQuizProvider.notifier).state =
+                  value;
             },
           ),
           const Spacer(),
