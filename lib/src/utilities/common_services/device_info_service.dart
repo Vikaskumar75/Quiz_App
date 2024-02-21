@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
 
 class DeviceInfoService {
@@ -13,13 +14,13 @@ class DeviceInfoService {
     if (Platform.isAndroid) {
       final AndroidDeviceInfo deviceInfo = await deviceInfoPlugin.androidInfo;
       final AndroidBuildVersion version = deviceInfo.version;
-      _osVersion = version.baseOS ?? version.release ?? 'Unknown';
-      _deviceName = deviceInfo.device ?? 'Android';
-      _manufacturer = deviceInfo.manufacturer ?? 'Unknown';
+      _osVersion = version.baseOS ?? version.release;
+      _deviceName = deviceInfo.device;
+      _manufacturer = deviceInfo.manufacturer;
     } else if (Platform.isIOS) {
       final IosDeviceInfo deviceInfo = await deviceInfoPlugin.iosInfo;
-      _osVersion = deviceInfo.systemVersion ?? 'Unknown';
-      _deviceName = deviceInfo.name ?? 'Apple Device';
+      _osVersion = deviceInfo.systemVersion;
+      _deviceName = deviceInfo.name;
       _manufacturer = 'Apple';
     } else {
       final WebBrowserInfo deviceInfo = await deviceInfoPlugin.webBrowserInfo;

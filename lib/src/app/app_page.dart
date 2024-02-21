@@ -26,8 +26,8 @@ class _AppPageState extends State<AppPage> with TickerProviderStateMixin {
 
   Widget getInitialScreen() {
     if (StorageService.instance.isLoggedIn) {
-      return Stack(
-        children: const <Widget>[
+      return const Stack(
+        children: <Widget>[
           /// Here, [Flipper] has the flip animation which switches firstWidget to secondWidget and Vice-versa
           /// This animation is triggered by [DragSwitch] writtern in [drag_switch.dart].
           /// The provider used to control this animation is [flipProvider] written in [flipper.dart] itself.

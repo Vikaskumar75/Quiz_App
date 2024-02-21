@@ -5,7 +5,7 @@ import '../export.dart';
 
 class CommonInterceptor extends Interceptor {
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.error is SocketException) {
       DialogService.instance.showDialog(
         message: Strings.internetError,

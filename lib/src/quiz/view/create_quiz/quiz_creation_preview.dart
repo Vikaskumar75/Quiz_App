@@ -213,10 +213,11 @@ class _QuestionsPreview extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(
-              '${index + 1}. ${questions[index].title}',
-              style: CustomTheme.headline6.copyWith(
-                foreground: ColorPallet.dialogShaderPaint,
+            ShaderMask(
+              shaderCallback: (Rect rect) => ColorPallet.dialogShader,
+              child: Text(
+                '${index + 1}. ${questions[index].title}',
+                style: CustomTheme.headline6,
               ),
             ),
             SizedBox(height: 10.toHeight),

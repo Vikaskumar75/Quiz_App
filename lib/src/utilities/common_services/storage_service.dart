@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../authentication/repository/authentication_repo.dart';
 import '../export.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
   StorageService._();

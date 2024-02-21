@@ -38,13 +38,14 @@ class _Dialog extends ConsumerWidget {
           stops: const <double>[0.25, 0.55, 0.65, 0.75, 0.85, 0.94, 1.0],
         ),
       ),
-      child: LazyLoadingText(
-        state.message,
-        style: CustomTheme.bodyText1.copyWith(
-          fontSize: 16.toFont,
-          color: state.textColor,
-          foreground:
-              state.textColor == null ? ColorPallet.dialogShaderPaint : null,
+      child: ShaderMask(
+        shaderCallback: (Rect rect) => ColorPallet.dialogShader,
+        child: LazyLoadingText(
+          state.message,
+          style: CustomTheme.bodyText1.copyWith(
+            fontSize: 16.toFont,
+            color: state.textColor,
+          ),
         ),
       ),
     );

@@ -112,7 +112,7 @@ class LoadingPainter extends CustomPainter {
     required this.animation,
     this.color = Colors.white70,
     this.trailingColor = Colors.transparent,
-    this.strokeWidth = 4.0,
+    this.strokeWidth = 2.0,
     this.radius = 6.0,
     this.randomNumber = 2,
   }) : super(repaint: animation);

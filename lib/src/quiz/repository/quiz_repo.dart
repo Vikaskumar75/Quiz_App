@@ -28,7 +28,7 @@ class QuizRepository implements QuizService {
   // Todo: Come back here and implement the actual api instead of fetching data from a file.
   @override
   Future<QuizAvailability> fetchQuiz() async {
-    await Future<void>.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 4));
     final String response = await rootBundle.loadString(
       'data/availability.json',
     );

@@ -18,8 +18,8 @@ class ApiClient {
 
   void initialize() {
     BaseOptions baseOptions = BaseOptions(
-      connectTimeout: 10000,
-      receiveTimeout: 10000,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
       contentType: 'application/json',
       baseUrl: baseUrl,
     );

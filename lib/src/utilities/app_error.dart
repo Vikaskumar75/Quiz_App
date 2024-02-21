@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-class AppError extends DioError {
+class AppError extends DioException {
   RequestOptions? options;
   String errorMessage;
   String? serverMessage;
@@ -20,7 +20,7 @@ class AppError extends DioError {
   }) : super(requestOptions: options ?? RequestOptions(path: 'Unknown'));
 
   factory AppError.createError(dynamic err) {
-    if (err is DioError) {
+    if (err is DioException) {
       if (err.response?.statusCode != null) return _handleStatusCodeError(err);
       return _handleExceptions(err);
     } else if (err is String) {
@@ -30,7 +30,7 @@ class AppError extends DioError {
     }
   }
 
-  static AppError _handleStatusCodeError(DioError err) {
+  static AppError _handleStatusCodeError(DioException err) {
     final int statusCode = err.response!.statusCode!;
     String errorMessage;
     switch (statusCode) {
@@ -100,7 +100,7 @@ class AppError extends DioError {
   static AppError _handleExceptions(dynamic err) {
     String errorMessage;
 
-    if (err is DioError) {
+    if (err is DioException) {
       switch (err.error.runtimeType) {
         case SocketException:
           errorMessage = 'Please check your internet connection';
@@ -140,7 +140,7 @@ class AppError extends DioError {
     return appError;
   }
 
-  static String _misellaneousErrors(DioError err) {
+  static String _misellaneousErrors(DioException err) {
     if (err.error == 'XMLHttpRequest error.') {
       return 'Make sure the CORS is enabled for this request';
     } else {

@@ -33,7 +33,7 @@ class TextWithLeadingIcon extends StatelessWidget {
         SizedBox(width: 10.toWidth),
         Text(
           text,
-          style: CustomTheme.headline5.copyWith(
+          style: CustomTheme.bodyText1.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_app/src/utilities/export.dart';
 
-
 final lightThemeProvider = Provider(((ref) => CustomTheme.light));
 final darkThemeProvider = Provider(((ref) => CustomTheme.dark));
 final themeModeProvider = StateNotifierProvider<CustomTheme, ThemeMode>(
@@ -49,14 +48,14 @@ class CustomTheme extends StateNotifier<ThemeMode> {
   );
 
   static final TextTheme _textTheme = GoogleFonts.ubuntuTextTheme().copyWith(
-    headline1: headline1,
-    headline2: headline2,
-    headline3: headline3,
-    headline4: headline4,
-    headline5: headline5,
-    headline6: headline6,
-    bodyText1: bodyText1,
-    bodyText2: bodyText2,
+    displayLarge: headline1,
+    displayMedium: headline2,
+    displaySmall: headline3,
+    headlineMedium: headline4,
+    headlineSmall: headline5,
+    titleLarge: headline6,
+    bodyLarge: bodyText1,
+    bodyMedium: bodyText2,
   );
 
   void changeThemeMode() {

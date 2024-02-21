@@ -49,13 +49,15 @@ class __QuizFormIntroState extends State<_QuizFormIntro>
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              LazyLoadingText(
-                'Welcome to quiz creation !',
-                style: CustomTheme.headline5.copyWith(
-                  fontStyle: FontStyle.italic,
-                  foreground: ColorPallet.dialogShaderPaint,
+              ShaderMask(
+                shaderCallback: (Rect rect) => ColorPallet.dialogShader,
+                child: LazyLoadingText(
+                  'Welcome to quiz creation !',
+                  style: CustomTheme.headline5.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
+                  delay: const Duration(milliseconds: 700),
                 ),
-                delay: const Duration(milliseconds: 700),
               ),
               SizedBox(height: 10.toHeight),
               LazyLoadingText(

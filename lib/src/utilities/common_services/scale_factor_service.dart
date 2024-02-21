@@ -12,7 +12,7 @@ class ScreenScaleFactor {
   static late MediaQueryData _media;
 
   static void initialize() {
-    _media = MediaQueryData.fromWindow(window);
+    _media = MediaQueryData.fromView(window);
     if (kIsWeb) {
       scale = _media.size.width / _media.size.height;
     } else {

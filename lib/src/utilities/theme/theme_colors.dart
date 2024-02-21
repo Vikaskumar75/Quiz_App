@@ -39,14 +39,13 @@ abstract class ColorPallet {
     ],
   );
 
-  static final Paint dialogShaderPaint = Paint()
-    ..shader = const LinearGradient(
-      colors: <Color>[
-        Color(0xff628EFF),
-        Color(0xffBFD5FF),
-        Color(0xffE9A0FE),
-      ],
-    ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+  static final Shader dialogShader = const LinearGradient(
+    colors: <Color>[
+      Color(0xff628EFF),
+      Color(0xffBFD5FF),
+      Color(0xffE9A0FE),
+    ],
+  ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
 
   static final Paint whiteTextStyleForeground = Paint()
     ..shader = LinearGradient(

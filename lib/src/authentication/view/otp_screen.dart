@@ -10,8 +10,8 @@ class _OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<_OtpScreen> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: const <Widget>[
+    return const Stack(
+      children: <Widget>[
         _OtpLabel(),
         _OtpTextField(),
       ],

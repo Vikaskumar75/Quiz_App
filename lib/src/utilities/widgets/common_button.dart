@@ -29,7 +29,7 @@ class CommonButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: enable ? onTap : null,
       style: ElevatedButton.styleFrom(
-        primary: ColorPallet.darkBlue,
+        backgroundColor: ColorPallet.darkBlue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius ?? 4),
         ),

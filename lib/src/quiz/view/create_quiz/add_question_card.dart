@@ -38,9 +38,7 @@ class _AddQuestionCardState extends ConsumerState<_AddQuestionCard> {
             controller: widget.quizController.titleController,
             autofocus: widget.hasFocus,
             enabled: widget.hasFocus,
-            style: CustomTheme.headline4.copyWith(
-              foreground: ColorPallet.dialogShaderPaint,
-            ),
+            style: CustomTheme.headline4,
             maxLines: 3,
             minLines: 1,
             decoration: InputDecoration(

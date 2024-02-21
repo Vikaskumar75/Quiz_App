@@ -12,27 +12,27 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  flutter_riverpod: ^1.0.3
-  connectivity_plus: ^2.3.0
-  google_fonts: ^3.0.1
-  shimmer: ^2.0.0
+  flutter_riverpod: ^2.4.0
+  connectivity_plus: ^4.0.2
+  google_fonts: ^6.0.0
+  shimmer: ^3.0.0
   cached_network_image: ^3.2.0
-  intl: ^0.17.0
+  intl: ^0.18.1
   shared_preferences: ^2.0.15
   pin_code_text_field: ^1.8.0
-  device_info_plus: ^4.0.1
-  dio: ^4.0.6
+  device_info_plus: ^9.0.3
+  dio: ^5.3.2
   equatable: ^2.0.3
   carousel_slider: ^4.1.1
   vector_math: ^2.1.2
-  logger: ^1.1.0
+  logger: ^2.0.2
 
 dev_dependencies:
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
   mockito: ^5.1.0
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.13.1
 
 flutter_icons:
   android: true
